@@ -9,3 +9,25 @@
     }
   }
 }
+
+@mixin grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  padding-inline: 16px;
+
+  @include on('tablet') {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+
+    padding-inline: 24px;
+  }
+
+  @include on('desktop') {
+    grid-template-columns: repeat(24, 32px);
+    gap: 16px;
+
+    padding-inline: 0;
+  }
+}
