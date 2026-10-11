@@ -1,4 +1,5 @@
 import { CartIcon } from '@/components/atoms/Icons/CartIcon';
+import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon/FavouritesIcon';
 import { Logo } from '@/components/atoms/Logo';
 import { Typography } from '@/components/atoms/Typography';
 
@@ -19,7 +20,8 @@ export const App = () => {
 
       <Logo />
 
-      <CartIcon quantity={4} />
+      <FavouritesIcon quantity={12} />
+      <CartIcon quantity={150} />
     </>
   );
 };

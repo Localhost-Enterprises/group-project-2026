@@ -1,0 +1,42 @@
+@use '@/app/styles/colors.scss' as *;
+
+.icon {
+  position: relative;
+
+  width: 16px;
+  height: 16px;
+
+  background-image: var(--icon);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.counter {
+  width: 28px;
+  height: 28px;
+
+  background-image: var(--iconWithCounter);
+
+  &::before {
+    content: var(--quantity);
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 14px;
+    height: 14px;
+
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    color: $white;
+    font-size: 8px;
+  }
+}

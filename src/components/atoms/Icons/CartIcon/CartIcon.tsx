@@ -1,23 +1,17 @@
-import styles from './CartIcon.module.scss';
-import classNames from 'classnames';
+import { IconWithCounter } from '../IconWithCounter';
 
 export const CartIcon = ({
-  quantity = 0,
+  quantity,
   className,
 }: {
   quantity?: number;
   className?: string;
 }) => {
   return (
-    <div
-      className={classNames(styles.icon, className, {
-        [styles.counter]: quantity,
-      })}
-      style={
-        {
-          '--quantity': `"${quantity > 99 ? 99 : quantity}"`,
-        } as React.CSSProperties
-      }
-    ></div>
+    <IconWithCounter
+      icon="cart"
+      quantity={quantity}
+      className={className}
+    />
   );
 };
