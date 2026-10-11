@@ -1,0 +1,38 @@
+@use '@/app/styles/typography' as typo;
+
+.typography {
+  margin: 0;
+  font-family: 'Mont', sans-serif;
+}
+
+.h1 {
+  @include typo.h1;
+}
+
+.h2 {
+  @include typo.h2;
+}
+
+.h3 {
+  @include typo.h3;
+}
+
+.h4 {
+  @include typo.h4;
+}
+
+.uppercase {
+  @include typo.uppercase;
+}
+
+.button {
+  @include typo.buttons;
+}
+
+.bodytext {
+  @include typo.bodytext;
+}
+
+.smalltext {
+  @include typo.smalltext;
+}
