@@ -2,21 +2,29 @@ import classNames from 'classnames';
 
 import styles from './Icon.module.scss';
 
-export const Icon = ({
-  icon,
-  className,
-  style,
-}: {
+type Props = {
   icon: string;
   className?: string;
   style?: React.CSSProperties;
-}) => {
-  const IconCSSVar = `url(${icon})`;
+};
+
+type IconStyle = React.CSSProperties & {
+  '--icon'?: string;
+};
+
+export const Icon = ({ icon, className, style }: Props) => {
+  const iconUrl = `url(${icon})`;
+
+  const iconStyle: IconStyle = {
+    '--icon': iconUrl,
+    ...style,
+  };
 
   return (
-    <div
+    <span
       className={classNames(styles.icon, className)}
-      style={{ '--icon': IconCSSVar, ...style } as React.CSSProperties}
-    ></div>
+      style={iconStyle}
+      aria-hidden="true"
+    />
   );
 };

@@ -1,6 +1,6 @@
-@use './reset.scss';
-@use './fonts';
-@use './typography';
+@use 'reset' as *;
+@use 'colors' as *;
+@use 'fonts' as *;
 
 body {
   font-family: 'Mont', sans-serif;

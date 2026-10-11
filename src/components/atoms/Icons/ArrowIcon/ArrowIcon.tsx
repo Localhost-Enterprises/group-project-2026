@@ -12,75 +12,40 @@ import arrowLeftBlack from '@/shared/assets/icons/ArrowLeftBlack.svg?no-inline';
 import arrowRight from '@/shared/assets/icons/ArrowRight.svg?no-inline';
 import arrowRightBlack from '@/shared/assets/icons/ArrowRightBlack.svg?no-inline';
 
-export const ArrowIcon = ({
-  direction,
-  black,
-  className,
-}: {
-  direction: 'up' | 'down' | 'left' | 'right';
+const arrows = {
+  up: {
+    default: arrowUp,
+    black: arrowUpBlack,
+  },
+  down: {
+    default: arrowDown,
+    black: arrowDownBlack,
+  },
+  left: {
+    default: arrowLeft,
+    black: arrowLeftBlack,
+  },
+  right: {
+    default: arrowRight,
+    black: arrowRightBlack,
+  },
+} as const;
+
+type ArrowDirection = keyof typeof arrows;
+
+type Props = {
+  direction: ArrowDirection;
   black?: boolean;
   className?: string;
-}) => {
-  switch (direction) {
-    case 'up':
-      if (black) {
-        return (
-          <Icon
-            icon={arrowUpBlack}
-            className={className}
-          />
-        );
-      }
-      return (
-        <Icon
-          icon={arrowUp}
-          className={className}
-        />
-      );
-    case 'down':
-      if (black) {
-        return (
-          <Icon
-            icon={arrowDownBlack}
-            className={className}
-          />
-        );
-      }
-      return (
-        <Icon
-          icon={arrowDown}
-          className={className}
-        />
-      );
-    case 'left':
-      if (black) {
-        return (
-          <Icon
-            icon={arrowLeftBlack}
-            className={className}
-          />
-        );
-      }
-      return (
-        <Icon
-          icon={arrowLeft}
-          className={className}
-        />
-      );
-    case 'right':
-      if (black) {
-        return (
-          <Icon
-            icon={arrowRightBlack}
-            className={className}
-          />
-        );
-      }
-      return (
-        <Icon
-          icon={arrowRight}
-          className={className}
-        />
-      );
-  }
+};
+
+export const ArrowIcon = ({ direction, black, className }: Props) => {
+  const icon = arrows[direction][black ? 'black' : 'default'];
+
+  return (
+    <Icon
+      icon={icon}
+      className={className}
+    />
+  );
 };

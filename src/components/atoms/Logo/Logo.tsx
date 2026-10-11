@@ -2,21 +2,19 @@ import classNames from 'classnames';
 import styles from './Logo.module.scss';
 import logo from '@/shared/assets/icons/Logo.svg';
 
-type sizes = 'small' | 'big';
+type LogoSize = 'small' | 'big';
 
-export const Logo = ({
-  size = 'small',
-  className,
-}: {
-  size?: sizes;
+type Props = {
+  size?: LogoSize;
   className?: string;
-}) => {
+};
+
+export const Logo = ({ size = 'small', className }: Props) => {
   return (
-    <a
-      className={classNames(styles.logoLink, styles[size], className)}
-      href="/"
-    >
-      <img src={logo} />
-    </a>
+    <img
+      src={logo}
+      className={classNames(styles.logo, styles[size], className)}
+      alt="Logo"
+    />
   );
 };

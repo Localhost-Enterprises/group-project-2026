@@ -5,13 +5,12 @@ import cartWithCounterIcon from '@/shared/assets/icons/CartWithCounter.svg?no-in
 
 import { IconWithCounter } from '../IconWithCounter';
 
-export const CartIcon = ({
-  quantity = 0,
-  className,
-}: {
+type Props = {
   quantity?: number;
   className?: string;
-}) => {
+};
+
+export const CartIcon = ({ quantity = 0, className }: Props) => {
   if (quantity > 0) {
     return (
       <IconWithCounter

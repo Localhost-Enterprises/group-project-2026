@@ -1,7 +1,7 @@
-@use './variables.scss' as variables;
+@use '@/app/styles/variables' as *;
 
 @mixin on($screen-type) {
-  @each $width, $type in variables.$screen-sizes {
+  @each $width, $type in $screen-sizes {
     @if $type == $screen-type {
       @media (min-width: #{$width}px) {
         @content;

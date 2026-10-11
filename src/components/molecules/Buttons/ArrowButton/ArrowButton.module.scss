@@ -1,0 +1,5 @@
+@use '@/app/styles/colors' as *;
+
+.button:disabled {
+  border-color: $elements;
+}
