@@ -14,23 +14,6 @@ const defaultTag = {
   smalltext: 'span',
 } as const satisfies Record<TypographyVariant, ElementType>;
 
-/**
- *
- * @example
- * ```tsx
- * <Typography variant="h4">
- *  Heading h4
- * </Typography>
- * ```
- *
- * @example
- * ```tsx
- * <Typography as="h2" variant="h4">
- *  Heading H2 with styles of H4
- * </Typography>
- * ```
- */
-
 export const Typography = <T extends ElementType = 'p'>({
   as,
   variant = 'bodytext',

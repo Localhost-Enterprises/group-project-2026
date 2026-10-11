@@ -1,4 +1,4 @@
-@use '@/app/styles/typography' as typo;
+@use '@/app/styles/typography' as *;
 
 .typography {
   margin: 0;
@@ -6,33 +6,33 @@
 }
 
 .h1 {
-  @include typo.h1;
+  @include h1;
 }
 
 .h2 {
-  @include typo.h2;
+  @include h2;
 }
 
 .h3 {
-  @include typo.h3;
+  @include h3;
 }
 
 .h4 {
-  @include typo.h4;
+  @include h4;
 }
 
 .uppercase {
-  @include typo.uppercase;
+  @include uppercase;
 }
 
 .button {
-  @include typo.buttons;
+  @include buttons;
 }
 
 .bodytext {
-  @include typo.bodytext;
+  @include bodytext;
 }
 
 .smalltext {
-  @include typo.smalltext;
+  @include smalltext;
 }

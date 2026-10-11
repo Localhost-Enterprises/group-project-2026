@@ -6,24 +6,17 @@ import favouritesWithCounterIcon from '@/shared/assets/icons/FavouritesWithCount
 
 import { IconWithCounter } from '../IconWithCounter';
 
+type Props = {
+  quantity?: number;
+  filled?: boolean;
+  className?: string;
+};
+
 export const FavouritesIcon = ({
   quantity = 0,
   filled = false,
   className,
-}: {
-  quantity?: number;
-  filled?: boolean;
-  className?: string;
-}) => {
-  if (filled) {
-    return (
-      <Icon
-        icon={favouritesFilledIcon}
-        className={className}
-      />
-    );
-  }
-
+}: Props) => {
   if (quantity > 0) {
     return (
       <IconWithCounter
@@ -36,7 +29,7 @@ export const FavouritesIcon = ({
 
   return (
     <Icon
-      icon={favouritesIcon}
+      icon={filled ? favouritesFilledIcon : favouritesIcon}
       className={className}
     />
   );

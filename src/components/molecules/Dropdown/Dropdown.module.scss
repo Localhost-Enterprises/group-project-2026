@@ -1,0 +1,76 @@
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
+
+.description {
+  color: $secondary;
+}
+
+.icon {
+  transition: transform $transition-time;
+  transform-origin: center;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 12px;
+  height: 40px;
+
+  overflow: hidden;
+
+  border: 1px solid $icons;
+
+  transition: border-color $transition-time;
+
+  &:hover {
+    border-color: $secondary;
+  }
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &[data-state='open'] {
+    .icon {
+      transform: rotateX(180deg);
+    }
+
+    border-color: $primary;
+  }
+}
+
+.content {
+  overflow: hidden;
+  background-color: white;
+  padding-block: 8px;
+  border: 1px solid $elements;
+
+  z-index: 100;
+}
+
+.item {
+  padding-inline: 12px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  user-select: none;
+  color: $secondary;
+
+  transition:
+    background-color $transition-time,
+    color $transition-time;
+
+  &[data-disabled] {
+    pointer-events: none;
+  }
+
+  &[data-highlighted] {
+    background-color: $background;
+    color: $primary;
+    outline: none;
+  }
+}

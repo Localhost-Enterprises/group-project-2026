@@ -2,7 +2,9 @@ import { Icon } from '../Icon';
 
 import closeIcon from '@/shared/assets/icons/Close.svg?no-inline';
 
-export const CloseIcon = ({ className }: { className?: string }) => {
+type Props = { className?: string };
+
+export const CloseIcon = ({ className }: Props) => {
   return (
     <Icon
       icon={closeIcon}

@@ -13,11 +13,14 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "classnames": "^2.5.1",
     "eslint-plugin-import": "^2.32.0",
+    "radix-ui": "^1.7.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router": "^8.4.0"
+    "react-router": "^8.4.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

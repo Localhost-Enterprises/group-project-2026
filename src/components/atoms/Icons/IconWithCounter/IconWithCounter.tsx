@@ -3,26 +3,28 @@ import styles from './IconWithCounter.module.scss';
 
 import { Icon } from '../Icon/Icon';
 
-export const IconWithCounter = ({
-  icon,
-  quantity = 0,
-  className,
-}: {
+type Props = {
   icon: string;
   quantity: number;
   className?: string;
-}) => {
-  const QuantityCSSVar = `"${quantity > 99 ? 99 : quantity}"`;
+};
+
+type CounterStyle = React.CSSProperties & {
+  '--quantity': string;
+};
+
+export const IconWithCounter = ({ icon, quantity, className }: Props) => {
+  const displayQuantity = Math.min(Math.max(0, quantity), 99);
+
+  const iconStyle: CounterStyle = {
+    '--quantity': `"${displayQuantity}"`,
+  };
 
   return (
     <Icon
       icon={icon}
       className={classNames(styles.counter, className)}
-      style={
-        {
-          '--quantity': QuantityCSSVar,
-        } as React.CSSProperties
-      }
+      style={iconStyle}
     />
   );
 };
