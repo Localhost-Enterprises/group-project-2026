@@ -1,0 +1,22 @@
+@use '@/app/styles/mixins.scss' as *;
+
+.logoLink {
+  line-height: 0;
+  display: block;
+
+  img {
+    width: 100%;
+  }
+}
+
+.small {
+  width: 64px;
+
+  @include on('desktop') {
+    width: 80px;
+  }
+}
+
+.big {
+  width: 89px;
+}
