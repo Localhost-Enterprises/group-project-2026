@@ -1,0 +1,76 @@
+@use '../../../app/styles/_colors' as *;
+@use '../../../app/styles/_typography' as *;
+@use '../../../app/styles/_variables' as *;
+@use '../../../app/styles/_mixins' as *;
+@use '../../../app/styles/_reset' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  transition: transform $transition-time ease;
+
+  .card:hover & {
+    transform: scale(1.1);
+  }
+}
+
+.imagePhones {
+  top: 10%;
+  left: 10%;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.imageTablets {
+  top: 3%;
+  left: 3%;
+  width: 156%;
+  height: 156%;
+  max-width: none;
+  object-fit: contain;
+  object-position: top left;
+}
+
+.imageAccessories {
+  bottom: 0;
+  left: -90%;
+  width: 350%;
+  height: auto;
+  max-width: none;
+}
+
+.title {
+  @include h3;
+  color: $primary;
+  margin-bottom: 4px;
+
+  @include on('tablet') {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+.count {
+  @include bodytext;
+  color: $secondary;
+
+  @include on('tablet') {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

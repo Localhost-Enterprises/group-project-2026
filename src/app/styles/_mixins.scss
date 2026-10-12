@@ -1,4 +1,4 @@
-@use '@/app/styles/variables' as *;
+@use '@/app/styles/_variables' as *;
 
 @mixin on($screen-type) {
   @each $width, $type in $screen-sizes {
