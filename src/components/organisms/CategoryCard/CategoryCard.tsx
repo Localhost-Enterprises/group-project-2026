@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './CategoryCard.module.scss';
+import { Typography } from '@/components/atoms/Typography';
 
-interface CategoryCardProps {
+interface Props {
   title: string;
   count: number;
   imageSrc: string;
@@ -10,7 +11,7 @@ interface CategoryCardProps {
   imageClassName?: string;
 }
 
-export const CategoryCard: React.FC<CategoryCardProps> = ({
+export const CategoryCard: React.FC<Props> = ({
   title,
   count,
   imageSrc,
@@ -34,9 +35,14 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         />
       </div>
 
-      <h4 className={styles.title}>{title}</h4>
+      <Typography variant="h4">{title}</Typography>
 
-      <span className={styles.count}>{count} models</span>
+      <Typography
+        variant="bodytext"
+        className={styles.count}
+      >
+        {count}
+      </Typography>
     </a>
   );
 };

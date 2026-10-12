@@ -1,8 +1,6 @@
-@use '../../../app/styles/_colors' as *;
-@use '../../../app/styles/_typography' as *;
-@use '../../../app/styles/_variables' as *;
-@use '../../../app/styles/_mixins' as *;
-@use '../../../app/styles/_reset' as *;
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
 
 .card {
   display: flex;
@@ -54,23 +52,6 @@
   max-width: none;
 }
 
-.title {
-  @include h3;
-  color: $primary;
-  margin-bottom: 4px;
-
-  @include on('tablet') {
-    font-size: 20px;
-    line-height: 26px;
-  }
-}
-
 .count {
-  @include bodytext;
   color: $secondary;
-
-  @include on('tablet') {
-    font-size: 14px;
-    line-height: 21px;
-  }
 }

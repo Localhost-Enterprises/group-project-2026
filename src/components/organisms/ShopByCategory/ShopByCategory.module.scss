@@ -1,7 +1,6 @@
-@use '../../../app/styles/_colors' as *;
-@use '../../../app/styles/_typography' as *;
-@use '../../../app/styles/_mixins' as *;
-@use '../../../app/styles/_reset' as *;
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/mixins' as *;
+@use '@/app/styles/reset' as *;
 
 .section {
   grid-column: 1 / -1;
@@ -15,11 +14,8 @@
 }
 
 .title {
-  @include h2;
   grid-column: 1 / -1;
-  color: $primary;
   margin-bottom: 24px;
-
   @include on('tablet') {
     margin-bottom: 32px;
   }
