@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import cn from 'classnames';
 import styles from './Header.module.scss';
-import { Logo } from '../../atoms/Logo';
-import { CartIcon } from '../../atoms/Icons/CartIcon';
-import { FavouritesIcon } from '../../atoms/Icons/FavouritesIcon';
+import { Logo } from '@/components/atoms/Logo';
+import { CartIcon } from '@/components/atoms/Icons/CartIcon';
+import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
 import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 
