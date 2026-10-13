@@ -39,7 +39,7 @@ export const CategoryCard: React.FC<Props> = ({
         variant="bodytext"
         className={styles.count}
       >
-        {count}
+        {count} models
       </Typography>
     </a>
   );
