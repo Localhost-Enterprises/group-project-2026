@@ -16,7 +16,8 @@ export const Breadcrumbs = () => {
   }
 
   return (
-    parts.length > 0 && (
+    parts.length > 0 &&
+    parts[0] !== 'cart' && (
       <div className={styles.breadcrumb}>
         <NavLink
           to="/"
