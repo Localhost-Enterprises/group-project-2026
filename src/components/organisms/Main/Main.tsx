@@ -1,3 +1,4 @@
+import { HeroSlider } from '../HeroSlider';
 import { useEffect, useState } from 'react';
 
 
@@ -72,6 +73,7 @@ export const Main = () => {
 
   return (
     <div className={styles.container}>
+      <HeroSlider />
       <div className={styles.sliderPreview}>
         <ProductsSlider
           title="Brand new models"
