@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
+
 import styles from './Main.module.scss';
 import { ProductsSlider } from '../ProductsSlider';
+import { ShopByCategory } from '../ShopByCategory/ShopByCategory';
 
 type Product = {
   id: number;
@@ -80,6 +82,7 @@ export const Main = () => {
           products={hotPrices}
         />
       </div>
+      <ShopByCategory />
     </div>
   );
 };
