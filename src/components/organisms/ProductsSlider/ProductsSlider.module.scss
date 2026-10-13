@@ -1,0 +1,40 @@
+@use '@/app/styles/colors' as *;
+
+.section {
+  width: 100%;
+  min-width: 0;
+  color: $primary;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.arrows {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
