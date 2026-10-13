@@ -1,0 +1,222 @@
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/typography' as *;
+@use '@/app/styles/mixins' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  background-color: $white;
+  border-bottom: 1px solid $elements;
+  padding-left: 16px;
+  position: relative;
+  justify-content: space-between;
+  z-index: 100;
+
+  @include on('tablet') {
+    padding-left: 24px;
+    justify-content: flex-start;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+
+  @include on('tablet') {
+    margin-right: 48px;
+  }
+}
+
+.nav {
+  display: none;
+
+  @include on('tablet') {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include on('desktop') {
+    gap: 64px;
+  }
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.navLink,
+.mobileNavLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $secondary;
+
+  @include uppercase;
+
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $primary;
+    transition: width 0.5s ease-in-out;
+  }
+
+  &.active {
+    color: $primary;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.navLink {
+  height: 100%;
+}
+
+.headerActions {
+  display: none;
+
+  @include on('tablet') {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: auto;
+  }
+}
+
+.actionBtn,
+.mobileActionBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $primary;
+    transition: width 0.5s ease;
+  }
+
+  &.active {
+    background-color: $hover;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.actionBtn {
+  width: 64px;
+  height: 100%;
+  border-left: 1px solid $elements;
+}
+
+.burgerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: none;
+  border: none;
+  border-left: 1px solid $elements;
+  cursor: pointer;
+  color: $primary;
+
+  @include on('tablet') {
+    display: none;
+  }
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 64px);
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+  z-index: 99;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  @include on('tablet') {
+    display: none;
+  }
+}
+
+.mobileNavList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  gap: 32px;
+  padding: 24px;
+  margin: 0;
+}
+
+.mobileNavLink {
+  padding-bottom: 8px;
+}
+
+.mobileActions {
+  display: flex;
+  height: 64px;
+  border-top: 1px solid $elements;
+}
+
+.mobileActionBtn {
+  flex: 1;
+  height: 100%;
+  border-right: 1px solid $elements;
+
+  &:last-child {
+    border-right: none;
+  }
+}
