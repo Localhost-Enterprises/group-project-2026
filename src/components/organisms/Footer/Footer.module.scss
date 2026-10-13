@@ -1,0 +1,79 @@
+@use '@/app/styles/mixins' as *;
+@use '@/app/styles/colors' as *;
+
+.container {
+  @include grid;
+  row-gap: 32px;
+  padding-block: 32px;
+
+  @include on('desktop') {
+    padding-inline: 152px;
+  }
+}
+
+.footer {
+  &__logo {
+    grid-column: span 4;
+
+    @include on('tablet') {
+      padding-left: 8px;
+    }
+
+    @include on('desktop') {
+      grid-column: span 8;
+
+      padding-left: 0;
+    }
+  }
+
+  &__menu {
+    grid-column: span 4;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include on('tablet') {
+      grid-column: 5 / 8;
+
+      flex-direction: row;
+      align-items: center;
+      gap: 13.5px;
+    }
+
+    @include on('desktop') {
+      grid-column: 9 / 16;
+
+      flex-direction: row;
+      align-items: center;
+      gap: 106.83px;
+    }
+  }
+
+  &__typo {
+    color: $secondary;
+  }
+
+  &__button_top {
+    grid-column: span 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    @include on('tablet') {
+      grid-column: 9 / -1;
+      justify-content: flex-end;
+
+      padding-right: 8px;
+    }
+
+    @include on('desktop') {
+      grid-column: 17 / -1;
+      justify-content: flex-end;
+
+      padding-right: 0;
+    }
+  }
+}
