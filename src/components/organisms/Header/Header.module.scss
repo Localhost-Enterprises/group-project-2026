@@ -75,17 +75,22 @@
     color: $primary;
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $primary;
+    transition: width 0.5s ease-in-out;
+  }
+
   &.active {
     color: $primary;
 
     &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
       width: 100%;
-      height: 2px;
-      background-color: $primary;
     }
   }
 }
@@ -112,23 +117,28 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 
   &:hover {
     background-color: $hover;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $primary;
+    transition: width 0.5s ease;
   }
 
   &.active {
     background-color: $hover;
 
     &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
       width: 100%;
-      height: 2px;
-      background-color: $primary;
     }
   }
 }
@@ -150,7 +160,6 @@
   border-left: 1px solid $elements;
   cursor: pointer;
   color: $primary;
-  margin-right: -16px;
 
   @include on('tablet') {
     display: none;
@@ -168,7 +177,7 @@
   flex-direction: column;
   justify-content: space-between;
   transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   z-index: 99;
 
   &.open {
@@ -185,10 +194,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-grow: 1;
   gap: 32px;
-  padding: 0;
+  padding: 24px;
   margin: 0;
 }
 
