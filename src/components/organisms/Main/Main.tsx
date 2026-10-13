@@ -59,6 +59,10 @@ export const Main = () => {
       title: product.name,
       image: `/${product.image}`,
       price: String(product.price),
+      fullPrice:
+        product.fullPrice > product.price ?
+          String(product.fullPrice)
+        : undefined,
       screen: product.screen,
       capacity: product.capacity,
       ram: product.ram,

@@ -8,6 +8,7 @@ type Props = {
   title: string;
   image: string;
   price: string;
+  fullPrice?: string;
   screen: string;
   capacity: string;
   ram: string;
@@ -17,11 +18,13 @@ export const ProductCard = ({
   title,
   image,
   price,
+  fullPrice,
   screen,
   capacity,
   ram,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   return (
     <article className={styles.card}>
@@ -39,12 +42,24 @@ export const ProductCard = ({
         {title}
       </Typography>
 
-      <Typography
-        variant="h3"
-        as="p"
-      >
-        ${price}
-      </Typography>
+      <div className={styles.prices}>
+        <Typography
+          variant="h3"
+          as="span"
+        >
+          ${price}
+        </Typography>
+
+        {fullPrice && (
+          <Typography
+            variant="bodytext"
+            as="span"
+            className={styles.oldPrice}
+          >
+            <span className={styles.oldPriceValue}>${fullPrice}</span>
+          </Typography>
+        )}
+      </div>
 
       <hr className={styles.divider} />
 
@@ -66,7 +81,13 @@ export const ProductCard = ({
       </div>
 
       <div className={styles.actions}>
-        <TextButton className={styles.addToCart}>Add to cart</TextButton>
+        <TextButton
+          className={styles.addToCart}
+          selected={isAdded}
+          onClick={() => setIsAdded(!isAdded)}
+        >
+          {isAdded ? 'Added to cart' : 'Add to cart'}
+        </TextButton>
 
         <IconButton
           className={styles.favourite}
