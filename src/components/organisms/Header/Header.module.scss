@@ -69,7 +69,7 @@
 
   @include uppercase;
 
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 
   &:hover {
     color: $primary;
@@ -83,7 +83,7 @@
     width: 0;
     height: 2px;
     background-color: $primary;
-    transition: width 0.5s ease-in-out;
+    transition: width 0.2s ease-in-out;
   }
 
   &.active {
@@ -117,7 +117,7 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: $hover;
@@ -131,7 +131,7 @@
     width: 0;
     height: 2px;
     background-color: $primary;
-    transition: width 0.5s ease;
+    transition: width 0.2s ease;
   }
 
   &.active {
