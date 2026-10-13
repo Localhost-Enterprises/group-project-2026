@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')!).render(
         element={<App />}
       >
         <Route
-          path="*"
+          index
           element={<HomePage />}
         />
       </Route>

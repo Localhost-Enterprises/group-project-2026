@@ -5,9 +5,9 @@ import { ArrowButton } from '@/components/molecules';
 import { ProductCard } from '../ProductCard';
 
 import styles from './ProductsSlider.module.scss';
-import type { ProductsSliderProps } from './ProductsSlider.types';
+import type { ProductsSlidesData } from './ProductsSlider.types';
 
-export const ProductsSlider = ({ data }: { data: ProductsSliderProps }) => {
+export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = (direction: number) => {

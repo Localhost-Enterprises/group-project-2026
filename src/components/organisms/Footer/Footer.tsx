@@ -1,8 +1,8 @@
 import styles from './Footer.module.scss';
-//import { NavLink } from 'react-router';
 import { Logo } from '@/components/atoms/Logo';
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
+import { Link } from 'react-router-dom';
 
 const menuItems = [
   { id: 'github', label: 'GITHUB', to: '#' },
@@ -20,25 +20,26 @@ export const Footer = () => {
 
   return (
     <div className={styles.container}>
-      {/* <Navlink to='#'> */}
-      <div className={styles.logo}>
-        <Logo size="big" />
-      </div>
-      {/* </Navlink> */}
+      <Link to="#">
+        <Logo
+          size="big"
+          className={styles.logo}
+        />
+      </Link>
 
       <div className={styles.menu}>
-        {menuItems.map(({ id, label }) => (
-          <>
-            {' '}
-            {/* <NavLink to={to}> */}
+        {menuItems.map(({ id, label, to }) => (
+          <Link
+            to={to}
+            key={id}
+          >
             <Typography
-              key={id}
               className={styles.typo}
               variant="uppercase"
             >
               {label}
             </Typography>
-          </>
+          </Link>
         ))}
       </div>
 

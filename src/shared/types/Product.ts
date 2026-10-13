@@ -2,7 +2,7 @@ import type { Category } from './Category';
 
 export type Product = {
   id: number;
-  category: typeof Category;
+  category: Category;
   itemId: string;
   name: string;
   fullPrice: number;

@@ -2,9 +2,9 @@ import { CategoryCard } from '../CategoryCard/CategoryCard';
 import styles from './ShopByCategory.module.scss';
 
 import { Typography } from '@/components/atoms/Typography';
-import type { ShopByCategoryProps } from './ShopByCategory.types';
+import type { ShopByCategoryData } from './ShopByCategory.types';
 
-export const ShopByCategory = ({ data }: { data: ShopByCategoryProps }) => {
+export const ShopByCategory = ({ data }: { data: ShopByCategoryData }) => {
   return (
     <section className={styles.section}>
       <Typography

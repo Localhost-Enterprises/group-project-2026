@@ -1,10 +1,11 @@
 import type { HeroSliderData } from '@/components/organisms/HeroSlider';
-import type { ProductsSliderProps } from '@/components/organisms/ProductsSlider';
-import type { ShopByCategoryProps } from '@/components/organisms/ShopByCategory';
+import type { ProductsSlidesData } from '@/components/organisms/ProductsSlider';
+import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
 
 export type Data = {
+  pageTitle: string;
   heroSlider: HeroSliderData;
-  brandNewModels: ProductsSliderProps;
-  shopByCategory: ShopByCategoryProps;
-  hotPrices: ProductsSliderProps;
+  brandNewModels: ProductsSlidesData;
+  shopByCategory: ShopByCategoryData;
+  hotPrices: ProductsSlidesData;
 };

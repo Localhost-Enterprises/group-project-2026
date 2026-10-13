@@ -1,6 +1,6 @@
 import type { Product } from '@/shared/types';
 
-export type ProductsSliderProps = {
+export type ProductsSlidesData = {
   sectionTitle: string;
   productCards: Product[];
 };

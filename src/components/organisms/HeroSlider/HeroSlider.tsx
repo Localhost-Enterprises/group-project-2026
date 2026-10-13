@@ -3,11 +3,18 @@ import classNames from 'classnames';
 
 import { Swiper as Slider, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { EffectFade, Autoplay, Keyboard, A11y } from 'swiper/modules';
+import {
+  EffectFade,
+  Autoplay,
+  Keyboard,
+  A11y,
+  Pagination,
+} from 'swiper/modules';
 import { Slide } from './Slide/Slide';
 
-import 'swiper/css/effect-fade';
 import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
@@ -16,19 +23,13 @@ import styles from './HeroSlider.module.scss';
 
 import type { HeroSliderData } from './HeroSlider.types';
 import { Link } from 'react-router-dom';
+import { OKIcon } from '@/components/atoms/Icons/OKIcon';
 
 export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
     <section className={styles.container}>
-      <Typography
-        variant="h1"
-        className={styles.title}
-      >
-        {data.sectionTitle}
-      </Typography>
-
       <div className={styles.content}>
         <ArrowButton
           direction="left"
@@ -55,6 +56,7 @@ export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
                   className={styles.bannerTitle}
                 >
                   {data.sliderTitle}
+                  <OKIcon className={styles.emoji} />
                 </Typography>
 
                 <Typography
@@ -81,7 +83,7 @@ export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
               swiperRef.current = swiper;
             }}
             className={styles.slider}
-            modules={[EffectFade, Autoplay, Keyboard, A11y]}
+            modules={[EffectFade, Autoplay, Keyboard, A11y, Pagination]}
             keyboard={{
               enabled: true,
               onlyInViewport: true,
@@ -98,6 +100,10 @@ export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
               delay: 5000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
+            }}
+            pagination={{
+              el: `.${styles.pagination}`,
+              clickable: true,
             }}
           >
             {data.slides.map(({ id, title, subtitle, image }) => (
@@ -122,6 +128,7 @@ export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
           aria-label="Next slide"
         />
       </div>
+      <div className={styles.pagination} />
     </section>
   );
 };

@@ -6,7 +6,6 @@ type Slide = {
 };
 
 export type HeroSliderData = {
-  sectionTitle: string;
   sliderTitle: string;
   sliderSubtitle: string;
   sliderButtonText: string;

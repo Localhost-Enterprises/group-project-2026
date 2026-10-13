@@ -1,2 +1,2 @@
 export { ProductsSlider } from './ProductsSlider';
-export type { ProductsSliderProps } from './ProductsSlider.types';
+export type { ProductsSlidesData } from './ProductsSlider.types';

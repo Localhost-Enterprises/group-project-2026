@@ -1,2 +1,2 @@
 export { ShopByCategory } from './ShopByCategory';
-export type { ShopByCategoryProps } from './ShopByCategory.types';
+export type { ShopByCategoryData } from './ShopByCategory.types';

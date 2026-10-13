@@ -7,7 +7,7 @@ type CategoryCard = {
   link: string;
 };
 
-export type ShopByCategoryProps = {
+export type ShopByCategoryData = {
   sectionTitle: string;
   categories: CategoryCard[];
 };
