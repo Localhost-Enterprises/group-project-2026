@@ -1,0 +1,33 @@
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  width: 85%;
+  top: 16%;
+  left: 15%;
+  transition: transform $transition-time ease;
+
+  .card:hover & {
+    transform: scale(1.1);
+  }
+}
+
+.count {
+  color: $secondary;
+}
