@@ -9,32 +9,15 @@ import { Slide } from './Slide/Slide';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
 
-import { OKIcon } from '@/components/atoms/Icons/OKIcon';
-
 import { Typography } from '@/components/atoms/Typography';
-import { ArrowButton, OptionButton } from '@/components/molecules';
+import { ArrowButton } from '@/components/molecules';
 
 import styles from './HeroSlider.module.scss';
 
-import slideImage1 from '@/shared/assets/images/phoneSlider1.png';
-import slideImage2 from '@/shared/assets/images/phoneSlider2.png';
+import type { HeroSliderData } from './HeroSlider.types';
+import { Link } from 'react-router-dom';
 
-const slides = [
-  {
-    id: 'iphone-14-pro',
-    title: 'iPhone 14 Pro',
-    subtitle: 'Pro. Beyond',
-    image: slideImage1,
-  },
-  {
-    id: 'iphone-13-common',
-    title: 'iPhone 13 Common',
-    subtitle: 'Common. Default',
-    image: slideImage2,
-  },
-];
-
-export const HeroSlider = () => {
+export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
@@ -43,7 +26,7 @@ export const HeroSlider = () => {
         variant="h1"
         className={styles.title}
       >
-        Welcome to Nice Gadgets store!
+        {data.sectionTitle}
       </Typography>
 
       <div className={styles.content}>
@@ -60,9 +43,7 @@ export const HeroSlider = () => {
             variant="h1"
             className={classNames(styles.bannerTitle, styles.bannerTitleMobile)}
           >
-            Now available
-            <br />
-            in our store!
+            {data.sliderTitle}
           </Typography>
 
           <div className={styles.banner}>
@@ -73,24 +54,24 @@ export const HeroSlider = () => {
                   variant="h1"
                   className={styles.bannerTitle}
                 >
-                  Now available
-                  <br />
-                  <span className={styles.titleRow}>
-                    in our store!
-                    <OKIcon className={styles.emoji} />
-                  </span>
+                  {data.sliderTitle}
                 </Typography>
 
                 <Typography
                   variant="bodytext"
                   className={styles.bannerSubtitle}
                 >
-                  Be the first!
+                  {data.sliderSubtitle}
                 </Typography>
               </div>
-              <OptionButton className={styles.bannerButton}>
-                ORDER NOW
-              </OptionButton>
+              <Link to={data.sliderButtonLink}>
+                <Typography
+                  variant="uppercase"
+                  className={styles.bannerButton}
+                >
+                  {data.sliderButtonText}
+                </Typography>
+              </Link>
             </div>
           </div>
 
@@ -119,7 +100,7 @@ export const HeroSlider = () => {
               pauseOnMouseEnter: true,
             }}
           >
-            {slides.map(({ id, title, subtitle, image }) => (
+            {data.slides.map(({ id, title, subtitle, image }) => (
               <SwiperSlide
                 key={id}
                 className={styles.slide}

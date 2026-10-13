@@ -5,17 +5,17 @@ import styles from './ProductCard.module.scss';
 import { useState } from 'react';
 
 type Props = {
-  title: string;
+  name: string;
   image: string;
-  price: string;
-  fullPrice?: string;
+  price: number;
+  fullPrice?: number;
   screen: string;
   capacity: string;
   ram: string;
 };
 
 export const ProductCard = ({
-  title,
+  name,
   image,
   price,
   fullPrice,
@@ -31,7 +31,7 @@ export const ProductCard = ({
       <img
         className={styles.image}
         src={image}
-        alt={title}
+        alt={name}
       />
 
       <Typography
@@ -39,7 +39,7 @@ export const ProductCard = ({
         as="h3"
         className={styles.title}
       >
-        {title}
+        {name}
       </Typography>
 
       <div className={styles.prices}>
