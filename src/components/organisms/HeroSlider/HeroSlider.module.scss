@@ -1,0 +1,198 @@
+@use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.container {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+
+  row-gap: 24px;
+
+  @include on('tablet') {
+    row-gap: 32px;
+  }
+
+  @include on('desktop') {
+    row-gap: 56px;
+  }
+}
+
+.title {
+  color: $primary;
+  grid-column: 1 / -1;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.button {
+  display: none;
+
+  @include on('tablet') {
+    display: flex;
+    height: auto;
+  }
+}
+
+.sliderContainer {
+  position: relative;
+  grid-column: 1 / -1;
+
+  container-type: inline-size;
+
+  width: 100vw;
+  min-width: 0;
+  margin-left: calc(50% - 50vw);
+
+  aspect-ratio: 1 / 1;
+  background: #000;
+  overflow: hidden;
+
+  @include on('tablet') {
+    grid-column: 2 / -2;
+
+    width: 100%;
+    margin-left: 0;
+
+    aspect-ratio: 2.6;
+  }
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  user-select: none;
+
+  .slide {
+    height: 100%;
+    overflow: hidden;
+
+    @include on('tablet') {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+    }
+  }
+}
+
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  display: none;
+
+  width: 45%;
+  height: 100%;
+  padding: 2%;
+
+  container-type: inline-size;
+  pointer-events: none;
+  user-select: none;
+
+  @include on('tablet') {
+    display: block;
+  }
+}
+
+.bannerContent {
+  width: 100%;
+  height: 100%;
+
+  background: #222222;
+  border-radius: 20px;
+
+  padding: 10% 15% 10% 10%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.bannerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bannerTitle {
+  font-size: clamp(18px, 9.5cqw, 64px);
+  line-height: 105%;
+
+  background: linear-gradient(
+    75.28deg,
+    #891ce8 -22.43%,
+    #7560fa 35.22%,
+    #e963ff 100.1%
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .titleRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .emoji {
+    width: 0.8em;
+    height: 0.8em;
+    flex-shrink: 0;
+  }
+}
+
+.bannerSubtitle {
+  font-size: 4cqw;
+  color: #aeaeae;
+}
+
+.bannerButton {
+  pointer-events: auto;
+
+  width: fit-content;
+  min-height: 36px;
+  padding: 8px 16px;
+  align-self: flex-start;
+
+  border-radius: 20px;
+  color: $white;
+
+  .bannerButtonTypography {
+    font-size: 4cqw;
+    white-space: nowrap;
+  }
+}
+
+.bannerTitleMobile {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  z-index: 3;
+
+  display: block;
+
+  width: 100%;
+  padding: 0;
+
+  font-size: 7cqw;
+  line-height: 1.05;
+  text-align: center;
+
+  pointer-events: none;
+
+  @include on('tablet') {
+    display: none;
+  }
+}

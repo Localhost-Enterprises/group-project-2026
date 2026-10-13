@@ -1,0 +1,113 @@
+@use '@/app/styles/mixins' as *;
+@use '@/app/styles/colors' as *;
+
+.slideContent {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+
+  display: grid;
+  grid-template-rows: 58% minmax(0, 1fr);
+
+  @include on('tablet') {
+    position: relative;
+    display: block;
+
+    width: 40%;
+    transform: translateX(-20%);
+
+    overflow: hidden;
+  }
+}
+
+.slideInfo {
+  grid-row: 1;
+  align-self: end;
+
+  width: 100%;
+  padding-bottom: 6cqw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqw;
+
+  color: #fff;
+  text-align: center;
+
+  pointer-events: none;
+  z-index: 2;
+
+  .phoneTitle {
+    font-size: 9cqw;
+    line-height: 1.05;
+  }
+
+  .subtitle {
+    font-size: 4cqw;
+    line-height: 1.2;
+    color: $secondary;
+  }
+
+  @include on('tablet') {
+    position: absolute;
+    top: 2cqw;
+    left: 0;
+
+    padding-bottom: 0;
+    gap: 4px;
+
+    .phoneTitle {
+      font-size: clamp(20px, 2.5cqw, 52px);
+    }
+
+    .subtitle {
+      font-size: clamp(12px, 1.2cqw, 24px);
+    }
+  }
+}
+
+.imageContainer {
+  grid-row: 2;
+
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+
+  overflow: hidden;
+
+  img {
+    display: block;
+
+    width: 70%;
+    height: auto;
+
+    max-width: none;
+    max-height: none;
+
+    margin-inline: auto;
+  }
+
+  @include on('tablet') {
+    position: absolute;
+    inset: 30% 0 0;
+
+    height: auto;
+
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+
+    img {
+      width: 100%;
+      height: auto;
+      margin: 0;
+
+      align-self: safe end;
+      justify-self: center;
+    }
+  }
+
+  @include on('desktop') {
+    inset: 25% 0 0;
+  }
+}
