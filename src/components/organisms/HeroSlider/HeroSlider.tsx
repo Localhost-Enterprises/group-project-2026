@@ -3,49 +3,33 @@ import classNames from 'classnames';
 
 import { Swiper as Slider, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { EffectFade, Autoplay, Keyboard, A11y } from 'swiper/modules';
+import {
+  EffectFade,
+  Autoplay,
+  Keyboard,
+  A11y,
+  Pagination,
+} from 'swiper/modules';
 import { Slide } from './Slide/Slide';
 
-import 'swiper/css/effect-fade';
 import 'swiper/css';
-
-import { OKIcon } from '@/components/atoms/Icons/OKIcon';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 
 import { Typography } from '@/components/atoms/Typography';
-import { ArrowButton, OptionButton } from '@/components/molecules';
+import { ArrowButton } from '@/components/molecules';
 
 import styles from './HeroSlider.module.scss';
 
-import slideImage1 from '@/shared/assets/images/phoneSlider1.png';
-import slideImage2 from '@/shared/assets/images/phoneSlider2.png';
+import type { HeroSliderData } from './HeroSlider.types';
+import { Link } from 'react-router-dom';
+import { OKIcon } from '@/components/atoms/Icons/OKIcon';
 
-const slides = [
-  {
-    id: 'iphone-14-pro',
-    title: 'iPhone 14 Pro',
-    subtitle: 'Pro. Beyond',
-    image: slideImage1,
-  },
-  {
-    id: 'iphone-13-common',
-    title: 'iPhone 13 Common',
-    subtitle: 'Common. Default',
-    image: slideImage2,
-  },
-];
-
-export const HeroSlider = () => {
+export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
     <section className={styles.container}>
-      <Typography
-        variant="h1"
-        className={styles.title}
-      >
-        Welcome to Nice Gadgets store!
-      </Typography>
-
       <div className={styles.content}>
         <ArrowButton
           direction="left"
@@ -60,9 +44,7 @@ export const HeroSlider = () => {
             variant="h1"
             className={classNames(styles.bannerTitle, styles.bannerTitleMobile)}
           >
-            Now available
-            <br />
-            in our store!
+            {data.sliderTitle}
           </Typography>
 
           <div className={styles.banner}>
@@ -73,24 +55,25 @@ export const HeroSlider = () => {
                   variant="h1"
                   className={styles.bannerTitle}
                 >
-                  Now available
-                  <br />
-                  <span className={styles.titleRow}>
-                    in our store!
-                    <OKIcon className={styles.emoji} />
-                  </span>
+                  {data.sliderTitle}
+                  <OKIcon className={styles.emoji} />
                 </Typography>
 
                 <Typography
                   variant="bodytext"
                   className={styles.bannerSubtitle}
                 >
-                  Be the first!
+                  {data.sliderSubtitle}
                 </Typography>
               </div>
-              <OptionButton className={styles.bannerButton}>
-                ORDER NOW
-              </OptionButton>
+              <Link to={data.sliderButtonLink}>
+                <Typography
+                  variant="uppercase"
+                  className={styles.bannerButton}
+                >
+                  {data.sliderButtonText}
+                </Typography>
+              </Link>
             </div>
           </div>
 
@@ -100,7 +83,7 @@ export const HeroSlider = () => {
               swiperRef.current = swiper;
             }}
             className={styles.slider}
-            modules={[EffectFade, Autoplay, Keyboard, A11y]}
+            modules={[EffectFade, Autoplay, Keyboard, A11y, Pagination]}
             keyboard={{
               enabled: true,
               onlyInViewport: true,
@@ -118,8 +101,12 @@ export const HeroSlider = () => {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
+            pagination={{
+              el: `.${styles.pagination}`,
+              clickable: true,
+            }}
           >
-            {slides.map(({ id, title, subtitle, image }) => (
+            {data.slides.map(({ id, title, subtitle, image }) => (
               <SwiperSlide
                 key={id}
                 className={styles.slide}
@@ -141,6 +128,7 @@ export const HeroSlider = () => {
           aria-label="Next slide"
         />
       </div>
+      <div className={styles.pagination} />
     </section>
   );
 };

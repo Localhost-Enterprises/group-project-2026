@@ -6,21 +6,6 @@
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
-
-  row-gap: 24px;
-
-  @include on('tablet') {
-    row-gap: 32px;
-  }
-
-  @include on('desktop') {
-    row-gap: 56px;
-  }
-}
-
-.title {
-  color: $primary;
-  grid-column: 1 / -1;
 }
 
 .content {
@@ -140,12 +125,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  .titleRow {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-  }
-
   .emoji {
     width: 0.8em;
     height: 0.8em;
@@ -163,11 +142,18 @@
 
   width: fit-content;
   min-height: 36px;
-  padding: 8px 16px;
+  padding: 10px 32px;
   align-self: flex-start;
 
   border-radius: 20px;
   color: $white;
+
+  border: 1px solid #444444;
+  transition: border-color $transition-time;
+
+  &:hover {
+    border-color: #7d7d7d;
+  }
 
   .bannerButtonTypography {
     font-size: 4cqw;
@@ -194,5 +180,20 @@
 
   @include on('tablet') {
     display: none;
+  }
+}
+
+.pagination {
+  grid-column: 1/ -1;
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
+
+  :global(.swiper-pagination-bullet) {
+    background-color: #000;
+    border-radius: 0;
+    width: 14px;
+    height: 4px;
   }
 }

@@ -1,11 +1,22 @@
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { App } from './app';
 import '@/app/styles/tailwind.css';
 import '@/app/styles/globals.scss';
+import { HomePage } from './pages/HomePage';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
-    <App />
+    <Routes>
+      <Route
+        path="/"
+        element={<App />}
+      >
+        <Route
+          index
+          element={<HomePage />}
+        />
+      </Route>
+    </Routes>
   </BrowserRouter>,
 );

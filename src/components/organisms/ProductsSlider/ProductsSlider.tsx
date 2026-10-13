@@ -1,22 +1,13 @@
 import { useRef } from 'react';
-import type { ComponentProps } from 'react';
 
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
 import { ProductCard } from '../ProductCard';
 
 import styles from './ProductsSlider.module.scss';
+import type { ProductsSlidesData } from './ProductsSlider.types';
 
-type Product = ComponentProps<typeof ProductCard> & {
-  id: string;
-};
-
-type Props = {
-  title: string;
-  products: Product[];
-};
-
-export const ProductsSlider = ({ title, products }: Props) => {
+export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = (direction: number) => {
@@ -29,7 +20,7 @@ export const ProductsSlider = ({ title, products }: Props) => {
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <Typography variant="h2">{title}</Typography>
+        <Typography variant="h2">{data.sectionTitle}</Typography>
 
         <div className={styles.arrows}>
           <ArrowButton
@@ -48,7 +39,7 @@ export const ProductsSlider = ({ title, products }: Props) => {
         className={styles.track}
         ref={sliderRef}
       >
-        {products.map(({ id, ...product }) => (
+        {data.productCards.map(({ id, ...product }) => (
           <div
             className={styles.item}
             key={id}

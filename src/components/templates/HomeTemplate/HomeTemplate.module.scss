@@ -1,0 +1,39 @@
+@use '@/app/styles/mixins' as *;
+
+.container {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+.title {
+  grid-column: 1 / -1;
+
+  padding-block: 24px;
+
+  @include on('tablet') {
+    padding-block: 32px;
+  }
+
+  @include on('desktop') {
+    padding-block: 56px;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+
+  row-gap: 56px;
+  margin-bottom: 64px;
+
+  @include on('tablet') {
+    row-gap: 64px;
+  }
+
+  @include on('desktop') {
+    row-gap: 80px;
+    margin-bottom: 80px;
+  }
+}
