@@ -1,15 +1,6 @@
-import { Footer, Header } from '@/components';
-import styles from './App.module.scss';
-import { Outlet } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
 export const App = () => {
-  return (
-    <>
-      <Header />
-      <div className={styles.container}>
-        <Outlet />
-      </div>
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
