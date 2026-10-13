@@ -1,17 +1,38 @@
-import { Typography } from '@/components/atoms/Typography';
-import styles from './HeroSlider.module.scss';
+import { useRef } from 'react';
+import classNames from 'classnames';
 
-import { Swiper as Slider, SwiperSlide as Slide } from 'swiper/react';
+import { Swiper as Slider, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { EffectFade, Autoplay } from 'swiper/modules';
+import { EffectFade, Autoplay, Keyboard, A11y } from 'swiper/modules';
+import { Slide } from './Slide/Slide';
+
 import 'swiper/css/effect-fade';
 import 'swiper/css';
 
-import { ArrowButton } from '@/components/molecules';
-import { useRef } from 'react';
+import { OKIcon } from '@/components/atoms/Icons/OKIcon';
+
+import { Typography } from '@/components/atoms/Typography';
+import { ArrowButton, OptionButton } from '@/components/molecules';
+
+import styles from './HeroSlider.module.scss';
 
 import slideImage1 from '@/shared/assets/images/phoneSlider1.png';
 import slideImage2 from '@/shared/assets/images/phoneSlider2.png';
+
+const slides = [
+  {
+    id: 'iphone-14-pro',
+    title: 'iPhone 14 Pro',
+    subtitle: 'Pro. Beyond',
+    image: slideImage1,
+  },
+  {
+    id: 'iphone-13-common',
+    title: 'iPhone 13 Common',
+    subtitle: 'Common. Default',
+    image: slideImage2,
+  },
+];
 
 export const HeroSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -30,68 +51,86 @@ export const HeroSlider = () => {
           direction="left"
           onClick={() => swiperRef.current?.slidePrev()}
           className={styles.button}
+          aria-label="Previous slide"
         />
 
         <div className={styles.sliderContainer}>
-          <div className={styles.banner}></div>
+          <Typography
+            as="h2"
+            variant="h1"
+            className={classNames(styles.bannerTitle, styles.bannerTitleMobile)}
+          >
+            Now available
+            <br />
+            in our store!
+          </Typography>
+
+          <div className={styles.banner}>
+            <div className={styles.bannerContent}>
+              <div className={styles.bannerInfo}>
+                <Typography
+                  as="h2"
+                  variant="h1"
+                  className={styles.bannerTitle}
+                >
+                  Now available
+                  <br />
+                  <span className={styles.titleRow}>
+                    in our store!
+                    <OKIcon className={styles.emoji} />
+                  </span>
+                </Typography>
+
+                <Typography
+                  variant="bodytext"
+                  className={styles.bannerSubtitle}
+                >
+                  Be the first!
+                </Typography>
+              </div>
+              <OptionButton className={styles.bannerButton}>
+                ORDER NOW
+              </OptionButton>
+            </div>
+          </div>
+
           <Slider
-            spaceBetween={50}
             slidesPerView={1}
-            onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
             className={styles.slider}
-            modules={[EffectFade, Autoplay]}
+            modules={[EffectFade, Autoplay, Keyboard, A11y]}
+            keyboard={{
+              enabled: true,
+              onlyInViewport: true,
+            }}
+            a11y={{
+              enabled: true,
+            }}
             effect="fade"
             fadeEffect={{
               crossFade: true,
             }}
             loop={true}
             autoplay={{
-              delay: 3000,
+              delay: 5000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
           >
-            <Slide className={styles.slide}>
-              <div className={styles.slideContent}>
-                <div className={styles.slideInfo}>
-                  <Typography variant="h3">iPhone 14 Pro</Typography>
-                  <Typography
-                    variant="smalltext"
-                    className={styles.subtitle}
-                  >
-                    Pro. Beyond.
-                  </Typography>
-                </div>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={slideImage1}
-                    alt="iPhone 14 Pro"
-                  />
-                </div>
-              </div>
-            </Slide>
-
-            <Slide className={styles.slide}>
-              <div className={styles.slideContent}>
-                <div className={styles.slideInfo}>
-                  <Typography variant="h3">iPhone 13 asd</Typography>
-                  <Typography
-                    variant="smalltext"
-                    className={styles.subtitle}
-                  >
-                    Pro. Beyond.
-                  </Typography>
-                </div>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={slideImage2}
-                    alt="iPhone 14 Pro"
-                  />
-                </div>
-              </div>
-            </Slide>
+            {slides.map(({ id, title, subtitle, image }) => (
+              <SwiperSlide
+                key={id}
+                className={styles.slide}
+              >
+                <Slide
+                  title={title}
+                  subtitle={subtitle}
+                  image={image}
+                />
+              </SwiperSlide>
+            ))}
           </Slider>
         </div>
 
@@ -99,6 +138,7 @@ export const HeroSlider = () => {
           direction="right"
           onClick={() => swiperRef.current?.slideNext()}
           className={styles.button}
+          aria-label="Next slide"
         />
       </div>
     </section>
