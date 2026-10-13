@@ -1,11 +1,16 @@
-import React from 'react';
 import styles from './Footer.module.scss';
 //import { NavLink } from 'react-router';
-import { Logo } from '../../atoms/Logo/Logo';
+import { Logo } from '@/components/atoms/Logo';
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
 
-export const Footer: React.FC = () => {
+const menuItems = [
+  { id: 'github', label: 'GITHUB', to: '#' },
+  { id: 'contacts', label: 'CONTACTS', to: '#' },
+  { id: 'rights', label: 'RIGHTS', to: '#' },
+];
+
+export const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -15,48 +20,42 @@ export const Footer: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.footer__logo}>
+      {/* <Navlink to='#'> */}
+      <div className={styles.logo}>
         <Logo size="big" />
       </div>
-      <div className={styles.footer__menu}>
-        {/* <NavLink to='#'> */}
-        <Typography
-          className={styles.footer__typo}
-          variant="uppercase"
-        >
-          GITHUB
-        </Typography>
-        {/* </NavLink> */}
+      {/* </Navlink> */}
 
-        {/* <NavLink to='#'> */}
-        <Typography
-          className={styles.footer__typo}
-          variant="uppercase"
-        >
-          CONTACTS
-        </Typography>
-        {/* </NavLink> */}
-
-        {/* <NavLink to='#'> */}
-        <Typography
-          className={styles.footer__typo}
-          variant="uppercase"
-        >
-          RIGHTS
-        </Typography>
-        {/* </NavLink> */}
+      <div className={styles.menu}>
+        {menuItems.map(({ id, label }) => (
+          <>
+            {' '}
+            {/* <NavLink to={to}> */}
+            <Typography
+              key={id}
+              className={styles.typo}
+              variant="uppercase"
+            >
+              {label}
+            </Typography>
+          </>
+        ))}
       </div>
+
       <div
-        className={styles.footer__button_top}
+        className={styles.button_top}
         onClick={scrollToTop}
       >
         <Typography
-          className={styles.footer__typo}
+          className={styles.typo}
           variant="smalltext"
         >
           Back to top
         </Typography>
-        <ArrowButton direction="up" />
+        <ArrowButton
+          className={styles.arrowbutton}
+          direction="up"
+        />
       </div>
     </div>
   );
