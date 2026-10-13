@@ -18,38 +18,14 @@
 
 .image {
   position: absolute;
+  width: 85%;
+  top: 16%;
+  left: 15%;
   transition: transform $transition-time ease;
 
   .card:hover & {
     transform: scale(1.1);
   }
-}
-
-.imagePhones {
-  top: 10%;
-  left: 10%;
-  width: 90%;
-  height: 90%;
-  object-fit: cover;
-  object-position: bottom;
-}
-
-.imageTablets {
-  top: 3%;
-  left: 3%;
-  width: 156%;
-  height: 156%;
-  max-width: none;
-  object-fit: contain;
-  object-position: top left;
-}
-
-.imageAccessories {
-  bottom: 0;
-  left: -90%;
-  width: 350%;
-  height: auto;
-  max-width: none;
 }
 
 .count {

@@ -8,7 +8,6 @@ interface Props {
   imageSrc: string;
   linkUrl: string;
   bgColor?: string;
-  imageClassName?: string;
 }
 
 export const CategoryCard: React.FC<Props> = ({
@@ -17,7 +16,6 @@ export const CategoryCard: React.FC<Props> = ({
   imageSrc,
   linkUrl,
   bgColor,
-  imageClassName,
 }) => {
   return (
     <a
@@ -31,7 +29,7 @@ export const CategoryCard: React.FC<Props> = ({
         <img
           src={imageSrc}
           alt={`${title} category`}
-          className={`${styles.image} ${imageClassName ? styles[imageClassName] : ''}`}
+          className={styles.image}
         />
       </div>
 

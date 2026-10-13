@@ -1,9 +1,9 @@
 import React from 'react';
 import { CategoryCard } from '../CategoryCard/CategoryCard';
 import styles from './ShopByCategory.module.scss';
-import PhoneImage from '@/shared/assets/images/category-iphone-image.png';
+import PhoneImage from '@/shared/assets/images/category-iphone.png';
 import TabletImage from '@/shared/assets/images/category-tablets.png';
-import AccesoriesImage from '@/shared/assets/images/category-colorful-phones.png';
+import AccesoriesImage from '@/shared/assets/images/category-accesories.png';
 import { Typography } from '@/components/atoms/Typography';
 
 const categories = [
@@ -14,7 +14,6 @@ const categories = [
     imageSrc: PhoneImage,
     linkUrl: '/phones',
     backgroundColor: '#6D6474',
-    imageClassName: 'imagePhones',
   },
   {
     id: 'tablets',
@@ -23,7 +22,6 @@ const categories = [
     imageSrc: TabletImage,
     linkUrl: '/tablets',
     backgroundColor: '#8d8d92',
-    imageClassName: 'imageTablets',
   },
   {
     id: 'accessories',
@@ -32,7 +30,6 @@ const categories = [
     imageSrc: AccesoriesImage,
     linkUrl: '/accessories',
     backgroundColor: '#973d5f',
-    imageClassName: 'imageAccessories',
   },
 ];
 
@@ -58,7 +55,6 @@ export const ShopByCategory: React.FC = () => {
               imageSrc={category.imageSrc}
               linkUrl={category.linkUrl}
               bgColor={category.backgroundColor}
-              imageClassName={category.imageClassName}
             />
           </div>
         ))}
