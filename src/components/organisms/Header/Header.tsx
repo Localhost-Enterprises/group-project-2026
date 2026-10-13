@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import cn from 'classnames';
 import styles from './Header.module.scss';
@@ -11,6 +11,10 @@ import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen]);
 
   return (
     <header className={styles.header}>

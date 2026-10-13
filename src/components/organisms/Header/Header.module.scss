@@ -6,10 +6,14 @@
   display: flex;
   align-items: center;
   height: 64px;
+  width: 100%;
+  box-sizing: border-box;
   background-color: $white;
   border-bottom: 1px solid $elements;
   padding-left: 16px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   justify-content: space-between;
   z-index: 100;
 
