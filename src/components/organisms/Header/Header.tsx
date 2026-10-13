@@ -1,9 +1,125 @@
+import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import cn from 'classnames';
 import styles from './Header.module.scss';
+import { Logo } from '@/components/atoms/Logo';
+import { CartIcon } from '@/components/atoms/Icons/CartIcon';
+import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
+import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
+import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 
 export const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
-    <div className={styles.container}>
-      <h1>Header</h1>
-    </div>
+    <header className={styles.header}>
+      <Link
+        to="/"
+        className={styles.logoLink}
+      >
+        <Logo size="small" />
+      </Link>
+
+      {/*Desktop*/}
+
+      <nav className={styles.nav}>
+        <ul className={styles.navList}>
+          {['/', '/phones', '/tablets', '/accessories'].map((path, idx) => {
+            const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
+            return (
+              <li
+                key={path}
+                className={styles.navItem}
+              >
+                <NavLink
+                  to={path}
+                  end={path === '/'}
+                  className={({ isActive }) =>
+                    cn(styles.navLink, { [styles.active]: isActive })
+                  }
+                >
+                  {labels[idx]}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <div className={styles.headerActions}>
+        <NavLink
+          to="/favorites"
+          className={({ isActive }) =>
+            cn(styles.actionBtn, { [styles.active]: isActive })
+          }
+        >
+          <FavouritesIcon />
+        </NavLink>
+        <NavLink
+          to="/cart"
+          className={({ isActive }) =>
+            cn(styles.actionBtn, { [styles.active]: isActive })
+          }
+        >
+          <CartIcon />
+        </NavLink>
+      </div>
+
+      <button
+        className={styles.burgerBtn}
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+      >
+        {isMenuOpen ?
+          <CloseIcon />
+        : <MenuIcon />}
+      </button>
+
+      {/*Mobile menu*/}
+
+      <div className={cn(styles.mobileMenu, { [styles.open]: isMenuOpen })}>
+        <ul className={styles.mobileNavList}>
+          {['/', '/phones', '/tablets', '/accessories'].map((path, idx) => {
+            const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
+            return (
+              <li key={path}>
+                <NavLink
+                  to={path}
+                  onClick={toggleMenu}
+                  end={path === '/'}
+                  className={({ isActive }) =>
+                    cn(styles.mobileNavLink, { [styles.active]: isActive })
+                  }
+                >
+                  {labels[idx]}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className={styles.mobileActions}>
+          <NavLink
+            to="/favorites"
+            onClick={toggleMenu}
+            className={({ isActive }) =>
+              cn(styles.mobileActionBtn, { [styles.active]: isActive })
+            }
+          >
+            <FavouritesIcon />
+          </NavLink>
+          <NavLink
+            to="/cart"
+            onClick={toggleMenu}
+            className={({ isActive }) =>
+              cn(styles.mobileActionBtn, { [styles.active]: isActive })
+            }
+          >
+            <CartIcon />
+          </NavLink>
+        </div>
+      </div>
+    </header>
   );
 };
