@@ -7,6 +7,12 @@ import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 import styles from './CartItem.module.scss';
 import { Link } from 'react-router-dom';
 import { routePaths } from '@/app/router/routes';
+import type { Product } from '@/shared/types';
+import {
+  selectRemoveItem,
+  selectUpdateQuantity,
+  useCartStore,
+} from '@/entities/cart';
 
 export type CartItemProduct = {
   itemId: string;
@@ -16,29 +22,28 @@ export type CartItemProduct = {
 };
 
 type Props = {
-  itemId: string;
-  product: CartItemProduct;
-  count: number;
-  onCountChange: (count: number) => void;
-  onRemove: () => void;
+  product: Product & { quantity: number };
 };
 
-export const CartItem = ({
-  itemId,
-  product,
-  count,
-  onCountChange,
-  onRemove,
-}: Props) => {
+export const CartItem = ({ product }: Props) => {
+  const updateQuantity = useCartStore(selectUpdateQuantity);
+  const removeItem = useCartStore(selectRemoveItem);
+
+  const onCountChange = (count: number) => updateQuantity(product.id, count);
+  const handleRemove = () => removeItem(product.id);
+
   const imageSrc =
-    product.image.startsWith('/') ? product.image : `/${product.image}`;
+    product.imageUrls ? product.imageUrls[0] : 'https://placehold.co/500x500';
 
   const enterCount = (value: string, input: HTMLInputElement) => {
     const nextCount =
-      value === '' ? count : Math.min(Math.max(Number(value), 1), 99);
+      value === '' ?
+        product.quantity
+      : Math.min(Math.max(Number(value), 1), 99);
 
     input.value = String(nextCount);
-    if (nextCount !== count) {
+
+    if (nextCount !== product.quantity) {
       onCountChange(nextCount);
     }
   };
@@ -47,13 +52,13 @@ export const CartItem = ({
     <div className={styles.container}>
       <DefaultButton
         className={styles.removeButton}
-        onClick={onRemove}
+        onClick={handleRemove}
         aria-label={`Remove ${product.name} from cart`}
       >
         <CloseIcon className={styles.removeIcon} />
       </DefaultButton>
 
-      <Link to={routePaths.product(itemId)}>
+      <Link to={routePaths.product(product.itemId)}>
         <img
           className={styles.image}
           src={imageSrc}
@@ -65,22 +70,22 @@ export const CartItem = ({
         className={styles.name}
         variant="bodytext"
       >
-        <Link to={routePaths.product(itemId)}>{product.name}</Link>
+        <Link to={routePaths.product(product.itemId)}>{product.name}</Link>
       </Typography>
 
       <div className={styles.bottomRow}>
         <div className={styles.count}>
           <DefaultButton
             className={styles.countButton}
-            onClick={() => onCountChange(count - 1)}
-            disabled={count <= 1}
+            onClick={() => onCountChange(product.quantity - 1)}
+            disabled={product.quantity <= 1}
             aria-label={`Decrease count of ${product.name}`}
           >
             <MinusIcon />
           </DefaultButton>
 
           <input
-            key={count}
+            key={product.quantity}
             className={styles.countInput}
             type="text"
             onChange={(event) => {
@@ -88,7 +93,7 @@ export const CartItem = ({
               event.target.value =
                 value === '' ? '' : String(Math.min(Number(value), 99));
             }}
-            defaultValue={count}
+            defaultValue={product.quantity}
             onBlur={(event) =>
               enterCount(event.currentTarget.value, event.currentTarget)
             }
@@ -101,8 +106,8 @@ export const CartItem = ({
 
           <DefaultButton
             className={styles.countButton}
-            onClick={() => onCountChange(Math.min(count + 1, 99))}
-            disabled={count === 99}
+            onClick={() => onCountChange(Math.min(product.quantity + 1, 99))}
+            disabled={product.quantity >= 99}
             aria-label={`Increase count of ${product.name}`}
           >
             <PlusIcon />
@@ -113,7 +118,7 @@ export const CartItem = ({
           className={styles.price}
           variant="h3"
         >
-          ${product.price * count}
+          ${product.price * product.quantity}
         </Typography>
       </div>
     </div>
