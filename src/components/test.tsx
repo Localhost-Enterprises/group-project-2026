@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getData } from '@/app/supabase/getData';
 
 export default function Test1() {
