@@ -12,6 +12,7 @@ import { Typography } from '@/components/atoms/Typography';
 export const HomeTemplate = ({ data }: { data: Data }) => {
   const { pageTitle, heroSlider, brandNewModels, shopByCategory, hotPrices } =
     data;
+
   return (
     <main className={styles.container}>
       <Typography

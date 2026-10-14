@@ -1,3 +1,4 @@
+import { ROUTES } from '@/app/router';
 import styles from './Footer.module.scss';
 import { Logo } from '@/components/atoms/Logo';
 import { Typography } from '@/components/atoms/Typography';
@@ -5,7 +6,11 @@ import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
 
 const menuItems = [
-  { id: 'github', label: 'GITHUB', to: '#' },
+  {
+    id: 'github',
+    label: 'GITHUB',
+    to: 'https://github.com/Localhost-Enterprises',
+  },
   { id: 'contacts', label: 'CONTACTS', to: '#' },
   { id: 'rights', label: 'RIGHTS', to: '#' },
 ];
@@ -20,7 +25,7 @@ export const Footer = () => {
 
   return (
     <div className={styles.container}>
-      <Link to="#">
+      <Link to={ROUTES.HOME}>
         <Logo
           size="big"
           className={styles.logo}
@@ -29,8 +34,8 @@ export const Footer = () => {
 
       <div className={styles.menu}>
         {menuItems.map(({ id, label, to }) => (
-          <Link
-            to={to}
+          <a
+            href={to}
             key={id}
           >
             <Typography
@@ -39,7 +44,7 @@ export const Footer = () => {
             >
               {label}
             </Typography>
-          </Link>
+          </a>
         ))}
       </div>
 

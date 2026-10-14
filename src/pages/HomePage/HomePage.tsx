@@ -16,7 +16,7 @@ const heroSliderData: HeroSliderData = {
   sliderTitle: 'Now available in our store!',
   sliderSubtitle: 'Be the first!',
   sliderButtonText: 'Order now',
-  sliderButtonLink: '/',
+  sliderButtonLink: 'phones',
   slides: [
     {
       id: 'iphone-14-pro',
@@ -46,7 +46,7 @@ const shopByCategoryData: ShopByCategoryData = {
       title: 'Mobile phones',
       count: 95,
       image: PhoneImage,
-      link: '/phones',
+      link: 'phones',
       color: '#6D6474',
     },
     {
@@ -54,7 +54,7 @@ const shopByCategoryData: ShopByCategoryData = {
       title: 'Tablets',
       count: 24,
       image: TabletImage,
-      link: '/tablets',
+      link: 'tablets',
       color: '#8d8d92',
     },
     {
@@ -62,7 +62,7 @@ const shopByCategoryData: ShopByCategoryData = {
       title: 'Accessories',
       count: 100,
       image: AccesoriesImage,
-      link: '/accessories',
+      link: 'accesories',
       color: '#973d5f',
     },
   ],
