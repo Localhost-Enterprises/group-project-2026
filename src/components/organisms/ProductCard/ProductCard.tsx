@@ -12,7 +12,7 @@ type Props = Pick<
   Product,
   | 'id'
   | 'name'
-  | 'image'
+  | 'images'
   | 'price'
   | 'fullPrice'
   | 'screen'
@@ -24,7 +24,7 @@ type Props = Pick<
 export const ProductCard = ({
   id,
   name,
-  image,
+  images,
   price,
   fullPrice,
   screen,
@@ -39,7 +39,7 @@ export const ProductCard = ({
       <Link to={routePaths.product(itemId)}>
         <img
           className={styles.image}
-          src={image}
+          src={images[0] || 'https://placehold.co/500x500'}
           alt={name}
         />
 
