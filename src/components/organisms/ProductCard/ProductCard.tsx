@@ -19,6 +19,7 @@ type Props = Pick<
   | 'capacity'
   | 'ram'
   | 'itemId'
+  | 'category'
 >;
 
 export const ProductCard = ({
@@ -31,12 +32,13 @@ export const ProductCard = ({
   capacity,
   ram,
   itemId,
+  category,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   return (
     <article className={styles.card}>
-      <Link to={routePaths.product(itemId)}>
+      <Link to={routePaths.product(category, itemId)}>
         <img
           className={styles.image}
           src={images[0] || 'https://placehold.co/500x500'}

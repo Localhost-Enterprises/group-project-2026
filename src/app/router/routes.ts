@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: '/',
-  CATALOG: '/catalog/:catalogSlug',
-  PRODUCT: '/product/:productSlug',
+  CATALOG: '/:catalogSlug',
+  PRODUCT: '/:catalogSlug/:productSlug',
   FAVOURITES: '/favourites',
   CART: '/cart',
   CHECKOUT: '/chekout',
@@ -9,6 +9,8 @@ export const ROUTES = {
 } as const;
 
 export const routePaths = {
-  catalog: (slug: string) => `/catalog/${encodeURIComponent(slug)}`,
-  product: (slug: string) => `/product/${encodeURIComponent(slug)}`,
+  catalog: (catalogSlug: string) => `/${encodeURIComponent(catalogSlug)}`,
+
+  product: (catalogSlug: string, productSlug: string) =>
+    `/${encodeURIComponent(catalogSlug)}/${encodeURIComponent(productSlug)}`,
 };
