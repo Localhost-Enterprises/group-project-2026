@@ -15,7 +15,9 @@ export const Breadcrumbs = () => {
     parts.pop();
   }
 
-  if (parts[0] === 'catalog') {
+  const hasCatalog = parts[0] === 'catalog';
+
+  if (hasCatalog) {
     parts.shift();
   }
 
@@ -34,16 +36,18 @@ export const Breadcrumbs = () => {
         </NavLink>
 
         {parts.map((part, index) => {
-          const routeTo = `/${parts.slice(0, index + 1).join('/')}`;
+          const routeParts =
+            hasCatalog ?
+              ['catalog', ...parts.slice(0, index + 1)]
+            : parts.slice(0, index + 1);
+
+          const routeTo = `/${routeParts.join('/')}`;
 
           const isLast = index === parts.length - 1;
 
           return (
             <Fragment key={routeTo}>
-              <ArrowIcon
-                direction="right"
-                className={styles.itemLink}
-              />
+              <ArrowIcon direction="right" />
 
               <NavLink
                 to={routeTo}
