@@ -1,8 +1,11 @@
+import React from 'react';
 import styles from './ItemInfo.module.scss';
+import classNames from 'classnames';
 import { Typography } from '@/components/atoms/Typography';
 import phonesRawData from '../../../../public/api/phones.json';
 
 const {
+  id,
   description,
   screen,
   resolution,
@@ -13,6 +16,9 @@ const {
   zoom,
   cell,
 } = phonesRawData[0];
+
+const descriptionArray = [{ id, description }];
+console.log(descriptionArray);
 
 const phones = {
   screen,
@@ -39,41 +45,35 @@ export const ItemInfo = () => {
           <div className={styles.line}></div>
         </div>
 
-        <div className={styles.text}>
-          <Typography
-            variant="h4"
-            className={styles.black}
-          >
-            {description[0].title}
-          </Typography>
-          <Typography variant="bodytext">{description[0].text[0]}</Typography>
-          <Typography
-            variant="bodytext"
-            className={styles.secondParagraph}
-          >
-            {description[0].text[1]}
-          </Typography>
-        </div>
+        {descriptionArray.map(({ id, description }) => (
+          <React.Fragment key={id}>
+            {description.map((item) => (
+              <div
+                key={`${id}-${item.title}`}
+                className={styles.text}
+              >
+                <Typography
+                  variant="h4"
+                  className={styles.black}
+                >
+                  {item.title}
+                </Typography>
 
-        <div className={styles.text}>
-          <Typography
-            variant="h4"
-            className={styles.black}
-          >
-            {description[1].title}
-          </Typography>
-          <Typography variant="bodytext">{description[1].text[0]}</Typography>
-        </div>
-
-        <div className={styles.text}>
-          <Typography
-            variant="h4"
-            className={styles.black}
-          >
-            {description[2].title}
-          </Typography>
-          <Typography variant="bodytext">{description[2].text[0]}</Typography>
-        </div>
+                {item.text.map((paragraph, i) => (
+                  <Typography
+                    key={`${id}-${i}`}
+                    variant="bodytext"
+                    className={classNames({
+                      [styles.nextParagraph]: i > 0,
+                    })}
+                  >
+                    {paragraph}
+                  </Typography>
+                ))}
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
       </section>
 
       <section className={styles.specs}>
@@ -103,7 +103,7 @@ export const ItemInfo = () => {
               <Typography
                 variant="bodytext"
                 as="dd"
-                className={styles.black + ' ' + styles.cells}
+                className={classNames(styles.black, styles.cells)}
               >
                 {Array.isArray(value) ? value.join(', ') : value}
               </Typography>
