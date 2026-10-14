@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './CategoryCard.module.scss';
 import { Typography } from '@/components/atoms/Typography';
+import { Link } from 'react-router-dom';
+import { routePaths } from '@/app/router/routes';
 
 interface Props {
   title: string;
@@ -18,8 +20,8 @@ export const CategoryCard: React.FC<Props> = ({
   bgColor,
 }) => {
   return (
-    <a
-      href={linkUrl}
+    <Link
+      to={routePaths.catalog(linkUrl)}
       className={styles.card}
     >
       <div
@@ -41,6 +43,6 @@ export const CategoryCard: React.FC<Props> = ({
       >
         {count} models
       </Typography>
-    </a>
+    </Link>
   );
 };

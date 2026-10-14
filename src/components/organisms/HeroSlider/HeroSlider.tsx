@@ -24,6 +24,7 @@ import styles from './HeroSlider.module.scss';
 import type { HeroSliderData } from './HeroSlider.types';
 import { Link } from 'react-router-dom';
 import { OKIcon } from '@/components/atoms/Icons/OKIcon';
+import { routePaths } from '@/app/router/routes';
 
 export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -66,7 +67,7 @@ export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
                   {data.sliderSubtitle}
                 </Typography>
               </div>
-              <Link to={data.sliderButtonLink}>
+              <Link to={routePaths.catalog(data.sliderButtonLink)}>
                 <Typography
                   variant="uppercase"
                   className={styles.bannerButton}

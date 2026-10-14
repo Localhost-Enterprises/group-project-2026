@@ -1,5 +1,3 @@
-@use '@/app/styles/mixins' as *;
-
-.container {
-  @include grid;
+.app {
+  padding-top: 64px;
 }

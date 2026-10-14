@@ -7,9 +7,14 @@ import { CartIcon } from '@/components/atoms/Icons/CartIcon';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
 import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
+import { ROUTES } from '@/app/router';
+import { routePaths } from '@/app/router/routes';
+import { useCart } from '@/shared/hooks';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useCart();
+  const cartQuantity = cartItems.reduce((total, item) => total + item.count, 0);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
@@ -25,7 +30,12 @@ export const Header = () => {
 
       <nav className={styles.nav}>
         <ul className={styles.navList}>
-          {['/', '/phones', '/tablets', '/accessories'].map((path, idx) => {
+          {[
+            ROUTES.HOME,
+            routePaths.catalog('phones'),
+            routePaths.catalog('tablets'),
+            routePaths.catalog('accessories'),
+          ].map((path, idx) => {
             const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
             return (
               <li
@@ -49,7 +59,7 @@ export const Header = () => {
 
       <div className={styles.headerActions}>
         <NavLink
-          to="/favorites"
+          to={ROUTES.FAVOURITES}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
@@ -57,12 +67,12 @@ export const Header = () => {
           <FavouritesIcon />
         </NavLink>
         <NavLink
-          to="/cart"
+          to={ROUTES.CART}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
         >
-          <CartIcon />
+          <CartIcon quantity={cartQuantity} />
         </NavLink>
       </div>
 
@@ -116,7 +126,7 @@ export const Header = () => {
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
-            <CartIcon />
+            <CartIcon quantity={cartQuantity} />
           </NavLink>
         </div>
       </div>
