@@ -1,15 +1,16 @@
 import { Typography } from '@/components/atoms/Typography';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
-import { TextButton, IconButton } from '@/components/molecules';
+import { IconButton } from '@/components/molecules';
 import styles from './ProductCard.module.scss';
 import { useState } from 'react';
 import type { Product } from '@/shared/types';
 import { Link } from 'react-router-dom';
 import { routePaths } from '@/app/router/routes';
-import { useCart } from '@/shared/hooks';
+import { AddToCartButton } from '@/features/add-to-cart';
 
 type Props = Pick<
   Product,
+  | 'id'
   | 'name'
   | 'image'
   | 'price'
@@ -21,6 +22,7 @@ type Props = Pick<
 >;
 
 export const ProductCard = ({
+  id,
   name,
   image,
   price,
@@ -31,8 +33,6 @@ export const ProductCard = ({
   itemId,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const { cartItems, addToCart } = useCart();
-  const isAdded = cartItems.some((item) => item.product.itemId === itemId);
 
   return (
     <article className={styles.card}>
@@ -91,20 +91,7 @@ export const ProductCard = ({
       </div>
 
       <div className={styles.actions}>
-        <TextButton
-          className={styles.addToCart}
-          selected={isAdded}
-          onClick={
-            isAdded ? undefined : (
-              () => addToCart({ itemId, name, image, price })
-            )
-          }
-        >
-          {isAdded ?
-            <Link to="/cart">Added to cart</Link>
-          : 'Add to cart'}
-        </TextButton>
-
+        <AddToCartButton productId={id} />
         <IconButton
           className={styles.favourite}
           selected={isFavourite}

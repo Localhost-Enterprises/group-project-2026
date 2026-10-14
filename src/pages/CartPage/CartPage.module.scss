@@ -1,4 +1,3 @@
-@use '@/app/styles/reset' as *;
 @use '@/app/styles/mixins' as *;
 
 .container {
@@ -23,29 +22,4 @@
 
 .cart {
   margin-bottom: 32px;
-}
-
-.content {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-}
-
-.items {
-  min-width: 0;
-}
-
-@include on('desktop') {
-  .content {
-    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
-    align-items: start;
-    gap: 16px;
-    margin-bottom: 80px;
-  }
-}
-
-@include on('tablet') {
-  .content {
-    margin-bottom: 64px;
-  }
 }

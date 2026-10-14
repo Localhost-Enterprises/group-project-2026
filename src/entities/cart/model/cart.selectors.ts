@@ -8,3 +8,10 @@ export const selectCartCount = (state: CartState) =>
 export const selectAddItem = (state: CartState) => state.addItem;
 
 export const selectRemoveItem = (state: CartState) => state.removeItem;
+
+export const selectIsInCart =
+  (productId: number) =>
+  (state: CartState): boolean =>
+    state.items.some((item) => item.productId === productId);
+
+export const selectUpdateQuantity = (state: CartState) => state.updateQuantity;

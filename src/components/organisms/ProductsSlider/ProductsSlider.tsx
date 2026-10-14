@@ -44,7 +44,10 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
             className={styles.item}
             key={id}
           >
-            <ProductCard {...product} />
+            <ProductCard
+              id={id}
+              {...product}
+            />
           </div>
         ))}
       </div>
