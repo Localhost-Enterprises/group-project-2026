@@ -5,6 +5,8 @@ import { PlusIcon } from '@/components/atoms/Icons/PlusIcon';
 import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 
 import styles from './CartItem.module.scss';
+import { Link } from 'react-router-dom';
+import { routePaths } from '@/app/router/routes';
 
 export type CartItemProduct = {
   itemId: string;
@@ -14,6 +16,7 @@ export type CartItemProduct = {
 };
 
 type Props = {
+  itemId: string;
   product: CartItemProduct;
   count: number;
   onCountChange: (count: number) => void;
@@ -21,6 +24,7 @@ type Props = {
 };
 
 export const CartItem = ({
+  itemId,
   product,
   count,
   onCountChange,
@@ -49,17 +53,19 @@ export const CartItem = ({
         <CloseIcon className={styles.removeIcon} />
       </DefaultButton>
 
-      <img
-        className={styles.image}
-        src={imageSrc}
-        alt={product.name}
-      />
+      <Link to={routePaths.product(itemId)}>
+        <img
+          className={styles.image}
+          src={imageSrc}
+          alt={product.name}
+        />
+      </Link>
 
       <Typography
         className={styles.name}
         variant="bodytext"
       >
-        {product.name}
+        <Link to={routePaths.product(itemId)}>{product.name}</Link>
       </Typography>
 
       <div className={styles.bottomRow}>

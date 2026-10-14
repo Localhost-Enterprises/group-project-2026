@@ -28,6 +28,7 @@ export const CartPage = () => {
         <div className={styles.items}>
           {cartItems.map(({ product, count }) => (
             <CartItem
+              itemId={product.itemId}
               key={product.itemId}
               product={product}
               count={count}
