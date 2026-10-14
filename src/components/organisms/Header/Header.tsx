@@ -9,9 +9,12 @@ import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
 import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
+import { useCart } from '@/shared/hooks';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useCart();
+  const cartQuantity = cartItems.reduce((total, item) => total + item.count, 0);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
@@ -69,7 +72,7 @@ export const Header = () => {
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
         >
-          <CartIcon />
+          <CartIcon quantity={cartQuantity} />
         </NavLink>
       </div>
 
@@ -123,7 +126,7 @@ export const Header = () => {
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
-            <CartIcon />
+            <CartIcon quantity={cartQuantity} />
           </NavLink>
         </div>
       </div>
