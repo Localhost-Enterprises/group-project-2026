@@ -9,15 +9,18 @@ import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
 import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
+import { selectCartCount, useCartStore } from '@/entities/cart';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const cartQuantity = useCartStore(selectCartCount);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <header className={styles.header}>
       <Link
-        to="/"
+        to={ROUTES.HOME}
         className={styles.logoLink}
       >
         <Logo size="small" />
@@ -69,7 +72,7 @@ export const Header = () => {
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
         >
-          <CartIcon />
+          <CartIcon quantity={cartQuantity} />
         </NavLink>
       </div>
 
@@ -87,7 +90,12 @@ export const Header = () => {
 
       <div className={cn(styles.mobileMenu, { [styles.open]: isMenuOpen })}>
         <ul className={styles.mobileNavList}>
-          {['/', '/phones', '/tablets', '/accessories'].map((path, idx) => {
+          {[
+            ROUTES.HOME,
+            `${ROUTES.CATALOG}/phones`,
+            `${ROUTES.CATALOG}/tablets`,
+            `${ROUTES.CATALOG}/accessories`,
+          ].map((path, idx) => {
             const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
             return (
               <li key={path}>
@@ -117,13 +125,13 @@ export const Header = () => {
             <FavouritesIcon />
           </NavLink>
           <NavLink
-            to="/cart"
+            to={ROUTES.CART}
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
-            <CartIcon />
+            <CartIcon quantity={cartQuantity} />
           </NavLink>
         </div>
       </div>
