@@ -2,18 +2,19 @@ import classNames from 'classnames';
 import styles from './ItemBlock.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
-import { TextButton, IconButton } from '@/components/molecules';
+import { IconButton } from '@/components/molecules';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import type { ProductDetails } from '@/shared/types/ProductDetails';
 import { getProductColor } from '@/shared/constants/productColors';
+import { AddToCartButton } from '@/features/add-to-cart/ui/AddToCartbutton';
 import { useState } from 'react';
 
 type ItemBlockProps = {
   product: ProductDetails;
-  onAddToCart?: (product: ProductDetails) => void;
+  productId: number;
 };
 
-export const ItemBlock = ({ product, onAddToCart }: ItemBlockProps) => {
+export const ItemBlock = ({ product, productId }: ItemBlockProps) => {
   const [selectedColor, setSelectedColor] = useState(product.color);
   const [selectedCapacity, setSelectedCapacity] = useState(product.capacity);
   const [isFavourite, setIsFavourite] = useState(false);
@@ -90,12 +91,9 @@ export const ItemBlock = ({ product, onAddToCart }: ItemBlockProps) => {
       </div>
 
       <div className={styles.actions}>
-        <TextButton
-          className={styles.addToCart}
-          onClick={() => onAddToCart?.(product)}
-        >
-          Add to cart
-        </TextButton>
+        <div className={styles.addToCart}>
+          <AddToCartButton productId={productId} />
+        </div>
 
         <IconButton
           className={styles.favourite}

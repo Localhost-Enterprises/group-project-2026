@@ -6,6 +6,7 @@ import '@/app/styles/globals.scss';
 
 import { ItemBlock } from './components/organisms/ItemBlock';
 import type { ProductDetails } from '@/shared/types/ProductDetails';
+import { BrowserRouter } from 'react-router-dom';
 
 const previewProduct: ProductDetails = {
   id: 'apple-iphone-11-pro-max-64gb-gold',
@@ -31,12 +32,12 @@ createRoot(document.getElementById('root')!).render(
     {window.location.pathname === '/item-block-preview' ?
       <div style={{ position: 'relative', width: '100%' }}>
         <div style={{ width: '320px', flexShrink: 0 }}>
-          <ItemBlock
-            product={previewProduct}
-            onAddToCart={(product) => {
-              console.log('Добавляем товар:', product.name);
-            }}
-          />
+          <BrowserRouter>
+            <ItemBlock
+              product={previewProduct}
+              productId={57}
+            />
+          </BrowserRouter>
         </div>
       </div>
     : <App />}
