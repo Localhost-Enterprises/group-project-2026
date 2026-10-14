@@ -1,3 +1,10 @@
+import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
+
 export const FavouritesPage = () => {
-  return <h1>Favourites Page</h1>;
+  return (
+    <>
+      <Breadcrumbs />
+      <h1>Favourites Page</h1>
+    </>
+  );
 };
