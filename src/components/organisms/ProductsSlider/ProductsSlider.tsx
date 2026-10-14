@@ -45,12 +45,8 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
             key={id}
           >
             <ProductCard
+              id={id}
               {...product}
-              fullPrice={
-                data.sectionTitle === 'Hot prices' ?
-                  product.fullPrice
-                : undefined
-              }
             />
           </div>
         ))}

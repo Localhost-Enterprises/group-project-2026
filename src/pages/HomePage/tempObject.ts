@@ -13,7 +13,7 @@ export const hotPrices: Product[] = [
     color: 'spaceblack',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14-pro/spaceblack/00.webp',
+    images: ['img/phones/apple-iphone-14-pro/spaceblack/00.webp'],
   },
   {
     id: 112,
@@ -27,7 +27,7 @@ export const hotPrices: Product[] = [
     color: 'sierrablue',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-13-pro-max/sierrablue/00.webp',
+    images: ['img/phones/apple-iphone-13-pro-max/sierrablue/00.webp'],
   },
   {
     id: 116,
@@ -41,7 +41,7 @@ export const hotPrices: Product[] = [
     color: 'gold',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-13-pro-max/gold/00.webp',
+    images: ['img/phones/apple-iphone-13-pro-max/gold/00.webp'],
   },
   {
     id: 120,
@@ -55,7 +55,7 @@ export const hotPrices: Product[] = [
     color: 'graphite',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-13-pro-max/graphite/00.webp',
+    images: ['img/phones/apple-iphone-13-pro-max/graphite/00.webp'],
   },
   {
     id: 194,
@@ -69,7 +69,7 @@ export const hotPrices: Product[] = [
     color: 'gold',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14-pro/gold/00.webp',
+    images: ['img/phones/apple-iphone-14-pro/gold/00.webp'],
   },
   {
     id: 97,
@@ -83,7 +83,7 @@ export const hotPrices: Product[] = [
     color: 'blue',
     ram: '4GB',
     year: 2020,
-    image: 'img/phones/apple-iphone-13-mini/blue/00.webp',
+    images: ['img/phones/apple-iphone-13-mini/blue/00.webp'],
   },
   {
     id: 100,
@@ -97,7 +97,7 @@ export const hotPrices: Product[] = [
     color: 'white',
     ram: '4GB',
     year: 2020,
-    image: 'img/phones/apple-iphone-13-mini/white/00.webp',
+    images: ['img/phones/apple-iphone-13-mini/white/00.webp'],
   },
   {
     id: 103,
@@ -111,7 +111,7 @@ export const hotPrices: Product[] = [
     color: 'pink',
     ram: '4GB',
     year: 2020,
-    image: 'img/phones/apple-iphone-13-mini/pink/00.webp',
+    images: ['img/phones/apple-iphone-13-mini/pink/00.webp'],
   },
   {
     id: 106,
@@ -125,7 +125,7 @@ export const hotPrices: Product[] = [
     color: 'midnight',
     ram: '4GB',
     year: 2020,
-    image: 'img/phones/apple-iphone-13-mini/midnight/00.webp',
+    images: ['img/phones/apple-iphone-13-mini/midnight/00.webp'],
   },
   {
     id: 9,
@@ -139,7 +139,7 @@ export const hotPrices: Product[] = [
     color: 'silver',
     ram: '4GB',
     year: 2019,
-    image: 'img/phones/apple-iphone-11-pro/silver/00.webp',
+    images: ['img/phones/apple-iphone-11-pro/silver/00.webp'],
   },
 ];
 
@@ -156,7 +156,7 @@ export const newModels: Product[] = [
     color: 'midnight',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/midnight/00.webp',
+    images: ['img/phones/apple-iphone-14/midnight/00.webp'],
   },
   {
     id: 73,
@@ -170,7 +170,7 @@ export const newModels: Product[] = [
     color: 'midnight',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/midnight/00.webp',
+    images: ['img/phones/apple-iphone-14/midnight/00.webp'],
   },
   {
     id: 74,
@@ -184,7 +184,7 @@ export const newModels: Product[] = [
     color: 'midnight',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/midnight/00.webp',
+    images: ['img/phones/apple-iphone-14/midnight/00.webp'],
   },
   {
     id: 75,
@@ -198,7 +198,7 @@ export const newModels: Product[] = [
     color: 'yellow',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/yellow/00.webp',
+    images: ['img/phones/apple-iphone-14/yellow/00.webp'],
   },
   {
     id: 76,
@@ -212,7 +212,7 @@ export const newModels: Product[] = [
     color: 'yellow',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/yellow/00.webp',
+    images: ['img/phones/apple-iphone-14/yellow/00.webp'],
   },
   {
     id: 77,
@@ -226,7 +226,7 @@ export const newModels: Product[] = [
     color: 'yellow',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/yellow/00.webp',
+    images: ['img/phones/apple-iphone-14/yellow/00.webp'],
   },
   {
     id: 78,
@@ -240,7 +240,7 @@ export const newModels: Product[] = [
     color: 'purple',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/purple/00.webp',
+    images: ['img/phones/apple-iphone-14/purple/00.webp'],
   },
   {
     id: 79,
@@ -254,7 +254,7 @@ export const newModels: Product[] = [
     color: 'purple',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/purple/00.webp',
+    images: ['img/phones/apple-iphone-14/purple/00.webp'],
   },
   {
     id: 80,
@@ -268,7 +268,7 @@ export const newModels: Product[] = [
     color: 'purple',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14/purple/00.webp',
+    images: ['img/phones/apple-iphone-14/purple/00.webp'],
   },
   {
     id: 81,
@@ -282,6 +282,6 @@ export const newModels: Product[] = [
     color: 'spaceblack',
     ram: '6GB',
     year: 2022,
-    image: 'img/phones/apple-iphone-14-pro/spaceblack/00.webp',
+    images: ['img/phones/apple-iphone-14-pro/spaceblack/00.webp'],
   },
 ];
