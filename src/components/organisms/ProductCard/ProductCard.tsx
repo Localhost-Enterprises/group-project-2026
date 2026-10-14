@@ -3,23 +3,21 @@ import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { TextButton, IconButton } from '@/components/molecules';
 import styles from './ProductCard.module.scss';
 import { useState } from 'react';
-import type { Product } from '@/shared/types';
-import { Link } from 'react-router-dom';
-import { routePaths } from '@/app/router/routes';
+import { useCart } from '@/shared/hooks';
 
-type Props = Pick<
-  Product,
-  | 'name'
-  | 'image'
-  | 'price'
-  | 'fullPrice'
-  | 'screen'
-  | 'capacity'
-  | 'ram'
-  | 'itemId'
->;
+type Props = {
+  itemId: string;
+  name: string;
+  image: string;
+  price: number;
+  fullPrice?: number;
+  screen: string;
+  capacity: string;
+  ram: string;
+};
 
 export const ProductCard = ({
+  itemId,
   name,
   image,
   price,
@@ -27,28 +25,26 @@ export const ProductCard = ({
   screen,
   capacity,
   ram,
-  itemId,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
+  const { cartItems, addToCart } = useCart();
+  const isAdded = cartItems.some((item) => item.product.itemId === itemId);
 
   return (
     <article className={styles.card}>
-      <Link to={routePaths.product(itemId)}>
-        <img
-          className={styles.image}
-          src={image}
-          alt={name}
-        />
+      <img
+        className={styles.image}
+        src={image}
+        alt={name}
+      />
 
-        <Typography
-          variant="bodytext"
-          as="h3"
-          className={styles.title}
-        >
-          {name}
-        </Typography>
-      </Link>
+      <Typography
+        variant="bodytext"
+        as="h3"
+        className={styles.title}
+      >
+        {name}
+      </Typography>
 
       <div className={styles.prices}>
         <Typography
@@ -92,7 +88,7 @@ export const ProductCard = ({
         <TextButton
           className={styles.addToCart}
           selected={isAdded}
-          onClick={() => setIsAdded(!isAdded)}
+          onClick={() => addToCart({ itemId, name, image, price })}
         >
           {isAdded ? 'Added to cart' : 'Add to cart'}
         </TextButton>

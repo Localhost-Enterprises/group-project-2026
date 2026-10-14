@@ -5,8 +5,7 @@
   width: 16px;
   height: 16px;
 
-  background-image: var(--icon);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-color: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
 }

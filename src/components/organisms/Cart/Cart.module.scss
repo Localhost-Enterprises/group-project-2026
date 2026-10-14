@@ -1,0 +1,51 @@
+@use '@/app/styles/reset' as *;
+@use '@/app/styles/mixins' as *;
+
+.container {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 56px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+
+  @include on('tablet') {
+    margin-top: 40px;
+    margin-bottom: 16px;
+  }
+}
+
+.cart {
+  margin-bottom: 32px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.items {
+  min-width: 0;
+}
+
+@include on('desktop') {
+  .content {
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+    align-items: start;
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+}
+
+@include on('tablet') {
+  .content {
+    margin-bottom: 64px;
+  }
+}
