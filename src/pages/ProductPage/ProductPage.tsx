@@ -1,3 +1,10 @@
+import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
+
 export const ProductPage = () => {
-  return <h1>Product Page</h1>;
+  return (
+    <>
+      <Breadcrumbs />
+      <h1>Product Page</h1>
+    </>
+  );
 };
