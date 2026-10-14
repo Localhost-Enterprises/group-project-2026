@@ -29,6 +29,16 @@ export const CartItem = ({
   const imageSrc =
     product.image.startsWith('/') ? product.image : `/${product.image}`;
 
+  const enterCount = (value: string, input: HTMLInputElement) => {
+    const nextCount =
+      value === '' ? count : Math.min(Math.max(Number(value), 1), 99);
+
+    input.value = String(nextCount);
+    if (nextCount !== count) {
+      onCountChange(nextCount);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <DefaultButton
@@ -63,17 +73,30 @@ export const CartItem = ({
             <MinusIcon />
           </DefaultButton>
 
-          <Typography
-            className={styles.countValue}
-            variant="bodytext"
-            aria-live="polite"
-          >
-            {count}
-          </Typography>
+          <input
+            key={count}
+            className={styles.countInput}
+            type="text"
+            onChange={(event) => {
+              const value = event.target.value.replace(/\D/g, '');
+              event.target.value =
+                value === '' ? '' : String(Math.min(Number(value), 99));
+            }}
+            defaultValue={count}
+            onBlur={(event) =>
+              enterCount(event.currentTarget.value, event.currentTarget)
+            }
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.currentTarget.blur();
+              }
+            }}
+          />
 
           <DefaultButton
             className={styles.countButton}
-            onClick={() => onCountChange(count + 1)}
+            onClick={() => onCountChange(Math.min(count + 1, 99))}
+            disabled={count === 99}
             aria-label={`Increase count of ${product.name}`}
           >
             <PlusIcon />

@@ -94,9 +94,15 @@ export const ProductCard = ({
         <TextButton
           className={styles.addToCart}
           selected={isAdded}
-          onClick={() => addToCart({ itemId, name, image, price })}
+          onClick={
+            isAdded ? undefined : (
+              () => addToCart({ itemId, name, image, price })
+            )
+          }
         >
-          {isAdded ? 'Added to cart' : 'Add to cart'}
+          {isAdded ?
+            <Link to="/cart">Added to cart</Link>
+          : 'Add to cart'}
         </TextButton>
 
         <IconButton
