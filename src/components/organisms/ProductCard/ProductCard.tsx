@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { Product } from '@/shared/types';
 import { Link } from 'react-router-dom';
 import { routePaths } from '@/app/router/routes';
+import { useCart } from '@/shared/hooks';
 
 type Props = Pick<
   Product,
@@ -30,7 +31,8 @@ export const ProductCard = ({
   itemId,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
+  const { cartItems, addToCart } = useCart();
+  const isAdded = cartItems.some((item) => item.product.itemId === itemId);
 
   return (
     <article className={styles.card}>
@@ -92,9 +94,15 @@ export const ProductCard = ({
         <TextButton
           className={styles.addToCart}
           selected={isAdded}
-          onClick={() => setIsAdded(!isAdded)}
+          onClick={
+            isAdded ? undefined : (
+              () => addToCart({ itemId, name, image, price })
+            )
+          }
         >
-          {isAdded ? 'Added to cart' : 'Add to cart'}
+          {isAdded ?
+            <Link to="/cart">Added to cart</Link>
+          : 'Add to cart'}
         </TextButton>
 
         <IconButton
