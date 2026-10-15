@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { GetData } from '@/shared/api/GetData';
-import type { Product } from '@/shared/types/Product';
 import { useLocation } from 'react-router-dom';
+import type { Product } from '@/shared/types/Product';
+import { productApi } from '@/entities/product/product.api';
 import { CatalogTemplate } from '@/components/templates/CatalogTemplate/CatalogTemplate';
+import type { Category } from '@/shared/types/Category';
 
 type Props = Pick<
   Product,
@@ -15,10 +16,9 @@ type Props = Pick<
   | 'capacity'
   | 'ram'
   | 'item_id'
-  | 'category'
 > & {
   fullImageUrls: string[];
-  category: string;
+  category: Category;
 };
 
 export const CatalogPage = () => {
@@ -28,12 +28,22 @@ export const CatalogPage = () => {
   const title = parts[parts.length - 1];
 
   useEffect(() => {
-    GetData('products').then((data) => {
-      const filtered = (data as Props[]).filter(
-        (item) => item.category === title,
-      );
-      setItems(filtered);
-    });
+    const loadProducts = async () => {
+      try {
+        const data = await productApi.getByCategory(title as Category);
+
+        const items: Props[] = data.map((item) => ({
+          ...item,
+          fullImageUrls: item.imageUrls ?? [],
+        }));
+
+        setItems(items);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadProducts();
   }, [title]);
 
   return <CatalogTemplate data={{ items, title }} />;
