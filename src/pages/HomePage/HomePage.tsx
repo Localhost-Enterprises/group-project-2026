@@ -62,7 +62,7 @@ const shopByCategoryData: ShopByCategoryData = {
       title: 'Accessories',
       count: 100,
       image: AccesoriesImage,
-      link: 'accesories',
+      link: 'accessories',
       color: '#973d5f',
     },
   ],

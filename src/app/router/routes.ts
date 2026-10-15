@@ -4,7 +4,7 @@ export const ROUTES = {
   PRODUCT: '/:catalogSlug/:productSlug',
   FAVOURITES: '/favourites',
   CART: '/cart',
-  CHECKOUT: '/chekout',
+  CHECKOUT: '/checkout',
   NOTFOUND: '*',
 } as const;
 
