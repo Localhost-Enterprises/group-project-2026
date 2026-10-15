@@ -47,6 +47,7 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
             <ProductCard
               id={id}
               {...product}
+              className=""
             />
           </div>
         ))}
