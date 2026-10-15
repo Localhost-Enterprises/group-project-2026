@@ -4,7 +4,7 @@ export const hotPrices: Product[] = [
   {
     id: 84,
     category: 'phones',
-    itemId: 'apple-iphone-14-pro-1tb-spaceblack',
+    item_id: 'apple-iphone-14-pro-1tb-spaceblack',
     name: 'Apple iPhone 14 Pro 1TB Space Black',
     fullPrice: 1740,
     price: 1520,
@@ -18,7 +18,7 @@ export const hotPrices: Product[] = [
   {
     id: 112,
     category: 'phones',
-    itemId: 'apple-iphone-13-pro-max-1tb-sierrablue',
+    item_id: 'apple-iphone-13-pro-max-1tb-sierrablue',
     name: 'Apple iPhone 13 Pro Max 1TB Sierra Blue',
     fullPrice: 1740,
     price: 1520,
@@ -32,7 +32,7 @@ export const hotPrices: Product[] = [
   {
     id: 116,
     category: 'phones',
-    itemId: 'apple-iphone-13-pro-max-1tb-gold',
+    item_id: 'apple-iphone-13-pro-max-1tb-gold',
     name: 'Apple iPhone 13 Pro Max 1TB Gold',
     fullPrice: 1740,
     price: 1520,
@@ -46,7 +46,7 @@ export const hotPrices: Product[] = [
   {
     id: 120,
     category: 'phones',
-    itemId: 'apple-iphone-13-pro-max-1tb-graphite',
+    item_id: 'apple-iphone-13-pro-max-1tb-graphite',
     name: 'Apple iPhone 13 Pro Max 1TB Graphite',
     fullPrice: 1740,
     price: 1520,
@@ -60,7 +60,7 @@ export const hotPrices: Product[] = [
   {
     id: 194,
     category: 'phones',
-    itemId: 'apple-iphone-14-pro-1tb-gold',
+    item_id: 'apple-iphone-14-pro-1tb-gold',
     name: 'Apple iPhone 14 Pro 1TB Gold',
     fullPrice: 1740,
     price: 1520,
@@ -74,7 +74,7 @@ export const hotPrices: Product[] = [
   {
     id: 97,
     category: 'phones',
-    itemId: 'apple-iphone-13-mini-64gb-blue',
+    item_id: 'apple-iphone-13-mini-64gb-blue',
     name: 'Apple iPhone 13 Pro 64GB Blue',
     fullPrice: 890,
     price: 760,
@@ -88,7 +88,7 @@ export const hotPrices: Product[] = [
   {
     id: 100,
     category: 'phones',
-    itemId: 'apple-iphone-13-mini-64gb-white',
+    item_id: 'apple-iphone-13-mini-64gb-white',
     name: 'Apple iPhone 13 Pro 64GB White',
     fullPrice: 890,
     price: 760,
@@ -102,7 +102,7 @@ export const hotPrices: Product[] = [
   {
     id: 103,
     category: 'phones',
-    itemId: 'apple-iphone-13-mini-64gb-pink',
+    item_id: 'apple-iphone-13-mini-64gb-pink',
     name: 'Apple iPhone 13 Pro 64GB Pink',
     fullPrice: 890,
     price: 760,
@@ -116,7 +116,7 @@ export const hotPrices: Product[] = [
   {
     id: 106,
     category: 'phones',
-    itemId: 'apple-iphone-13-mini-64gb-midnight',
+    item_id: 'apple-iphone-13-mini-64gb-midnight',
     name: 'Apple iPhone 13 Pro 64GB Midnight',
     fullPrice: 890,
     price: 760,
@@ -130,7 +130,7 @@ export const hotPrices: Product[] = [
   {
     id: 9,
     category: 'phones',
-    itemId: 'apple-iphone-11-pro-512gb-silver',
+    item_id: 'apple-iphone-11-pro-512gb-silver',
     name: 'Apple iPhone 11 Pro 512GB Silver',
     fullPrice: 1880,
     price: 1780,
@@ -147,7 +147,7 @@ export const newModels: Product[] = [
   {
     id: 72,
     category: 'phones',
-    itemId: 'apple-iphone-14-128gb-midnight',
+    item_id: 'apple-iphone-14-128gb-midnight',
     name: 'Apple iPhone 14 128GB Midnight',
     fullPrice: 1056,
     price: 980,
@@ -161,7 +161,7 @@ export const newModels: Product[] = [
   {
     id: 73,
     category: 'phones',
-    itemId: 'apple-iphone-14-256gb-midnight',
+    item_id: 'apple-iphone-14-256gb-midnight',
     name: 'Apple iPhone 14 256GB Midnight',
     fullPrice: 1200,
     price: 1120,
@@ -175,7 +175,7 @@ export const newModels: Product[] = [
   {
     id: 74,
     category: 'phones',
-    itemId: 'apple-iphone-14-512gb-midnight',
+    item_id: 'apple-iphone-14-512gb-midnight',
     name: 'Apple iPhone 14 512GB Midnight',
     fullPrice: 1500,
     price: 1420,
@@ -189,7 +189,7 @@ export const newModels: Product[] = [
   {
     id: 75,
     category: 'phones',
-    itemId: 'apple-iphone-14-128gb-yellow',
+    item_id: 'apple-iphone-14-128gb-yellow',
     name: 'Apple iPhone 14 128GB Yellow',
     fullPrice: 1056,
     price: 980,
@@ -203,7 +203,7 @@ export const newModels: Product[] = [
   {
     id: 76,
     category: 'phones',
-    itemId: 'apple-iphone-14-256gb-yellow',
+    item_id: 'apple-iphone-14-256gb-yellow',
     name: 'Apple iPhone 14 256GB Yellow',
     fullPrice: 1200,
     price: 1120,
@@ -217,7 +217,7 @@ export const newModels: Product[] = [
   {
     id: 77,
     category: 'phones',
-    itemId: 'apple-iphone-14-512gb-yellow',
+    item_id: 'apple-iphone-14-512gb-yellow',
     name: 'Apple iPhone 14 512GB Yellow',
     fullPrice: 1500,
     price: 1420,
@@ -231,7 +231,7 @@ export const newModels: Product[] = [
   {
     id: 78,
     category: 'phones',
-    itemId: 'apple-iphone-14-128gb-purple',
+    item_id: 'apple-iphone-14-128gb-purple',
     name: 'Apple iPhone 14 128GB Purple',
     fullPrice: 1056,
     price: 980,
@@ -245,7 +245,7 @@ export const newModels: Product[] = [
   {
     id: 79,
     category: 'phones',
-    itemId: 'apple-iphone-14-256gb-purple',
+    item_id: 'apple-iphone-14-256gb-purple',
     name: 'Apple iPhone 14 256GB Purple',
     fullPrice: 1200,
     price: 1120,
@@ -259,7 +259,7 @@ export const newModels: Product[] = [
   {
     id: 80,
     category: 'phones',
-    itemId: 'apple-iphone-14-512gb-purple',
+    item_id: 'apple-iphone-14-512gb-purple',
     name: 'Apple iPhone 14 512GB Purple',
     fullPrice: 1500,
     price: 1420,
@@ -273,7 +273,7 @@ export const newModels: Product[] = [
   {
     id: 81,
     category: 'phones',
-    itemId: 'apple-iphone-14-pro-128gb-spaceblack',
+    item_id: 'apple-iphone-14-pro-128gb-spaceblack',
     name: 'Apple iPhone 14 Pro 128GB Space Black',
     fullPrice: 1156,
     price: 1068,

@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
-import { ProductCard } from '@/components/organisms/ProductCard';
 import type { Product } from '@/shared/types/Product';
 import styles from './CatalogTemplate.module.scss';
+import { ProductCard } from '@/components/organisms';
 
 type CatalogProduct = Pick<
   Product,
@@ -13,7 +13,8 @@ type CatalogProduct = Pick<
   | 'screen'
   | 'capacity'
   | 'ram'
-  | 'itemId'
+  | 'item_id'
+  | 'category'
 > & {
   fullImageUrls: string[];
 };
@@ -43,7 +44,8 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
             screen={item.screen}
             capacity={item.capacity}
             ram={item.ram}
-            itemId={item.itemId}
+            item_id={item.item_id}
+            category={item.category}
           />
         ))}
       </div>

@@ -1,4 +1,4 @@
-import type { Category } from './Category';
+import { Category } from './Category';
 import type { ProductDetails } from './ProductDetails';
 
 export interface Accessory extends ProductDetails {
