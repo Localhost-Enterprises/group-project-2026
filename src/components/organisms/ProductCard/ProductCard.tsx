@@ -7,6 +7,7 @@ import type { Product } from '@/shared/types';
 import { Link } from 'react-router-dom';
 import { routePaths } from '@/app/router/routes';
 import { AddToCartButton } from '@/features/add-to-cart';
+import classNames from 'classnames';
 
 type Props = Pick<
   Product,
@@ -19,7 +20,7 @@ type Props = Pick<
   | 'capacity'
   | 'ram'
   | 'itemId'
->;
+> & { className: string };
 
 export const ProductCard = ({
   id,
@@ -31,11 +32,12 @@ export const ProductCard = ({
   capacity,
   ram,
   itemId,
+  className,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   return (
-    <article className={styles.card}>
+    <article className={classNames(styles.card, className)}>
       <Link to={routePaths.product(itemId)}>
         <img
           className={styles.image}
