@@ -3,4 +3,4 @@ export { ArrowButton } from './ArrowButton';
 export { IconButton } from './IconButton';
 export { ColorButton } from './ColorButton';
 export { TextButton } from './TextButton';
-export { BackButton } from './BackButton';
+export { ArrowTextButton } from './ArrowTextButton';

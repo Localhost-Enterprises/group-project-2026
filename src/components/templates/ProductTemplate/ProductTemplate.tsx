@@ -1,4 +1,3 @@
-import { BackButton } from '@/components/molecules';
 import styles from './ProductTemplate.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 
@@ -11,6 +10,7 @@ import { ProductSpecs } from '@/components/organisms/Product/ProductSpecs';
 import type { Accessory, Phone, Product, Tablet } from '@/shared/types';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import type { WithImageUrls } from '@/shared/types/WithImageUrls';
+import { BackButton } from '@/components/organisms/BackButton/BackButton';
 
 type Props = {
   product: WithImageUrls<Product>;
@@ -21,7 +21,12 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
   const specs = getProductSpecs(productDetails);
   return (
     <div className={styles.container}>
-      <BackButton className={styles.backButton}>Back</BackButton>
+      <BackButton
+        className={styles.backButton}
+        fallback={`/${product.category}`}
+      >
+        Back
+      </BackButton>
 
       <Typography
         variant="h2"

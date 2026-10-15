@@ -29,7 +29,7 @@ export interface CatalogTemplateData {
 export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
   return (
     <div className={styles.container}>
-      <Breadcrumbs />
+      <Breadcrumbs className={styles.breadcrumbs} />
       <h1 className={styles.title}>
         {data.title === 'phones' ? 'Mobile phones' : data.title}
       </h1>

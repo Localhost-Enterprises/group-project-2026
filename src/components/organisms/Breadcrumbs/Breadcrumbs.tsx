@@ -4,8 +4,13 @@ import styles from './Breadcrumbs.module.scss';
 import { HomeIcon } from '@/components/atoms/Icons/HomeIcon';
 import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import cn from 'classnames';
+import classNames from 'classnames';
 
-export const Breadcrumbs = () => {
+type Props = {
+  className?: string;
+};
+
+export const Breadcrumbs = ({ className }: Props) => {
   const { pathname } = useLocation();
 
   const parts = pathname.split('/');
@@ -24,7 +29,7 @@ export const Breadcrumbs = () => {
   return (
     parts.length > 0 &&
     parts[0] !== 'cart' && (
-      <div className={styles.breadcrumb}>
+      <div className={classNames(styles.breadcrumb, className)}>
         <NavLink
           to="/"
           end
