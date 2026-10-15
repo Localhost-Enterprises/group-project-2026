@@ -1,7 +1,9 @@
 import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
+import { CatalogFilter } from '@/components/organisms/CatalogFilter';
 import type { Product } from '@/shared/types/Product';
 import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
+import { Typography } from '@/components/atoms/Typography';
 
 type CatalogProduct = Pick<
   Product,
@@ -31,6 +33,13 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
       <h1 className={styles.title}>
         {data.title === 'phones' ? 'Mobile phones' : data.title}
       </h1>
+      <Typography
+        className={styles.modelsCount}
+        variant="bodytext"
+      >
+        {data.items.length} models
+      </Typography>
+      <CatalogFilter />
       <div className={styles.content}>
         {data.items.map((item) => (
           <ProductCard

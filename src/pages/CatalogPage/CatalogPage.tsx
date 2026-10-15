@@ -1,10 +1,9 @@
-import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
-import { CatalogFilter } from '@/components/organisms/CatalogFilter';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GetData } from '@/shared/api/GetData';
 import type { Product } from '@/shared/types/Product';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { CatalogTemplate } from '@/components/templates/CatalogTemplate/CatalogTemplate';
+import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/CatalogFilter.constants';
 
 type Props = Pick<
   Product,
@@ -16,6 +15,7 @@ type Props = Pick<
   | 'screen'
   | 'capacity'
   | 'ram'
+  | 'year'
   | 'item_id'
   | 'category'
 > & {
@@ -26,8 +26,26 @@ type Props = Pick<
 export const CatalogPage = () => {
   const [items, setItems] = useState<Props[]>([]);
   const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
   const parts = pathname.split('/');
   const title = parts[parts.length - 1];
+  const sortBy =
+    CATALOG_SORT_OPTIONS.find(
+      (option) => option === searchParams.get('sort'),
+    ) ?? CATALOG_SORT_OPTIONS[0];
+
+  const sortedItems = useMemo(() => {
+    return [...items].sort((first, second) => {
+      switch (sortBy) {
+        case 'Cheapest':
+          return first.price - second.price;
+        case 'Most expensive':
+          return second.price - first.price;
+        case 'Newest':
+          return second.year - first.year;
+      }
+    });
+  }, [items, sortBy]);
 
   useEffect(() => {
     GetData('products').then((data) => {
@@ -37,7 +55,6 @@ export const CatalogPage = () => {
       setItems(filtered);
     });
   }, [title]);
-    </>
-  );
-  return <CatalogTemplate data={{ items, title }} />;
+
+  return <CatalogTemplate data={{ items: sortedItems, title }} />;
 };
