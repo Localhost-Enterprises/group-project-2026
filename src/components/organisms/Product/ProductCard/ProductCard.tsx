@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { Product } from '@/shared/types';
 import { AddToCartButton } from '@/features/add-to-cart';
 import { ProductLink } from '../ProductLink';
+import classNames from 'classnames';
 
 type Props = Pick<
   Product,
@@ -19,10 +20,11 @@ type Props = Pick<
   | 'ram'
   | 'item_id'
   | 'category'
->;
+> & { className: string };
 
 export const ProductCard = ({
   id,
+  category,
   name,
   images,
   price,
@@ -31,23 +33,29 @@ export const ProductCard = ({
   capacity,
   ram,
   item_id,
-  category,
+  className,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   return (
-    <article className={styles.card}>
-      <img
-        className={styles.image}
-        src={images[0] || 'https://placehold.co/500x500'}
-        alt={name}
-      />
+    <article className={classNames(styles.card, className)}>
       <ProductLink
         category={category}
         itemId={item_id}
-        className={styles.title}
       >
-        {name}
+        <img
+          className={styles.image}
+          src={images[0] || 'https://placehold.co/500x500'}
+          alt={name}
+        />
+
+        <Typography
+          variant="bodytext"
+          as="h3"
+          className={styles.title}
+        >
+          {name}
+        </Typography>
       </ProductLink>
 
       <div className={styles.prices}>
