@@ -114,9 +114,4 @@
     height: 40px;
     flex-shrink: 0;
   }
-
-  @include on('tablet') {
-    width: 272px;
-    min-height: 506px;
-  }
 }
