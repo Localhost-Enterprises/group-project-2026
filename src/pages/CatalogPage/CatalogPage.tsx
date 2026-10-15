@@ -14,7 +14,8 @@ type Props = Pick<
   | 'screen'
   | 'capacity'
   | 'ram'
-  | 'itemId'
+  | 'item_id'
+  | 'category'
 > & {
   fullImageUrls: string[];
   category: string;
