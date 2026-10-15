@@ -1,17 +1,17 @@
 export type Description = {
   title: string;
-  text: string[];
+  text: string;
 };
 
 export type ProductDetails = {
   id: string;
-  namespaceId: string;
+  namespace_id: string;
   name: string;
-  capacityAvailable: string[];
+  capacity_available: string[];
   capacity: string;
-  priceRegular: number;
-  priceDiscount: number;
-  colorsAvailable: string[];
+  price_regular: number;
+  price_discount: number;
+  colors_available: string[];
   color: string;
   images: string[];
   description: Description[];

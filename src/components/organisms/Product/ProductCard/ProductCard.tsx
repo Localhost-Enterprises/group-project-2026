@@ -4,9 +4,9 @@ import { IconButton } from '@/components/molecules';
 import styles from './ProductCard.module.scss';
 import { useState } from 'react';
 import type { Product } from '@/shared/types';
-import { Link } from 'react-router-dom';
-import { routePaths } from '@/app/router/routes';
 import { AddToCartButton } from '@/features/add-to-cart';
+import { ProductLink } from '../ProductLink';
+import classNames from 'classnames';
 
 type Props = Pick<
   Product,
@@ -18,11 +18,13 @@ type Props = Pick<
   | 'screen'
   | 'capacity'
   | 'ram'
-  | 'itemId'
->;
+  | 'item_id'
+  | 'category'
+> & { className: string };
 
 export const ProductCard = ({
   id,
+  category,
   name,
   images,
   price,
@@ -30,13 +32,17 @@ export const ProductCard = ({
   screen,
   capacity,
   ram,
-  itemId,
+  item_id,
+  className,
 }: Props) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   return (
-    <article className={styles.card}>
-      <Link to={routePaths.product(itemId)}>
+    <article className={classNames(styles.card, className)}>
+      <ProductLink
+        category={category}
+        itemId={item_id}
+      >
         <img
           className={styles.image}
           src={images[0] || 'https://placehold.co/500x500'}
@@ -50,7 +56,7 @@ export const ProductCard = ({
         >
           {name}
         </Typography>
-      </Link>
+      </ProductLink>
 
       <div className={styles.prices}>
         <Typography

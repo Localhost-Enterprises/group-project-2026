@@ -1,7 +1,7 @@
 export const Category = {
   PHONES: 'phones',
   TABLETS: 'tablets',
-  ACCESSORIES: 'accessory',
+  ACCESSORIES: 'accessories',
 } as const;
 
 export type Category = (typeof Category)[keyof typeof Category];
