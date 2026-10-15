@@ -1,4 +1,4 @@
-import type { CartContentData } from '@/components/organisms/CartContent';
+import type { CartContentData } from '@/components/organisms/Cart/CartContent';
 
 export type Data = {
   cartContent: CartContentData;
