@@ -3,7 +3,7 @@ import type { Category } from './Category';
 export type Product = {
   id: number;
   category: Category;
-  itemId: string;
+  item_id: string;
   name: string;
   fullPrice: number;
   price: number;

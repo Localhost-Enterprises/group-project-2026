@@ -4,7 +4,7 @@ import { BackButton } from '@/components/molecules/Buttons/BackButton';
 import { useNavigate } from 'react-router-dom';
 
 import type { Data } from './CartTemplate.types';
-import { CartContent } from '@/components/organisms/CartContent';
+import { CartContent } from '@/components/organisms';
 
 export const CartTemplate = ({ data }: { data: Data }) => {
   const navigate = useNavigate();

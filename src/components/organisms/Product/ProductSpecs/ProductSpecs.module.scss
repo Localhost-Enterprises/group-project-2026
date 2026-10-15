@@ -1,0 +1,21 @@
+@use '@/app/styles/colors' as *;
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.specName {
+  color: $secondary;
+}
+
+.specText {
+  color: $primary;
+}

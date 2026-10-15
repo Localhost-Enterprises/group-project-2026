@@ -5,14 +5,13 @@ import { PlusIcon } from '@/components/atoms/Icons/PlusIcon';
 import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 
 import styles from './CartItem.module.scss';
-import { Link } from 'react-router-dom';
-import { routePaths } from '@/app/router/routes';
 import type { Product } from '@/shared/types';
 import {
   selectRemoveItem,
   selectUpdateQuantity,
   useCartStore,
 } from '@/entities/cart';
+import { ProductLink } from '../../Product/ProductLink';
 
 export type CartItemProduct = {
   itemId: string;
@@ -58,20 +57,24 @@ export const CartItem = ({ product }: Props) => {
         <CloseIcon className={styles.removeIcon} />
       </DefaultButton>
 
-      <Link to={routePaths.product(product.itemId)}>
+      <ProductLink
+        category={product.category}
+        itemId={product.item_id}
+      >
         <img
           className={styles.image}
           src={imageSrc}
           alt={product.name}
         />
-      </Link>
+      </ProductLink>
 
-      <Typography
+      <ProductLink
+        category={product.category}
+        itemId={product.item_id}
         className={styles.name}
-        variant="bodytext"
       >
-        <Link to={routePaths.product(product.itemId)}>{product.name}</Link>
-      </Typography>
+        {product.name}
+      </ProductLink>
 
       <div className={styles.bottomRow}>
         <div className={styles.count}>

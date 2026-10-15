@@ -1,5 +1,5 @@
 import type { HeroSliderData } from '@/components/organisms/HeroSlider';
-import type { ProductsSlidesData } from '@/components/organisms/ProductsSlider';
+import type { ProductsSlidesData } from '@/components/organisms/Product/ProductsSlider';
 import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
 
 export type Data = {
