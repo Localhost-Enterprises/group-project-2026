@@ -1,4 +1,4 @@
-import { ProductsSlider } from '@/components/organisms/ProductsSlider';
+import { ProductsSlider } from '@/components/organisms/Product/ProductsSlider';
 import { useProductByCategory } from '@/entities/product/model/product.queries';
 import type { Category } from '@/shared/types/Category';
 import { sortProductsBySimilarity } from './sortProductsBySimilarity';

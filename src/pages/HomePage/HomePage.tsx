@@ -1,5 +1,5 @@
 import type { HeroSliderData } from '@/components/organisms/HeroSlider';
-import type { ProductsSlidesData } from '@/components/organisms/ProductsSlider';
+import type { ProductsSlidesData } from '@/components/organisms/Product/ProductsSlider';
 import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
 import { HomeTemplate } from '@/components/templates/HomeTemplate';
 
@@ -62,7 +62,7 @@ const shopByCategoryData: ShopByCategoryData = {
       title: 'Accessories',
       count: 100,
       image: AccesoriesImage,
-      link: 'accesories',
+      link: 'accessories',
       color: '#973d5f',
     },
   ],
