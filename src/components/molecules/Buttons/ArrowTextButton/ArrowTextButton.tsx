@@ -1,4 +1,4 @@
-import styles from './BackButton.module.scss';
+import styles from './ArrowText.module.scss';
 import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import { DefaultButton } from '../DefaultButton';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ type Props = React.ComponentProps<typeof DefaultButton> & {
   color?: 'black' | 'grey';
 };
 
-export const BackButton = ({
+export const ArrowTextButton = ({
   direction = 'left',
   color = 'black',
   className,

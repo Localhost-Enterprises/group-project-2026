@@ -61,7 +61,9 @@ export const ProductPurchase = ({
         throw new Error('Product variant not found');
       }
 
-      navigate(routePaths.product(product.category, variant.id));
+      navigate(routePaths.product(product.category, variant.id), {
+        replace: true,
+      });
     } catch (error) {
       throw new Error(`Failed to change product variant: ${error}`);
     } finally {
