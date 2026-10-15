@@ -92,9 +92,9 @@ export const Header = () => {
         <ul className={styles.mobileNavList}>
           {[
             ROUTES.HOME,
-            `${ROUTES.CATALOG}/phones`,
-            `${ROUTES.CATALOG}/tablets`,
-            `${ROUTES.CATALOG}/accessories`,
+            routePaths.catalog('phones'),
+            routePaths.catalog('tablets'),
+            routePaths.catalog('accessories'),
           ].map((path, idx) => {
             const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
             return (
