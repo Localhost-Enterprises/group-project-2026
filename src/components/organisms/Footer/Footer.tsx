@@ -4,6 +4,7 @@ import { Logo } from '@/components/atoms/Logo';
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 const menuItems = [
   {
@@ -15,7 +16,11 @@ const menuItems = [
   { id: 'rights', label: 'RIGHTS', to: '#' },
 ];
 
-export const Footer = () => {
+type Props = {
+  className?: string;
+};
+
+export const Footer = ({ className }: Props) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -24,7 +29,7 @@ export const Footer = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, className)}>
       <Link to={ROUTES.HOME}>
         <Logo
           size="big"

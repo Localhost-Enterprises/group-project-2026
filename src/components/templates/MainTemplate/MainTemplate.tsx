@@ -5,14 +5,14 @@ import styles from './MainTemplate.module.scss';
 
 export const MainTemplate = () => {
   return (
-    <>
-      <Header />
+    <div className={styles.container}>
+      <Header className={styles.header} />
 
-      <main className={styles.container}>
+      <main className={styles.main}>
         <Outlet />
       </main>
 
-      <Footer />
-    </>
+      <Footer className={styles.footer} />
+    </div>
   );
 };

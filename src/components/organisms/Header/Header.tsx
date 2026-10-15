@@ -10,15 +10,20 @@ import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
 import { selectCartCount, useCartStore } from '@/entities/cart';
+import classNames from 'classnames';
 
-export const Header = () => {
+type Props = {
+  className?: string;
+};
+
+export const Header = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartQuantity = useCartStore(selectCartCount);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className={styles.header}>
+    <header className={classNames(styles.header, className)}>
       <Link
         to={ROUTES.HOME}
         className={styles.logoLink}
