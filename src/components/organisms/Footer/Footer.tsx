@@ -29,44 +29,50 @@ export const Footer = ({ className }: Props) => {
   };
 
   return (
-    <div className={classNames(styles.container, className)}>
-      <Link to={ROUTES.HOME}>
-        <Logo
-          size="big"
-          className={styles.logo}
-        />
-      </Link>
+    <div className={classNames(styles.wrapper, className)}>
+      <div className={styles.container}>
+        <div className={styles.itemContainer}>
+          <Link to={ROUTES.HOME}>
+            <Logo
+              size="big"
+              className={styles.logo}
+            />
+          </Link>
+        </div>
 
-      <div className={styles.menu}>
-        {menuItems.map(({ id, label, to }) => (
-          <a
-            href={to}
-            key={id}
+        <div className={classNames(styles.menu, styles.itemContainer)}>
+          {menuItems.map(({ id, label, to }) => (
+            <a
+              href={to}
+              key={id}
+            >
+              <Typography
+                className={styles.typo}
+                variant="uppercase"
+              >
+                {label}
+              </Typography>
+            </a>
+          ))}
+        </div>
+
+        <div className={styles.itemContainer}>
+          <div
+            className={classNames(styles.button_top)}
+            onClick={scrollToTop}
           >
             <Typography
               className={styles.typo}
-              variant="uppercase"
+              variant="smalltext"
             >
-              {label}
+              Back to top
             </Typography>
-          </a>
-        ))}
-      </div>
-
-      <div
-        className={styles.button_top}
-        onClick={scrollToTop}
-      >
-        <Typography
-          className={styles.typo}
-          variant="smalltext"
-        >
-          Back to top
-        </Typography>
-        <ArrowButton
-          className={styles.arrowbutton}
-          direction="up"
-        />
+            <ArrowButton
+              className={styles.arrowbutton}
+              direction="up"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
