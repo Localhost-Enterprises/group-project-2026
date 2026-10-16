@@ -4,13 +4,17 @@ import type { Tablet } from '@/shared/types/Tablet';
 import type { Accessory } from '@/shared/types/Accessory';
 
 export const getProductSpecs = (product: Phone | Tablet | Accessory) => {
+  const commonSpecs = [
+    { specName: 'Screen', specText: product.screen },
+    { specName: 'Resolution', specText: product.resolution },
+    { specName: 'Processor', specText: product.processor },
+    { specName: 'RAM', specText: product.ram },
+  ];
+
   switch (product.category) {
     case Category.PHONES:
       return [
-        { specName: 'Screen', specText: product.screen },
-        { specName: 'Resolution', specText: product.resolution },
-        { specName: 'Processor', specText: product.processor },
-        { specName: 'RAM', specText: product.ram },
+        ...commonSpecs,
         { specName: 'Camera', specText: product.camera },
         { specName: 'Zoom', specText: product.zoom },
         { specName: 'Cell', specText: product.cell.join(', ') },
@@ -18,15 +22,12 @@ export const getProductSpecs = (product: Phone | Tablet | Accessory) => {
 
     case Category.TABLETS:
       return [
-        { specName: 'Screen', specText: product.screen },
-        { specName: 'Resolution', specText: product.resolution },
-        { specName: 'Processor', specText: product.processor },
-        { specName: 'RAM', specText: product.ram },
+        ...commonSpecs,
         { specName: 'Camera', specText: product.camera },
         { specName: 'Zoom', specText: product.zoom },
       ];
 
     case Category.ACCESSORIES:
-      return [{ specName: 'Color', specText: product.color }];
+      return [...commonSpecs, { specName: 'Color', specText: product.color }];
   }
 };

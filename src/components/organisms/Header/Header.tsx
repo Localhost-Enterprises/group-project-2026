@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import styles from './Header.module.scss';
 import { Logo } from '@/components/atoms/Logo';
@@ -19,6 +19,12 @@ type Props = {
 export const Header = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartQuantity = useCartStore(selectCartCount);
+  const location = useLocation();
+  const previousFrom = location.state?.from;
+  const cartFrom =
+    location.pathname === ROUTES.CART && typeof previousFrom === 'string' ?
+      previousFrom
+    : `${location.pathname}${location.search}`;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -73,6 +79,7 @@ export const Header = ({ className }: Props) => {
         </NavLink>
         <NavLink
           to={ROUTES.CART}
+          state={{ from: cartFrom }}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
@@ -131,6 +138,7 @@ export const Header = ({ className }: Props) => {
           </NavLink>
           <NavLink
             to={ROUTES.CART}
+            state={{ from: cartFrom }}
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
