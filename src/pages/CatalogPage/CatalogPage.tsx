@@ -27,6 +27,7 @@ type Props = Pick<
 
 export const CatalogPage = () => {
   const [items, setItems] = useState<Props[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { pathname } = useLocation();
 
   const [searchParams] = useSearchParams();
@@ -50,15 +51,6 @@ export const CatalogPage = () => {
     });
   }, [items, sortBy]);
 
-  useEffect(() => {
-    GetData('products').then((data) => {
-      const filtered = (data as Props[]).filter(
-        (item) => item.category === title,
-      );
-      setItems(filtered);
-    });
-  }, [title]);
-
   const isValidCategory = Object.values(Category).some(
     (category) => category === title,
   );
@@ -66,18 +58,27 @@ export const CatalogPage = () => {
   useEffect(() => {
     if (!isValidCategory) return;
 
+    let isCurrent = true;
+
     GetData('products').then((data) => {
+      if (!isCurrent) return;
+
       const filtered = (data as Props[]).filter(
         (item) => item.category === title,
       );
 
       setItems(filtered);
+      setIsLoading(false);
     });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [title, isValidCategory]);
 
   if (!isValidCategory) {
     return <NotFoundPage />;
   }
 
-  return <CatalogTemplate data={{ items: sortedItems, title }} />;
+  return <CatalogTemplate data={{ items: sortedItems, title, isLoading }} />;
 };

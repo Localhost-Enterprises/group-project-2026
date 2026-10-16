@@ -24,6 +24,7 @@ type CatalogProduct = Pick<
 export interface CatalogTemplateData {
   items: CatalogProduct[];
   title: string;
+  isLoading: boolean;
 }
 
 export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
@@ -41,22 +42,31 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
       </Typography>
       <CatalogFilter />
       <div className={styles.content}>
-        {data.items.map((item) => (
-          <ProductCard
-            className={styles.card}
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            images={item.fullImageUrls}
-            price={item.price}
-            fullPrice={item.fullPrice}
-            screen={item.screen}
-            capacity={item.capacity}
-            ram={item.ram}
-            item_id={item.item_id}
-            category={item.category}
-          />
-        ))}
+        {data.isLoading &&
+          Array.from({ length: 8 }, (_, index) => (
+            <ProductCard
+              className={styles.card}
+              key={`skeleton-${index}`}
+              isLoading
+            />
+          ))}
+        {!data.isLoading &&
+          data.items.map((item) => (
+            <ProductCard
+              className={styles.card}
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              images={item.fullImageUrls}
+              price={item.price}
+              fullPrice={item.fullPrice}
+              screen={item.screen}
+              capacity={item.capacity}
+              ram={item.ram}
+              item_id={item.item_id}
+              category={item.category}
+            />
+          ))}
       </div>
     </div>
   );

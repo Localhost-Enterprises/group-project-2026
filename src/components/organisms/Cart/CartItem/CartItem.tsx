@@ -12,6 +12,8 @@ import {
   useCartStore,
 } from '@/entities/cart';
 import { ProductLink } from '../../Product/ProductLink';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export type CartItemProduct = {
   itemId: string;
@@ -20,13 +22,43 @@ export type CartItemProduct = {
   price: number;
 };
 
-type Props = {
-  product: Product & { quantity: number };
-};
+type Props =
+  | { product: Product & { quantity: number }; isLoading?: false }
+  | { product?: never; isLoading: true };
 
-export const CartItem = ({ product }: Props) => {
+export const CartItem = (props: Props) => {
   const updateQuantity = useCartStore(selectUpdateQuantity);
   const removeItem = useCartStore(selectRemoveItem);
+  if (props.isLoading) {
+    return (
+      <div
+        className={styles.container}
+        aria-busy="true"
+        aria-label="Loading cart item"
+      >
+        <Skeleton
+          width={32}
+          height={32}
+        />
+        <Skeleton className={styles.image} />
+        <Skeleton className={styles.name} />
+        <div className={styles.bottomRow}>
+          <div className={styles.count}>
+            <Skeleton
+              width={120}
+              height={32}
+            />
+          </div>
+          <Skeleton
+            className={styles.price}
+            height={24}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  const { product } = props;
 
   const onCountChange = (count: number) => updateQuantity(product.id, count);
   const handleRemove = () => removeItem(product.id);
