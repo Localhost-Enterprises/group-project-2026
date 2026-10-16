@@ -30,6 +30,7 @@ export const ProductLoadingSkeleton = () => (
       <div className={styles.slider}>
         <Skeleton
           width="100%"
+          count={1}
           height={288}
         />
       </div>
@@ -38,18 +39,16 @@ export const ProductLoadingSkeleton = () => (
         <Skeleton
           width="50%"
           height={28}
+          style={{ marginBottom: 16 }}
         />
         <Skeleton
           width="35%"
           height={24}
+          style={{ marginBottom: 16 }}
         />
         <Skeleton
-          width="100%"
-          height={40}
-        />
-        <Skeleton
-          count={4}
-          height={20}
+          count={1}
+          height={60}
         />
       </div>
     </div>
@@ -57,21 +56,23 @@ export const ProductLoadingSkeleton = () => (
       <Skeleton
         width="40%"
         height={28}
+        style={{ marginBottom: 16 }}
       />
       <Skeleton
-        count={4}
-        height={20}
+        count={1}
+        height={30}
       />
     </section>
     <span className={styles.separator} />
     <section className={styles.secondSection}>
       <Skeleton
         width="45%"
-        height={28}
+        height={40}
+        style={{ marginBottom: 16 }}
       />
       <Skeleton
-        count={5}
-        height={20}
+        count={1}
+        height={30}
       />
     </section>
   </div>
