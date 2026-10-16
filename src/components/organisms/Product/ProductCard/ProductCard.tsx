@@ -89,24 +89,23 @@ export const ProductCard = (props: Props) => {
 
   return (
     <article className={classNames(styles.card, className)}>
-      <ProductLink
-        category={category}
-        itemId={item_id}
+      <Typography
+        variant="bodytext"
+        as="h3"
+        className={styles.title}
       >
-        <img
-          className={styles.image}
-          src={images[0] || 'https://placehold.co/500x500'}
-          alt={name}
-        />
-
-        <Typography
-          variant="bodytext"
-          as="h3"
-          className={styles.title}
+        <ProductLink
+          category={category}
+          itemId={item_id}
         >
+          <img
+            className={styles.image}
+            src={images[0] || 'https://placehold.co/500x500'}
+            alt={name}
+          />
           {name}
-        </Typography>
-      </ProductLink>
+        </ProductLink>
+      </Typography>
 
       <div className={styles.prices}>
         <Typography
