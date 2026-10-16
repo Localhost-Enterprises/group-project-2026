@@ -44,13 +44,13 @@ export const CatalogPage = () => {
     return <NotFoundPage />;
   }
 
-  if (isPending) {
-    return <h2>Loading products</h2>;
-  }
-
   if (isError) {
     return <h2>Product error</h2>;
   }
 
-  return <CatalogTemplate data={{ items: sortedItems, title }} />;
+  return (
+    <CatalogTemplate
+      data={{ items: sortedItems, title, isLoading: isPending }}
+    />
+  );
 };
