@@ -10,7 +10,18 @@ export const CartContent = ({ data }: { data: CartContentData }) => {
   }
 
   if (data.items.length > 0 && data.isPending) {
-    return <Typography variant="h3">Loading...</Typography>;
+    return (
+      <div className={styles.content}>
+        <div className={styles.items}>
+          {data.items.map((item) => (
+            <CartItem
+              key={item.productId}
+              isLoading
+            />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (data.isError) {
