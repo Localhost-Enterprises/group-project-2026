@@ -1,3 +1,4 @@
+@use '@/app/styles/mixins' as *;
 @use '@/app/styles/colors' as *;
 
 .section {
@@ -37,6 +38,14 @@
 }
 
 .item {
-  flex: 0 0 auto;
+  flex: 0 0 212px;
   scroll-snap-align: start;
+
+  @include on('tablet') {
+    flex-basis: 237px;
+  }
+
+  @include on('desktop') {
+    flex-basis: 276px;
+  }
 }

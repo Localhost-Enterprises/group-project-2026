@@ -8,7 +8,7 @@
   width: 100%;
   padding: 32px;
   border: 1px solid $elements;
-  min-height: 439px;
+  height: 439px;
 
   .image {
     display: block;
@@ -113,5 +113,13 @@
     width: 40px;
     height: 40px;
     flex-shrink: 0;
+  }
+
+  @include on('tablet') {
+    height: 512px;
+  }
+
+  @include on('desktop') {
+    height: 506px;
   }
 }
