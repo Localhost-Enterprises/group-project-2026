@@ -60,7 +60,7 @@ export const Breadcrumbs = ({ className }: Props) => {
                   cn(styles.itemLink, { [styles.active]: isLast })
                 }
               >
-                {part}
+                {part[0].toUpperCase() + part.slice(1)}
               </NavLink>
             </Fragment>
           );

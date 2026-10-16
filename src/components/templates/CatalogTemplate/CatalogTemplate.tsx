@@ -5,21 +5,7 @@ import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography';
 
-type CatalogProduct = Pick<
-  Product,
-  | 'id'
-  | 'name'
-  | 'images'
-  | 'price'
-  | 'fullPrice'
-  | 'screen'
-  | 'capacity'
-  | 'ram'
-  | 'item_id'
-  | 'category'
-> & {
-  fullImageUrls: string[];
-};
+type CatalogProduct = Product;
 
 export interface CatalogTemplateData {
   items: CatalogProduct[];
@@ -31,7 +17,9 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
     <div className={styles.container}>
       <Breadcrumbs className={styles.breadcrumbs} />
       <h1 className={styles.title}>
-        {data.title === 'phones' ? 'Mobile phones' : data.title}
+        {data.title === 'phones' ?
+          'Mobile phones'
+        : data.title[0].toUpperCase() + data.title.slice(1)}
       </h1>
       <Typography
         className={styles.modelsCount}
@@ -47,7 +35,7 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
             key={item.id}
             id={item.id}
             name={item.name}
-            images={item.fullImageUrls}
+            images={item.imageUrls || item.images}
             price={item.price}
             fullPrice={item.fullPrice}
             screen={item.screen}
