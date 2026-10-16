@@ -15,6 +15,7 @@ type ProductProps = Pick<
   | 'id'
   | 'name'
   | 'images'
+  | 'imageUrls'
   | 'price'
   | 'fullPrice'
   | 'screen'
@@ -78,6 +79,7 @@ export const ProductCard = (props: Props) => {
     category,
     name,
     images,
+    imageUrls,
     price,
     fullPrice,
     screen,
@@ -95,7 +97,7 @@ export const ProductCard = (props: Props) => {
       >
         <img
           className={styles.image}
-          src={images[0] || 'https://placehold.co/500x500'}
+          src={imageUrls?.[0] || images[0] || 'https://placehold.co/500x500'}
           alt={name}
         />
       </ProductLink>
