@@ -79,6 +79,7 @@ export const ProductCard = (props: Props) => {
     category,
     name,
     images,
+    imageUrls,
     price,
     fullPrice,
     screen,
