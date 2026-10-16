@@ -1,3 +1,12 @@
+import { NotFoundTemplate } from '@/components/templates/NotFoundTemplate';
+
+import pageNotFoundImage from '/img/page-not-found.png';
+
 export const NotFoundPage = () => {
-  return <h1>Not Found Page</h1>;
+  return (
+    <NotFoundTemplate
+      title="Page Not Found"
+      image={pageNotFoundImage}
+    />
+  );
 };
