@@ -2,13 +2,13 @@ import { Typography } from '@/components/atoms/Typography';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { IconButton } from '@/components/molecules';
 import styles from './ProductCard.module.scss';
-import { useState } from 'react';
 import type { Product } from '@/shared/types';
 import { AddToCartButton } from '@/features/add-to-cart';
 import { ProductLink } from '../ProductLink';
 import classNames from 'classnames';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useFavouritesStore } from '@/entities/favourites';
 
 type ProductProps = Pick<
   Product,
@@ -27,7 +27,9 @@ type ProductProps = Pick<
 type Props = ProductProps | { className: string; isLoading: true };
 
 export const ProductCard = (props: Props) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const cardId = 'isLoading' in props ? 0 : props.id;
+  const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
+  const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
   if (props.isLoading) {
     return (
@@ -158,7 +160,7 @@ export const ProductCard = (props: Props) => {
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => setIsFavourite(!isFavourite)}
+          onClick={() => toggleFavourite(props)}
           aria-label={
             isFavourite ? 'Remove from favourites' : 'Add to favourites'
           }
