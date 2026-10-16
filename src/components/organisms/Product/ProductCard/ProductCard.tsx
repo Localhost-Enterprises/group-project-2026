@@ -89,6 +89,17 @@ export const ProductCard = (props: Props) => {
 
   return (
     <article className={classNames(styles.card, className)}>
+      <ProductLink
+        category={category}
+        itemId={item_id}
+      >
+        <img
+          className={styles.image}
+          src={images[0] || 'https://placehold.co/500x500'}
+          alt={name}
+        />
+      </ProductLink>
+
       <Typography
         variant="bodytext"
         as="h3"
@@ -98,11 +109,6 @@ export const ProductCard = (props: Props) => {
           category={category}
           itemId={item_id}
         >
-          <img
-            className={styles.image}
-            src={images[0] || 'https://placehold.co/500x500'}
-            alt={name}
-          />
           {name}
         </ProductLink>
       </Typography>
