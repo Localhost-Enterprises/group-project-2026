@@ -1,7 +1,11 @@
 import styles from './ProductTemplate.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 
-import { ProductPurchase, ProductSlider } from '@/components/organisms';
+import {
+  Breadcrumbs,
+  ProductPurchase,
+  ProductSlider,
+} from '@/components/organisms';
 
 import { ProductSection } from '@/components/organisms/Product/ProductSection';
 import { ProductDescription } from '@/components/organisms/Product/ProductDescription';
@@ -21,6 +25,7 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
   const specs = getProductSpecs(productDetails);
   return (
     <div className={styles.container}>
+      <Breadcrumbs className={styles.breadcrumbs} />
       <BackButton
         className={styles.backButton}
         fallback={`/${product.category}`}
