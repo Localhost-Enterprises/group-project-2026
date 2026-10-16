@@ -98,15 +98,20 @@ export const ProductCard = (props: Props) => {
           src={images[0] || 'https://placehold.co/500x500'}
           alt={name}
         />
+      </ProductLink>
 
-        <Typography
-          variant="bodytext"
-          as="h3"
-          className={styles.title}
+      <Typography
+        variant="bodytext"
+        as="h3"
+        className={styles.title}
+      >
+        <ProductLink
+          category={category}
+          itemId={item_id}
         >
           {name}
-        </Typography>
-      </ProductLink>
+        </ProductLink>
+      </Typography>
 
       <div className={styles.prices}>
         <Typography
