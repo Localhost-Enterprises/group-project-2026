@@ -36,8 +36,6 @@ export const CatalogPage = () => {
           return second.price - first.price;
         case 'Newest':
           return second.year - first.year;
-        default:
-          return 0;
       }
     });
   }, [items, sortBy]);
