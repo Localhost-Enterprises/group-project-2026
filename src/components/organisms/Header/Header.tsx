@@ -128,7 +128,7 @@ export const Header = ({ className }: Props) => {
 
         <div className={styles.mobileActions}>
           <NavLink
-            to="/favorites"
+            to={ROUTES.FAVOURITES}
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
