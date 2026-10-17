@@ -20,10 +20,7 @@ export const FavouritesTemplate = () => {
           key={item.id}
           className={styles.item}
         >
-          <ProductCard
-            {...item}
-            className={' '}
-          />
+          <ProductCard product={item} />
         </div>
       ))}
     </div>

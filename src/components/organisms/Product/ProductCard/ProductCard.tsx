@@ -10,32 +10,28 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useFavouritesStore } from '@/entities/favourites';
 
-type ProductProps = Pick<
-  Product,
-  | 'id'
-  | 'name'
-  | 'images'
-  | 'imageUrls'
-  | 'price'
-  | 'fullPrice'
-  | 'screen'
-  | 'capacity'
-  | 'ram'
-  | 'item_id'
-  | 'category'
-> & { className: string; isLoading?: false };
+type Props = (
+  | {
+      product: Product;
+      isLoading?: never;
+    }
+  | {
+      product?: never;
+      isLoading: true;
+    }
+) & {
+  className?: string;
+};
 
-type Props = ProductProps | { className: string; isLoading: true };
-
-export const ProductCard = (props: Props) => {
-  const cardId = 'isLoading' in props ? 0 : props.id;
+export const ProductCard = ({ product, isLoading, className }: Props) => {
+  const cardId = isLoading ? 0 : product.id;
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
-  if (props.isLoading) {
+  if (isLoading) {
     return (
       <article
-        className={classNames(styles.card, props.className)}
+        className={classNames(styles.card, className)}
         aria-busy="true"
         aria-label="Loading product"
       >
@@ -76,31 +72,20 @@ export const ProductCard = (props: Props) => {
     );
   }
 
-  const {
-    id,
-    category,
-    name,
-    images,
-    imageUrls,
-    price,
-    fullPrice,
-    screen,
-    capacity,
-    ram,
-    item_id,
-    className,
-  } = props;
-
   return (
     <article className={classNames(styles.card, className)}>
       <ProductLink
-        category={category}
-        itemId={item_id}
+        category={product.category}
+        itemId={product.item_id}
       >
         <img
           className={styles.image}
-          src={imageUrls?.[0] || images[0] || 'https://placehold.co/500x500'}
-          alt={name}
+          src={
+            product.imageUrls?.[0] ||
+            product.images[0] ||
+            'https://placehold.co/500x500'
+          }
+          alt={product.name}
         />
       </ProductLink>
 
@@ -110,10 +95,10 @@ export const ProductCard = (props: Props) => {
         className={styles.title}
       >
         <ProductLink
-          category={category}
-          itemId={item_id}
+          category={product.category}
+          itemId={product.item_id}
         >
-          {name}
+          {product.name}
         </ProductLink>
       </Typography>
 
@@ -122,16 +107,16 @@ export const ProductCard = (props: Props) => {
           variant="h3"
           as="span"
         >
-          ${price}
+          ${product.price}
         </Typography>
 
-        {fullPrice && (
+        {product.fullPrice && (
           <Typography
             variant="bodytext"
             as="span"
             className={styles.oldPrice}
           >
-            <span className={styles.oldPriceValue}>${fullPrice}</span>
+            <span className={styles.oldPriceValue}>${product.fullPrice}</span>
           </Typography>
         )}
       </div>
@@ -140,29 +125,59 @@ export const ProductCard = (props: Props) => {
 
       <div className={styles.specs}>
         <div className={styles.specRow}>
-          <Typography variant="smalltext">Screen</Typography>
-          <Typography variant="smalltext">{screen}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            Screen
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {product.screen}
+          </Typography>
         </div>
 
         <div className={styles.specRow}>
-          <Typography variant="smalltext">Capacity</Typography>
-          <Typography variant="smalltext">{capacity}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            Capacity
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {product.capacity}
+          </Typography>
         </div>
 
         <div className={styles.specRow}>
-          <Typography variant="smalltext">RAM</Typography>
-          <Typography variant="smalltext">{ram}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            RAM
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {product.ram}
+          </Typography>
         </div>
       </div>
 
       <div className={styles.actions}>
-        <AddToCartButton productId={id} />
+        <AddToCartButton productId={product.id} />
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => toggleFavourite(props)}
+          onClick={() => toggleFavourite(product)}
           aria-label={
             isFavourite ? 'Remove from favourites' : 'Add to favourites'
           }
