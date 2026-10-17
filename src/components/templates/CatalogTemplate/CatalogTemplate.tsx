@@ -4,6 +4,7 @@ import type { Product } from '@/shared/types/Product';
 import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography';
+import { CatalogPagination } from '@/components/organisms/CatalogPagination/CatalogPagination';
 
 type CatalogProduct = Product;
 
@@ -12,22 +13,38 @@ export interface CatalogTemplateData {
   title: string;
 }
 
-export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
+type Props = {
+  data: CatalogTemplateData;
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+};
+
+export const CatalogTemplate = ({
+  data,
+  currentPage,
+  totalPages,
+  onPageChange,
+}: Props) => {
   return (
     <div className={styles.container}>
       <Breadcrumbs className={styles.breadcrumbs} />
+
       <h1 className={styles.title}>
         {data.title === 'phones' ?
           'Mobile phones'
         : data.title[0].toUpperCase() + data.title.slice(1)}
       </h1>
+
       <Typography
         className={styles.modelsCount}
         variant="bodytext"
       >
         {data.items.length} models
       </Typography>
+
       <CatalogFilter />
+
       <div className={styles.content}>
         {data.items.map((item) => (
           <ProductCard
@@ -46,6 +63,12 @@ export const CatalogTemplate = ({ data }: { data: CatalogTemplateData }) => {
           />
         ))}
       </div>
+
+      <CatalogPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

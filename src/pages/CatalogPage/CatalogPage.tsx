@@ -8,7 +8,7 @@ import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/Catal
 
 export const CatalogPage = () => {
   const { catalogSlug } = useParams<'catalogSlug'>();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const title = catalogSlug || '';
 
@@ -40,6 +40,24 @@ export const CatalogPage = () => {
     });
   }, [items, sortBy]);
 
+  const itemsPerPage = Number(searchParams.get('perPage')) || 16;
+  const currentPage = Number(searchParams.get('page')) || 1;
+
+  const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
+
+  const visibleItems = sortedItems.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.set('page', String(page));
+
+    setSearchParams(params);
+  };
+
   if (!isValidCategory) {
     return <NotFoundPage />;
   }
@@ -52,5 +70,12 @@ export const CatalogPage = () => {
     return <h2>Product error</h2>;
   }
 
-  return <CatalogTemplate data={{ items: sortedItems, title }} />;
+  return (
+    <CatalogTemplate
+      data={{ items: visibleItems, title }}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+    />
+  );
 };
