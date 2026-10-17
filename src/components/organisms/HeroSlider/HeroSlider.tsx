@@ -26,11 +26,12 @@ import { Link } from 'react-router-dom';
 import { OKIcon } from '@/components/atoms/Icons/OKIcon';
 import { routePaths } from '@/app/router/routes';
 
-export const HeroSlider = ({ data }: { data: HeroSliderData }) => {
+type Props = { data: HeroSliderData; className?: string };
+export const HeroSlider = ({ data, className }: Props) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <section className={styles.container}>
+    <section className={classNames(styles.container, className)}>
       <div className={styles.content}>
         <ArrowButton
           direction="left"

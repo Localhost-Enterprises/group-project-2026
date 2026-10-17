@@ -11,8 +11,11 @@ import { ProductCard } from '../ProductCard';
 
 import styles from './ProductsSlider.module.scss';
 import type { ProductsSlidesData } from './ProductsSlider.types';
+import classNames from 'classnames';
 
-export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
+type Props = { data: ProductsSlidesData; className?: string };
+
+export const ProductsSlider = ({ data, className }: Props) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const [isBeginning, setIsBeginning] = useState(true);
@@ -43,7 +46,7 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
       ));
 
   return (
-    <section className={styles.container}>
+    <section className={classNames(styles.container, className)}>
       <div className={styles.header}>
         <Typography variant="h2">{data.sectionTitle}</Typography>
 

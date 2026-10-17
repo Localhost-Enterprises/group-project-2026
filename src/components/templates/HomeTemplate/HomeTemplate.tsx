@@ -23,10 +23,22 @@ export const HomeTemplate = ({ data }: { data: Data }) => {
       </Typography>
 
       <div className={styles.content}>
-        <HeroSlider data={heroSlider} />
-        <ProductsSlider data={brandNewModels} />
-        <ShopByCategory data={shopByCategory} />
-        <ProductsSlider data={hotPrices} />
+        <HeroSlider
+          data={heroSlider}
+          className={styles.slider}
+        />
+        <ProductsSlider
+          data={brandNewModels}
+          className={styles.brandNewModels}
+        />
+        <ShopByCategory
+          data={shopByCategory}
+          className={styles.shopByCategory}
+        />
+        <ProductsSlider
+          data={hotPrices}
+          className={styles.hotPrices}
+        />
       </div>
     </main>
   );

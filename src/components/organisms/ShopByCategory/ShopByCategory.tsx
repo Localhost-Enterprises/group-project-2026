@@ -3,10 +3,13 @@ import styles from './ShopByCategory.module.scss';
 
 import { Typography } from '@/components/atoms/Typography';
 import type { ShopByCategoryData } from './ShopByCategory.types';
+import classNames from 'classnames';
 
-export const ShopByCategory = ({ data }: { data: ShopByCategoryData }) => {
+type Props = { data: ShopByCategoryData; className?: string };
+
+export const ShopByCategory = ({ data, className }: Props) => {
   return (
-    <section className={styles.section}>
+    <section className={classNames(styles.section, className)}>
       <Typography
         variant="h2"
         className={styles.title}

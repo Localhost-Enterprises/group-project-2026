@@ -13,6 +13,7 @@ import AccesoriesImage from '@/shared/assets/images/category-accesories.png';
 import { useProducts } from '@/entities/product/model/product.queries';
 import { getBrandNewModels } from './lib/getBrandModels';
 import { getHotPrices } from './lib/getHotPrices';
+import { useEffect } from 'react';
 
 const heroSliderData: HeroSliderData = {
   sliderTitle: 'Now available in our store!',
@@ -36,6 +37,10 @@ const heroSliderData: HeroSliderData = {
 };
 
 export const HomePage = () => {
+  useEffect(() => {
+    document.title = 'Home | NICE GADGETS';
+  }, []);
+
   const { data: products = [], isPending } = useProducts();
 
   const phonesCount = products.filter(

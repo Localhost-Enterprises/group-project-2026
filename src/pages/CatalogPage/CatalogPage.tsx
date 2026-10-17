@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { NotFoundPage } from '../NotFoundPage';
 import { useProducts } from '@/entities/product/model/product.queries';
@@ -11,6 +11,10 @@ export const CatalogPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const title = catalogSlug || '';
+
+  useEffect(() => {
+    document.title = `${title[0].toUpperCase() + title.slice(1).toLowerCase()} | NICE GADGETS`;
+  }, [title]);
 
   const { data: products, isPending, isError } = useProducts();
 

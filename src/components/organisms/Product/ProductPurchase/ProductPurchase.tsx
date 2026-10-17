@@ -13,7 +13,7 @@ import type { Accessory, Phone, Product, Tablet } from '@/shared/types';
 import type { Category } from '@/shared/types/Category';
 
 import { getProductColor } from '@/shared/constants/productColors';
-import { AddToCartButton } from '@/features/add-to-cart/ui/AddToCartbutton';
+import { AddToCartButton } from '@/features/add-to-cart/ui/AddToCartButton';
 
 import { routePaths } from '@/app/router/routes';
 import { productApi } from '@/entities/product/product.api';

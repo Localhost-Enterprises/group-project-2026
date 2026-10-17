@@ -5,18 +5,20 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 16px;
 
-  @include on('tablet') {
-    margin-bottom: 64px;
-  }
-
   @include on('desktop') {
     grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
     align-items: start;
     gap: 16px;
-    margin-bottom: 80px;
   }
 }
 
 .items {
   min-width: 0;
+}
+
+.emptyCart {
+  display: block;
+  max-width: 50%;
+  justify-self: center;
+  margin-top: 20px;
 }

@@ -4,9 +4,17 @@
   grid-column: 1 / -1;
   width: 100%;
   min-width: 0;
-  margin-bottom: 56px;
 
   padding-top: 24px;
+
+  padding-bottom: 56px;
+  @include on('tablet') {
+    padding-bottom: 64px;
+  }
+
+  @include on('desktop') {
+    padding-bottom: 80px;
+  }
 }
 
 .backButton {
@@ -20,8 +28,4 @@
     margin-top: 40px;
     margin-bottom: 16px;
   }
-}
-
-.cart {
-  margin-bottom: 32px;
 }

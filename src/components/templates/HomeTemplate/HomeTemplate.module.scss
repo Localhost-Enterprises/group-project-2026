@@ -4,19 +4,32 @@
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
+  height: min-content;
+
+  padding-top: 24px;
+  padding-bottom: 64px;
+
+  @include on('tablet') {
+    padding-top: 32px;
+  }
+
+  @include on('desktop') {
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
 }
 
 .title {
   grid-column: 1 / -1;
 
-  padding-block: 24px;
+  margin-bottom: 24px;
 
   @include on('tablet') {
-    padding-block: 32px;
+    margin-bottom: 32px;
   }
 
   @include on('desktop') {
-    padding-block: 56px;
+    margin-bottom: 56px;
   }
 }
 
@@ -26,7 +39,6 @@
   grid-column: 1 / -1;
 
   row-gap: 56px;
-  margin-bottom: 64px;
 
   @include on('tablet') {
     row-gap: 64px;
@@ -34,6 +46,5 @@
 
   @include on('desktop') {
     row-gap: 80px;
-    margin-bottom: 80px;
   }
 }
