@@ -15,6 +15,7 @@ import type { Accessory, Phone, Product, Tablet } from '@/shared/types';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import type { WithImageUrls } from '@/shared/types/WithImageUrls';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
+import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
 
 type Props = {
   product: WithImageUrls<Product>;
@@ -72,6 +73,11 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
       >
         <ProductSpecs specs={specs} />
       </ProductSection>
+
+      <YouMayAlsoLike
+        category={product.category}
+        currentProductId={product.id}
+      />
     </div>
   );
 };
