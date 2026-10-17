@@ -1,4 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
+
+import 'swiper/css';
 
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
@@ -8,64 +13,84 @@ import styles from './ProductsSlider.module.scss';
 import type { ProductsSlidesData } from './ProductsSlider.types';
 
 export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const updateNavigation = (swiper: SwiperType) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
 
   const productCards =
     data.isLoading ?
       Array.from({ length: 4 }, (_, index) => (
-        <div
+        <SwiperSlide
           className={styles.item}
           key={`skeleton-${index}`}
         >
-          <ProductCard
-            className=""
-            isLoading
-          />
-        </div>
+          <ProductCard isLoading />
+        </SwiperSlide>
       ))
     : data.productCards.map(({ id, ...product }) => (
-        <div
+        <SwiperSlide
           className={styles.item}
           key={id}
         >
           <ProductCard
             id={id}
             {...product}
-            className=""
           />
-        </div>
+        </SwiperSlide>
       ));
 
-  const handleScroll = (direction: number) => {
-    sliderRef.current?.scrollBy({
-      left: direction * sliderRef.current.clientWidth,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <section className={styles.section}>
+    <section className={styles.container}>
       <div className={styles.header}>
         <Typography variant="h2">{data.sectionTitle}</Typography>
 
-        <div className={styles.arrows}>
+        <div className={styles.arrowButton}>
           <ArrowButton
             direction="left"
-            onClick={() => handleScroll(-1)}
+            disabled={isBeginning}
+            onClick={() => swiperRef.current?.slidePrev()}
           />
 
           <ArrowButton
             direction="right"
-            onClick={() => handleScroll(1)}
+            disabled={isEnd}
+            onClick={() => swiperRef.current?.slideNext()}
           />
         </div>
       </div>
 
-      <div
-        className={styles.track}
-        ref={sliderRef}
-      >
-        {productCards}
+      <div className={styles.track}>
+        <Swiper
+          className={styles.swiper}
+          slidesPerView={1.2}
+          spaceBetween={16}
+          breakpoints={{
+            640: {
+              slidesPerView: 2.3,
+            },
+            1200: {
+              slidesPerView: 4,
+            },
+          }}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            updateNavigation(swiper);
+          }}
+          onSlideChange={updateNavigation}
+          onReachBeginning={updateNavigation}
+          onReachEnd={updateNavigation}
+          onFromEdge={updateNavigation}
+          onResize={updateNavigation}
+          onUpdate={updateNavigation}
+        >
+          {productCards}
+        </Swiper>
       </div>
     </section>
   );

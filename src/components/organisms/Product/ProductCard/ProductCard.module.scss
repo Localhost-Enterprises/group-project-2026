@@ -90,18 +90,21 @@
 
   .specRow {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 16px;
+  }
 
-    > :first-child {
-      color: $secondary;
-      font-weight: 400;
-    }
+  .propName {
+    color: $secondary;
+    font-weight: 400;
+  }
 
-    > :last-child {
-      max-width: 100px;
-      color: $primary;
-    }
+  .propText {
+    flex: 1;
+    color: $primary;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-align: right;
   }
 
   .actions {

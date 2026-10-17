@@ -10,25 +10,17 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useFavouritesStore } from '@/entities/favourites';
 
-type ProductProps = Pick<
-  Product,
-  | 'id'
-  | 'name'
-  | 'images'
-  | 'imageUrls'
-  | 'price'
-  | 'fullPrice'
-  | 'screen'
-  | 'capacity'
-  | 'ram'
-  | 'item_id'
-  | 'category'
-> & { className: string; isLoading?: false };
-
-type Props = ProductProps | { className: string; isLoading: true };
+type Props = (
+  | (Product & { isLoading?: never })
+  | ({ isLoading: true } & {
+      [K in keyof Product]?: never;
+    })
+) & {
+  className?: string;
+};
 
 export const ProductCard = (props: Props) => {
-  const cardId = 'isLoading' in props ? 0 : props.id;
+  const cardId = props.isLoading ? 0 : props.id;
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
@@ -76,31 +68,20 @@ export const ProductCard = (props: Props) => {
     );
   }
 
-  const {
-    id,
-    category,
-    name,
-    images,
-    imageUrls,
-    price,
-    fullPrice,
-    screen,
-    capacity,
-    ram,
-    item_id,
-    className,
-  } = props;
-
   return (
-    <article className={classNames(styles.card, className)}>
+    <article className={classNames(styles.card, props.className)}>
       <ProductLink
-        category={category}
-        itemId={item_id}
+        category={props.category}
+        itemId={props.item_id}
       >
         <img
           className={styles.image}
-          src={imageUrls?.[0] || images[0] || 'https://placehold.co/500x500'}
-          alt={name}
+          src={
+            props.imageUrls?.[0] ||
+            props.images[0] ||
+            'https://placehold.co/500x500'
+          }
+          alt={props.name}
         />
       </ProductLink>
 
@@ -110,10 +91,10 @@ export const ProductCard = (props: Props) => {
         className={styles.title}
       >
         <ProductLink
-          category={category}
-          itemId={item_id}
+          category={props.category}
+          itemId={props.item_id}
         >
-          {name}
+          {props.name}
         </ProductLink>
       </Typography>
 
@@ -122,16 +103,16 @@ export const ProductCard = (props: Props) => {
           variant="h3"
           as="span"
         >
-          ${price}
+          ${props.price}
         </Typography>
 
-        {fullPrice && (
+        {props.fullPrice && (
           <Typography
             variant="bodytext"
             as="span"
             className={styles.oldPrice}
           >
-            <span className={styles.oldPriceValue}>${fullPrice}</span>
+            <span className={styles.oldPriceValue}>${props.fullPrice}</span>
           </Typography>
         )}
       </div>
@@ -140,23 +121,53 @@ export const ProductCard = (props: Props) => {
 
       <div className={styles.specs}>
         <div className={styles.specRow}>
-          <Typography variant="smalltext">Screen</Typography>
-          <Typography variant="smalltext">{screen}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            Screen
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {props.screen}
+          </Typography>
         </div>
 
         <div className={styles.specRow}>
-          <Typography variant="smalltext">Capacity</Typography>
-          <Typography variant="smalltext">{capacity}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            Capacity
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {props.capacity}
+          </Typography>
         </div>
 
         <div className={styles.specRow}>
-          <Typography variant="smalltext">RAM</Typography>
-          <Typography variant="smalltext">{ram}</Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propName}
+          >
+            RAM
+          </Typography>
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {props.ram}
+          </Typography>
         </div>
       </div>
 
       <div className={styles.actions}>
-        <AddToCartButton productId={id} />
+        <AddToCartButton productId={props.id} />
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
