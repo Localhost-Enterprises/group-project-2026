@@ -19,14 +19,16 @@ export const FavouritesTemplate = () => {
         <p className={styles.count}>{`${count} ${itemText}`}</p>
       </div>
 
-      {favourites.map((item) => (
-        <div
-          key={item.id}
-          className={styles.item}
-        >
-          <ProductCard product={item} />
-        </div>
-      ))}
+      <div className={styles.cartGrid}>
+        {favourites.map((item) => (
+          <div
+            key={item.id}
+            className={styles.item}
+          >
+            <ProductCard product={item} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
