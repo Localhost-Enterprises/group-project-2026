@@ -2,6 +2,7 @@ import { ProductCard } from '@/components/organisms/Product/ProductCard/';
 import styles from './FavouritesTemplate.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { useFavouritesStore } from '@/entities/favourites';
+import { Breadcrumbs } from '@/components/organisms';
 
 export const FavouritesTemplate = () => {
   const favourites = useFavouritesStore((state) => state.favourites);
@@ -11,6 +12,8 @@ export const FavouritesTemplate = () => {
 
   return (
     <div className={styles.container}>
+      <Breadcrumbs parts={['favourites']} />
+
       <div className={styles.headerFavourites}>
         <Typography variant="h1">Favourites</Typography>
         <p className={styles.count}>{`${count} ${itemText}`}</p>

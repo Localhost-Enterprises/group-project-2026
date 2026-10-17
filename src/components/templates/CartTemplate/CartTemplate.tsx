@@ -10,7 +10,7 @@ export const CartTemplate = ({ data }: { data: Data }) => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs />
+      <Breadcrumbs parts={['cart']} />
       <BackButton
         fallback="/"
         className={styles.backButton}

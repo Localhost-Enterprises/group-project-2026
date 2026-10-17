@@ -29,7 +29,10 @@ export const CatalogTemplate = ({
 }: Props) => {
   return (
     <div className={styles.container}>
-      <Breadcrumbs className={styles.breadcrumbs} />
+      <Breadcrumbs
+        parts={[data.title]}
+        className={styles.breadcrumbs}
+      />
 
       <h1 className={styles.title}>
         {data.title === 'phones' ?
