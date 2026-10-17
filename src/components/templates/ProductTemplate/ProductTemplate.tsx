@@ -26,7 +26,10 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
   const specs = getProductSpecs(productDetails);
   return (
     <div className={styles.container}>
-      <Breadcrumbs className={styles.breadcrumbs} />
+      <Breadcrumbs
+        parts={[product.category, product.name]}
+        className={styles.breadcrumbs}
+      />
       <BackButton
         className={styles.backButton}
         fallback={`/${product.category}`}
