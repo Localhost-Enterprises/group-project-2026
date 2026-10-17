@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { CatalogTemplate } from '@/components/templates/CatalogTemplate/CatalogTemplate';
 import { NotFoundPage } from '../NotFoundPage';
 import { useProducts } from '@/entities/product/model/product.queries';
 import { Category } from '@/shared/types/Category';
 import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/CatalogFilter.constants';
+import { CatalogTemplate } from '@/components/templates';
 
 export const CatalogPage = () => {
   const { catalogSlug } = useParams<'catalogSlug'>();

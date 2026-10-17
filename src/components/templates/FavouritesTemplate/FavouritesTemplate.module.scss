@@ -1,22 +1,36 @@
-@use '@/app/styles/_mixins' as *;
+@use '@/app/styles/mixins' as *;
+@use '@/app/styles/colors' as *;
 
 .container {
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
 
-  .headerFavourites {
+  padding-top: 24px;
+  padding-bottom: 56px;
+
+  @include on('tablet') {
+    padding-bottom: 64px;
+  }
+
+  @include on('tablet') {
+    padding-bottom: 80px;
+  }
+
+  .header {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    margin-top: -56px;
-    margin-bottom: -8px;
+    margin-bottom: 32px;
 
     @include on('tablet') {
-      margin-top: -40px;
+      margin-bottom: 40px;
     }
+  }
+
+  .count {
+    color: $secondary;
   }
 
   .cartGrid {
@@ -29,6 +43,14 @@
       @include on('tablet') {
         grid-column: span 6;
       }
+    }
+  }
+
+  .breadcrumbs {
+    margin-bottom: 24px;
+
+    @include on('tablet') {
+      margin-bottom: 40px;
     }
   }
 }

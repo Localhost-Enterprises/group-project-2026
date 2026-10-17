@@ -12,11 +12,22 @@ export const FavouritesTemplate = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs parts={['favourites']} />
+      <Breadcrumbs
+        parts={['favourites']}
+        className={styles.breadcrumbs}
+      />
 
-      <div className={styles.headerFavourites}>
-        <Typography variant="h1">Favourites</Typography>
-        <p className={styles.count}>{`${count} ${itemText}`}</p>
+      <div className={styles.header}>
+        <Typography
+          variant="h1"
+          className={styles.title}
+        >
+          Favourites
+        </Typography>
+        <Typography
+          variant="bodytext"
+          className={styles.count}
+        >{`${count} ${itemText}`}</Typography>
       </div>
 
       <div className={styles.cartGrid}>

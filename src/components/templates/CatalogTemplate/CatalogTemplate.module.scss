@@ -8,10 +8,9 @@
 }
 
 .container {
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
 
   padding-top: 24px;
   padding-bottom: 56px;
@@ -27,19 +26,11 @@
   .title {
     @include h1;
     color: $primary;
-    margin-top: -56px;
-    margin-bottom: -32px;
-
-    @include on('tablet') {
-      margin-top: -40px;
-    }
   }
 
   .content {
     @include grid;
     gap: 40px 16px;
-    margin-top: -40px;
-    margin-bottom: -40px;
   }
   .card {
     grid-column: 1/-1;
@@ -53,11 +44,6 @@
 .modelsCount {
   width: 200px;
   color: $secondary;
-  margin-bottom: -48px;
-
-  @include on('tablet') {
-    margin-bottom: -40px;
-  }
 }
 
 .content {
