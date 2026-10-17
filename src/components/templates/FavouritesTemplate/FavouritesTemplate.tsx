@@ -7,12 +7,13 @@ export const FavouritesTemplate = () => {
   const favourites = useFavouritesStore((state) => state.favourites);
 
   const count = favourites.length;
+  const itemText = count === 1 ? 'item' : 'items';
 
   return (
     <div className={styles.container}>
       <div className={styles.headerFavourites}>
         <Typography variant="h1">Favourites</Typography>
-        <p className={styles.count}>{`${count} items`}</p>
+        <p className={styles.count}>{`${count} ${itemText}`}</p>
       </div>
 
       {favourites.map((item) => (
