@@ -8,10 +8,10 @@
 }
 
 .container {
-  display: grid;
   grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 
   padding-top: 24px;
   padding-bottom: 56px;
@@ -25,16 +25,21 @@
   }
 
   .title {
-    grid-column: 1/-1;
     @include h1;
     color: $primary;
+    margin-top: -56px;
+    margin-bottom: -32px;
+
+    @include on('tablet') {
+      margin-top: -40px;
+    }
   }
 
   .content {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: 1/-1;
-    row-gap: 40px;
+    @include grid;
+    gap: 40px 16px;
+    margin-top: -40px;
+    margin-bottom: -40px;
   }
   .card {
     grid-column: 1/-1;
@@ -48,6 +53,11 @@
 .modelsCount {
   width: 200px;
   color: $secondary;
+  margin-bottom: -48px;
+
+  @include on('tablet') {
+    margin-bottom: -40px;
+  }
 }
 
 .content {
