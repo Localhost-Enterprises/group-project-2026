@@ -24,12 +24,14 @@ type Props = {
 
 export const ProductTemplate = ({ product, productDetails }: Props) => {
   const specs = getProductSpecs(productDetails);
+
   return (
     <div className={styles.container}>
       <Breadcrumbs
         parts={[product.category, product.name]}
         className={styles.breadcrumbs}
       />
+
       <BackButton
         className={styles.backButton}
         fallback={`/${product.category}`}

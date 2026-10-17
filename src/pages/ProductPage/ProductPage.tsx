@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 
 import { ProductTemplate } from '@/components/templates';
-import { ProductLoadingSkeleton } from '@/components/organisms/Product/ProductContent/ProductContent';
 
 import {
   useProduct,
@@ -10,6 +9,7 @@ import {
 
 import type { Category } from '@/shared/types/Category';
 import { NotFoundProductPage } from '../NotFoundProductPage';
+import { ProductLoadingSkeleton } from '@/components';
 
 export const ProductPage = () => {
   const { productSlug } = useParams<'productSlug'>();
@@ -30,12 +30,10 @@ export const ProductPage = () => {
   );
 
   if (isProductPending) return <ProductLoadingSkeleton />;
-  if (isProductError) return <p>Product error</p>;
-  if (!product) return <NotFoundProductPage />;
+  if (!product || isProductError) return <NotFoundProductPage />;
 
   if (isDetailsPending) return <ProductLoadingSkeleton />;
-  if (isDetailsError) return <p>Details error</p>;
-  if (!productDetails) return <NotFoundProductPage />;
+  if (!productDetails || isDetailsError) return <NotFoundProductPage />;
 
   return (
     <ProductTemplate

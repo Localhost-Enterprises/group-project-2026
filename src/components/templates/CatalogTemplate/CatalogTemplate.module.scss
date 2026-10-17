@@ -4,6 +4,7 @@
 
 .breadcrumbs {
   grid-column: 1 / -1;
+  margin-bottom: 40px;
 }
 
 .container {
@@ -11,6 +12,17 @@
   grid-column: 1/-1;
   grid-template-columns: subgrid;
   width: 100%;
+
+  padding-top: 24px;
+  padding-bottom: 56px;
+
+  @include on('tablet') {
+    padding-bottom: 64px;
+  }
+
+  @include on('desktop') {
+    padding-bottom: 80px;
+  }
 
   .title {
     grid-column: 1/-1;
@@ -36,4 +48,8 @@
 .modelsCount {
   width: 200px;
   color: $secondary;
+}
+
+.content {
+  margin-bottom: 40px;
 }
