@@ -10,6 +10,7 @@ import {
 import type { Category } from '@/shared/types/Category';
 import { NotFoundProductPage } from '../NotFoundProductPage';
 import { ProductLoadingSkeleton } from '@/components';
+import { useEffect } from 'react';
 
 export const ProductPage = () => {
   const { productSlug } = useParams<'productSlug'>();
@@ -28,6 +29,10 @@ export const ProductPage = () => {
     product?.category as Category | undefined,
     product?.item_id,
   );
+
+  useEffect(() => {
+    document.title = `${productDetails?.name || 'Loading...'} | NICE GADGETS`;
+  }, [productDetails]);
 
   if (isProductPending) return <ProductLoadingSkeleton />;
   if (!product || isProductError) return <NotFoundProductPage />;

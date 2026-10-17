@@ -1,5 +1,9 @@
+@use '@/app/styles/colors' as *;
+
 .button {
   flex: 1;
   min-width: 0;
   height: 40px;
+
+  color: $white;
 }

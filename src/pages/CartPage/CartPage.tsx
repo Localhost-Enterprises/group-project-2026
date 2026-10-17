@@ -1,8 +1,13 @@
 import { useCartStore } from '@/entities/cart';
 import { useProductByIds } from '@/entities/product';
 import { CartTemplate } from '@/components/templates';
+import { useEffect } from 'react';
 
 export const CartPage = () => {
+  useEffect(() => {
+    document.title = 'Cart | NICE GADGETS';
+  }, []);
+
   const items = useCartStore((state) => state.items);
 
   const productsIds = items.map((item) => item.productId);
@@ -37,5 +42,5 @@ export const CartPage = () => {
     },
   };
 
-  return <CartTemplate data={data}></CartTemplate>;
+  return <CartTemplate data={data} />;
 };
