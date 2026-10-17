@@ -2,7 +2,7 @@ import styles from './CartTemplate.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 
 import type { Data } from './CartTemplate.types';
-import { CartContent } from '@/components/organisms';
+import { Breadcrumbs, CartContent } from '@/components/organisms';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
 
 export const CartTemplate = ({ data }: { data: Data }) => {
@@ -10,6 +10,7 @@ export const CartTemplate = ({ data }: { data: Data }) => {
 
   return (
     <div className={styles.container}>
+      <Breadcrumbs />
       <BackButton
         fallback="/"
         className={styles.backButton}

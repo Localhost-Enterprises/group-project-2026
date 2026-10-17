@@ -6,11 +6,13 @@ import { HomeTemplate } from '@/components/templates/HomeTemplate';
 import slideImage1 from '@/shared/assets/images/phoneSlider1.png';
 import slideImage2 from '@/shared/assets/images/phoneSlider2.png';
 
-import { hotPrices, newModels } from './tempObject';
-
 import PhoneImage from '@/shared/assets/images/category-iphone.png';
 import TabletImage from '@/shared/assets/images/category-tablets.png';
 import AccesoriesImage from '@/shared/assets/images/category-accesories.png';
+
+import { useProducts } from '@/entities/product/model/product.queries';
+import { getBrandNewModels } from './lib/getBrandModels';
+import { getHotPrices } from './lib/getHotPrices';
 
 const heroSliderData: HeroSliderData = {
   sliderTitle: 'Now available in our store!',
@@ -33,47 +35,64 @@ const heroSliderData: HeroSliderData = {
   ],
 };
 
-const brandNewModelsData: ProductsSlidesData = {
-  sectionTitle: 'Brand new models',
-  productCards: newModels,
-};
-
-const shopByCategoryData: ShopByCategoryData = {
-  sectionTitle: 'Shop by category',
-  categories: [
-    {
-      id: 'mobile-phones',
-      title: 'Mobile phones',
-      count: 95,
-      image: PhoneImage,
-      link: 'phones',
-      color: '#6D6474',
-    },
-    {
-      id: 'tablets',
-      title: 'Tablets',
-      count: 24,
-      image: TabletImage,
-      link: 'tablets',
-      color: '#8d8d92',
-    },
-    {
-      id: 'accessories',
-      title: 'Accessories',
-      count: 100,
-      image: AccesoriesImage,
-      link: 'accessories',
-      color: '#973d5f',
-    },
-  ],
-};
-
-const hotPricesData: ProductsSlidesData = {
-  sectionTitle: 'Hot prices',
-  productCards: hotPrices,
-};
-
 export const HomePage = () => {
+  const { data: products = [] } = useProducts();
+
+  const phonesCount = products.filter(
+    (product) => product.category === 'phones',
+  ).length;
+
+  const tabletsCount = products.filter(
+    (product) => product.category === 'tablets',
+  ).length;
+
+  const accessoriesCount = products.filter(
+    (product) => product.category === 'accessories',
+  ).length;
+
+  const shopByCategoryData: ShopByCategoryData = {
+    sectionTitle: 'Shop by category',
+    categories: [
+      {
+        id: 'mobile-phones',
+        title: 'Mobile phones',
+        count: phonesCount,
+        image: PhoneImage,
+        link: 'phones',
+        color: '#6D6474',
+      },
+      {
+        id: 'tablets',
+        title: 'Tablets',
+        count: tabletsCount,
+        image: TabletImage,
+        link: 'tablets',
+        color: '#8d8d92',
+      },
+      {
+        id: 'accessories',
+        title: 'Accessories',
+        count: accessoriesCount,
+        image: AccesoriesImage,
+        link: 'accessories',
+        color: '#973d5f',
+      },
+    ],
+  };
+
+  const newModels = getBrandNewModels(products);
+  const hotPrices = getHotPrices(products);
+
+  const brandNewModelsData: ProductsSlidesData = {
+    sectionTitle: 'Brand new models',
+    productCards: newModels,
+  };
+
+  const hotPricesData: ProductsSlidesData = {
+    sectionTitle: 'Hot prices',
+    productCards: hotPrices,
+  };
+
   return (
     <HomeTemplate
       data={{

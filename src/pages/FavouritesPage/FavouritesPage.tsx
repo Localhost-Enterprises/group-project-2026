@@ -1,10 +1,11 @@
 import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
+import { FavouritesTemplate } from '@/components/templates/FavouritesTemplate';
 
 export const FavouritesPage = () => {
   return (
     <>
       <Breadcrumbs />
-      <h1>Favourites Page</h1>
+      <FavouritesTemplate />
     </>
   );
 };
