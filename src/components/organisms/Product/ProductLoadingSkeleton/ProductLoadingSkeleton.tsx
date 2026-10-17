@@ -1,14 +1,6 @@
-import { ProductTemplate } from '@/components/templates';
-import { useProduct } from '@/entities/product';
-
-import { useProductByIdInCategory } from '@/entities/product/model/product.queries';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 import styles from '@/components/templates/ProductTemplate/ProductTemplate.module.scss';
-
-export type ProductContentProps = {
-  id: string;
-};
+import classNames from 'classnames';
+import Skeleton from 'react-loading-skeleton';
 
 export const ProductLoadingSkeleton = () => (
   <div
@@ -16,16 +8,27 @@ export const ProductLoadingSkeleton = () => (
     aria-busy="true"
     aria-label="Loading product"
   >
-    <Skeleton
-      className={styles.backButton}
-      width={48}
-      height={20}
-    />
-    <Skeleton
-      className={styles.title}
-      width="60%"
-      height={36}
-    />
+    <div className={classNames(styles.breadcrumbs)}>
+      <Skeleton
+        width={48}
+        height={20}
+      />
+    </div>
+
+    <div className={styles.backButton}>
+      <Skeleton
+        width={48}
+        height={20}
+      />
+    </div>
+
+    <div className={styles.title}>
+      <Skeleton
+        width="60%"
+        height={36}
+      />
+    </div>
+
     <div className={styles.info}>
       <div className={styles.slider}>
         <Skeleton
@@ -34,7 +37,9 @@ export const ProductLoadingSkeleton = () => (
           height={288}
         />
       </div>
+
       <span className={styles.separator} />
+
       <div className={styles.purchase}>
         <Skeleton
           width="50%"
@@ -52,6 +57,7 @@ export const ProductLoadingSkeleton = () => (
         />
       </div>
     </div>
+
     <section className={styles.firstSection}>
       <Skeleton
         width="40%"
@@ -64,6 +70,7 @@ export const ProductLoadingSkeleton = () => (
       />
     </section>
     <span className={styles.separator} />
+
     <section className={styles.secondSection}>
       <Skeleton
         width="45%"
@@ -77,32 +84,3 @@ export const ProductLoadingSkeleton = () => (
     </section>
   </div>
 );
-
-export const ProductContent = ({ id }: ProductContentProps) => {
-  const {
-    data: product,
-    isPending: isProductPending,
-    isError: isProductError,
-  } = useProduct(id);
-
-  const {
-    data: productDetails,
-    isPending: isDetailsPending,
-    isError: isDetailsError,
-  } = useProductByIdInCategory(product?.category, product?.item_id);
-
-  if (isProductPending) return <ProductLoadingSkeleton />;
-  if (isProductError) return <p>Product Error</p>;
-  if (!product) return <p>Product not found</p>;
-
-  if (isDetailsPending) return <ProductLoadingSkeleton />;
-  if (isDetailsError) return <p>Details Error</p>;
-  if (!productDetails) return <p>Product details not found</p>;
-
-  return (
-    <ProductTemplate
-      product={product}
-      productDetails={productDetails}
-    />
-  );
-};

@@ -1,16 +1,19 @@
 import { ArrowButton } from '@/components/molecules';
 import styles from './CatalogPagination.module.scss';
+import classNames from 'classnames';
 
 type Props = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  className?: string;
 };
 
 export const CatalogPagination = ({
   currentPage,
   totalPages,
   onPageChange,
+  className,
 }: Props) => {
   if (totalPages <= 1) {
     return null;
@@ -25,7 +28,7 @@ export const CatalogPagination = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, className)}>
       <ArrowButton
         direction="left"
         className={styles.page}

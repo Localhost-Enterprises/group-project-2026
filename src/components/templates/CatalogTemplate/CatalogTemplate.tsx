@@ -72,6 +72,7 @@ export const CatalogTemplate = ({
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        className={styles.pagination}
       />
     </div>
   );

@@ -79,7 +79,7 @@ export const ProductPurchase = ({
       </div>
 
       <div className={styles.colorOptions}>
-        {productDetails.colors_available.map((color) => (
+        {productDetails.colors_available.sort().map((color) => (
           <button
             key={color}
             type="button"
