@@ -11,6 +11,7 @@ import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
 import { selectCartCount, useCartStore } from '@/entities/cart';
 import classNames from 'classnames';
+import { useFavouritesStore } from '@/entities/favourites';
 
 type Props = {
   className?: string;
@@ -27,6 +28,9 @@ export const Header = ({ className }: Props) => {
     : `${location.pathname}${location.search}`;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const favouritesCount = useFavouritesStore(
+    (state) => state.favourites.length,
+  );
 
   return (
     <header className={classNames(styles.header, className)}>
@@ -75,7 +79,7 @@ export const Header = ({ className }: Props) => {
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
         >
-          <FavouritesIcon />
+          <FavouritesIcon quantity={favouritesCount} />
         </NavLink>
         <NavLink
           to={ROUTES.CART}
@@ -134,7 +138,7 @@ export const Header = ({ className }: Props) => {
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
-            <FavouritesIcon />
+            <FavouritesIcon quantity={favouritesCount} />
           </NavLink>
           <NavLink
             to={ROUTES.CART}
