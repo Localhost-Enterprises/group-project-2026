@@ -10,6 +10,32 @@ import type { ProductsSlidesData } from './ProductsSlider.types';
 export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
+  const productCards =
+    data.isLoading ?
+      Array.from({ length: 4 }, (_, index) => (
+        <div
+          className={styles.item}
+          key={`skeleton-${index}`}
+        >
+          <ProductCard
+            className=""
+            isLoading
+          />
+        </div>
+      ))
+    : data.productCards.map(({ id, ...product }) => (
+        <div
+          className={styles.item}
+          key={id}
+        >
+          <ProductCard
+            id={id}
+            {...product}
+            className=""
+          />
+        </div>
+      ));
+
   const handleScroll = (direction: number) => {
     sliderRef.current?.scrollBy({
       left: direction * sliderRef.current.clientWidth,
@@ -39,18 +65,7 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
         className={styles.track}
         ref={sliderRef}
       >
-        {data.productCards.map(({ id, ...product }) => (
-          <div
-            className={styles.item}
-            key={id}
-          >
-            <ProductCard
-              id={id}
-              {...product}
-              className=""
-            />
-          </div>
-        ))}
+        {productCards}
       </div>
     </section>
   );

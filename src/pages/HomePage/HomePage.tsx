@@ -36,7 +36,7 @@ const heroSliderData: HeroSliderData = {
 };
 
 export const HomePage = () => {
-  const { data: products = [] } = useProducts();
+  const { data: products = [], isPending } = useProducts();
 
   const phonesCount = products.filter(
     (product) => product.category === 'phones',
@@ -86,11 +86,13 @@ export const HomePage = () => {
   const brandNewModelsData: ProductsSlidesData = {
     sectionTitle: 'Brand new models',
     productCards: newModels,
+    isLoading: isPending,
   };
 
   const hotPricesData: ProductsSlidesData = {
     sectionTitle: 'Hot prices',
     productCards: hotPrices,
+    isLoading: isPending,
   };
 
   return (
