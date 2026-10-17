@@ -58,17 +58,8 @@ export const CatalogTemplate = ({
         : data.items.map((item) => (
             <ProductCard
               className={styles.card}
+              product={item}
               key={item.id}
-              id={item.id}
-              name={item.name}
-              images={item.imageUrls || item.images}
-              price={item.price}
-              fullPrice={item.fullPrice}
-              screen={item.screen}
-              capacity={item.capacity}
-              ram={item.ram}
-              item_id={item.item_id}
-              category={item.category}
             />
           ))
         }

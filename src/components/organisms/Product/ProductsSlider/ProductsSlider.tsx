@@ -33,15 +33,12 @@ export const ProductsSlider = ({ data }: { data: ProductsSlidesData }) => {
           <ProductCard isLoading />
         </SwiperSlide>
       ))
-    : data.productCards.map(({ id, ...product }) => (
+    : data.productCards.map((product) => (
         <SwiperSlide
           className={styles.item}
-          key={id}
+          key={product.id}
         >
-          <ProductCard
-            id={id}
-            {...product}
-          />
+          <ProductCard product={product} />
         </SwiperSlide>
       ));
 

@@ -11,23 +11,27 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useFavouritesStore } from '@/entities/favourites';
 
 type Props = (
-  | (Product & { isLoading?: never })
-  | ({ isLoading: true } & {
-      [K in keyof Product]?: never;
-    })
+  | {
+      product: Product;
+      isLoading?: never;
+    }
+  | {
+      product?: never;
+      isLoading: true;
+    }
 ) & {
   className?: string;
 };
 
-export const ProductCard = (props: Props) => {
-  const cardId = props.isLoading ? 0 : props.id;
+export const ProductCard = ({ product, isLoading, className }: Props) => {
+  const cardId = isLoading ? 0 : product.id;
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
-  if (props.isLoading) {
+  if (isLoading) {
     return (
       <article
-        className={classNames(styles.card, props.className)}
+        className={classNames(styles.card, className)}
         aria-busy="true"
         aria-label="Loading product"
       >
@@ -69,19 +73,19 @@ export const ProductCard = (props: Props) => {
   }
 
   return (
-    <article className={classNames(styles.card, props.className)}>
+    <article className={classNames(styles.card, className)}>
       <ProductLink
-        category={props.category}
-        itemId={props.item_id}
+        category={product.category}
+        itemId={product.item_id}
       >
         <img
           className={styles.image}
           src={
-            props.imageUrls?.[0] ||
-            props.images[0] ||
+            product.imageUrls?.[0] ||
+            product.images[0] ||
             'https://placehold.co/500x500'
           }
-          alt={props.name}
+          alt={product.name}
         />
       </ProductLink>
 
@@ -91,10 +95,10 @@ export const ProductCard = (props: Props) => {
         className={styles.title}
       >
         <ProductLink
-          category={props.category}
-          itemId={props.item_id}
+          category={product.category}
+          itemId={product.item_id}
         >
-          {props.name}
+          {product.name}
         </ProductLink>
       </Typography>
 
@@ -103,16 +107,16 @@ export const ProductCard = (props: Props) => {
           variant="h3"
           as="span"
         >
-          ${props.price}
+          ${product.price}
         </Typography>
 
-        {props.fullPrice && (
+        {product.fullPrice && (
           <Typography
             variant="bodytext"
             as="span"
             className={styles.oldPrice}
           >
-            <span className={styles.oldPriceValue}>${props.fullPrice}</span>
+            <span className={styles.oldPriceValue}>${product.fullPrice}</span>
           </Typography>
         )}
       </div>
@@ -131,7 +135,7 @@ export const ProductCard = (props: Props) => {
             variant="smalltext"
             className={styles.propText}
           >
-            {props.screen}
+            {product.screen}
           </Typography>
         </div>
 
@@ -146,7 +150,7 @@ export const ProductCard = (props: Props) => {
             variant="smalltext"
             className={styles.propText}
           >
-            {props.capacity}
+            {product.capacity}
           </Typography>
         </div>
 
@@ -161,19 +165,19 @@ export const ProductCard = (props: Props) => {
             variant="smalltext"
             className={styles.propText}
           >
-            {props.ram}
+            {product.ram}
           </Typography>
         </div>
       </div>
 
       <div className={styles.actions}>
-        <AddToCartButton productId={props.id} />
+        <AddToCartButton productId={product.id} />
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => toggleFavourite(props)}
+          onClick={() => toggleFavourite(product)}
           aria-label={
             isFavourite ? 'Remove from favourites' : 'Add to favourites'
           }

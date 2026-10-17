@@ -2,11 +2,9 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Product } from '@/shared/types';
 
-export type FavouriteProduct = Omit<Product, 'color' | 'year'>;
-
 interface FavouritesState {
-  favourites: FavouriteProduct[];
-  toggleFavourite: (product: FavouriteProduct) => void;
+  favourites: Product[];
+  toggleFavourite: (product: Product) => void;
   isFavourite: (id: string | number) => boolean;
 }
 
