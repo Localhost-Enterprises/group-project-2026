@@ -48,7 +48,17 @@ export const ProductsSlider = ({ data, className }: Props) => {
   return (
     <section className={classNames(styles.container, className)}>
       <div className={styles.header}>
-        <Typography variant="h2">{data.sectionTitle}</Typography>
+        <div>
+          <Typography variant="h2">{data.sectionTitle}</Typography>
+          {data.sectionSubTitle && (
+            <Typography
+              variant="bodytext"
+              className={styles.subtitle}
+            >
+              {data.sectionSubTitle}
+            </Typography>
+          )}
+        </div>
 
         <div className={styles.arrowButton}>
           <ArrowButton

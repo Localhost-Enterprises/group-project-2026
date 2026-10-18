@@ -17,6 +17,10 @@
   margin-bottom: 24px;
 }
 
+.subtitle {
+  color: $secondary;
+}
+
 .arrowButton {
   display: flex;
   gap: 16px;
@@ -26,7 +30,9 @@
 .track {
   width: 100%;
   min-width: 0;
-  overflow: hidden;
+
+  overflow-x: clip;
+  padding: 10px;
 }
 
 .swiper {

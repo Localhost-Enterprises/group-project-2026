@@ -3,19 +3,21 @@ import styles from './AddToCartbutton.module.scss';
 import { selectAddItem, selectIsInCart, useCartStore } from '@/entities/cart';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/app/router';
+import classNames from 'classnames';
 
 type Props = {
   productId: number;
+  className?: string;
 };
 
-export const AddToCartButton = ({ productId }: Props) => {
+export const AddToCartButton = ({ productId, className }: Props) => {
   const addItem = useCartStore(selectAddItem);
   const isAdded = useCartStore(selectIsInCart(productId));
   const location = useLocation();
 
   return (
     <TextButton
-      className={styles.button}
+      className={classNames(styles.button, className)}
       selected={isAdded}
       onClick={isAdded ? () => {} : () => addItem(productId)}
     >

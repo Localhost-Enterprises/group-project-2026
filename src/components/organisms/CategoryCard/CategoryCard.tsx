@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './CategoryCard.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { Link } from 'react-router-dom';
@@ -9,40 +8,46 @@ interface Props {
   count: number;
   imageSrc: string;
   linkUrl: string;
-  bgColor?: string;
+  backgroundSrc: string;
 }
 
-export const CategoryCard: React.FC<Props> = ({
+export const CategoryCard = ({
   title,
   count,
   imageSrc,
   linkUrl,
-  bgColor,
-}) => {
+  backgroundSrc,
+}: Props) => {
   return (
     <Link
       to={routePaths.catalog(linkUrl)}
       className={styles.card}
     >
       <div
-        className={styles.imageContainer}
-        style={{ backgroundColor: bgColor }}
+        className={styles.container}
+        style={{ backgroundImage: `url(${backgroundSrc}` }}
       >
+        <div className={styles.info}>
+          <Typography
+            variant="h3"
+            className={styles.title}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant="bodytext"
+            className={styles.count}
+          >
+            {count} models
+          </Typography>
+        </div>
+
         <img
           src={imageSrc}
           alt={`${title} category`}
           className={styles.image}
         />
       </div>
-
-      <Typography variant="h4">{title}</Typography>
-
-      <Typography
-        variant="bodytext"
-        className={styles.count}
-      >
-        {count} models
-      </Typography>
     </Link>
   );
 };

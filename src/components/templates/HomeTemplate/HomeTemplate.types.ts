@@ -3,7 +3,6 @@ import type { ProductsSlidesData } from '@/components/organisms/Product/Products
 import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
 
 export type Data = {
-  pageTitle: string;
   heroSlider: HeroSliderData;
   brandNewModels: ProductsSlidesData;
   shopByCategory: ShopByCategoryData;

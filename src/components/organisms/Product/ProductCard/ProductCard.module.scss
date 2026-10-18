@@ -1,5 +1,6 @@
 @use '@/app/styles/mixins' as *;
 @use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
 
 .card {
   box-sizing: border-box;
@@ -8,7 +9,28 @@
   width: 100%;
   padding: 32px;
   border: 1px solid $elements;
-  height: 439px;
+  border-radius: 15px;
+
+  background: conic-gradient(
+    from 90deg,
+    oklch(100% 0 89.88) 0% 7.692%,
+    oklch(100% 0 89.88) 7.692% 15.385%,
+    oklch(100% 0 89.88) 15.385% 23.077%,
+    oklch(100% 0 89.88) 23.077% 30.769%,
+    oklch(100% 0 89.88) 30.769% 38.462%,
+    oklch(100% 0 89.88) 38.462% 46.154%,
+    oklch(100% 0 89.88) 46.154% 53.846%,
+    oklch(100% 0 89.88) 53.846% 61.538%,
+    oklch(100% 0 89.88) 61.538% 69.231%,
+    oklch(100% 0 89.88) 69.231% 76.923%,
+    oklch(100% 0 89.88) 76.923% 84.615%,
+    oklch(100% 0 89.88) 84.615% 92.308%,
+    oklch(100% 0 89.88) 92.308% 100%
+  );
+
+  box-shadow:
+    rgba(50, 50, 93, 0.1) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.05) 0px 3px 7px -3px;
 
   .image {
     display: block;
@@ -31,6 +53,7 @@
     align-items: baseline;
     gap: 8px;
     margin-top: auto;
+    margin-bottom: 10px;
   }
 
   .oldPrice {
@@ -74,37 +97,36 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .divider {
-    width: 100%;
-    margin: 8px 0 0;
-    border: 0;
-    border-top: 1px solid $elements;
-  }
-
   .specs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     padding: 8px 0;
+    margin-bottom: 10px;
+    opacity: 0.5;
   }
 
   .specRow {
+    grid-column: span 1;
     display: flex;
+    gap: 5px;
     align-items: center;
-    gap: 16px;
+
+    &:nth-child(2) {
+      justify-content: center;
+    }
+
+    &:last-child {
+      justify-content: end;
+    }
   }
 
-  .propName {
-    color: $secondary;
-    font-weight: 400;
+  .specIcon {
+    max-width: 16px;
   }
 
   .propText {
-    flex: 1;
     color: $primary;
-    overflow: hidden;
     text-wrap: nowrap;
-    text-align: right;
   }
 
   .actions {
@@ -117,13 +139,5 @@
     width: 40px;
     height: 40px;
     flex-shrink: 0;
-  }
-
-  @include on('tablet') {
-    height: 512px;
-  }
-
-  @include on('desktop') {
-    height: 506px;
   }
 }

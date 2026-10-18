@@ -2,23 +2,22 @@
 @use '@/app/styles/mixins' as *;
 @use '@/app/styles/reset' as *;
 
-.section {
+.container {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: subgrid;
-  margin-bottom: 56px;
-
-  @include on('tablet') {
-    margin-bottom: 64px;
-  }
 }
 
-.title {
+.info {
   grid-column: 1 / -1;
   margin-bottom: 24px;
   @include on('tablet') {
     margin-bottom: 32px;
   }
+}
+
+.subtitle {
+  color: $secondary;
 }
 
 .grid {
