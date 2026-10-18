@@ -6,10 +6,11 @@ import type { Product } from '@/shared/types';
 
 type Props = {
   data: Product[];
+  count: number;
+  isLoading: boolean;
 };
 
-export const FavouritesTemplate = ({ data }: Props) => {
-  const count = data.length;
+export const FavouritesTemplate = ({ data, count, isLoading }: Props) => {
   const itemText = count === 1 ? 'item' : 'items';
 
   return (
@@ -33,13 +34,22 @@ export const FavouritesTemplate = ({ data }: Props) => {
       </div>
 
       <div className={styles.grid}>
-        {data.map((item) => (
-          <ProductCard
-            product={item}
-            key={item.id}
-            className={styles.item}
-          />
-        ))}
+        {isLoading ?
+          Array.from({ length: count }, (_, index) => (
+            <ProductCard
+              isLoading
+              key={`skeleton-${index}`}
+              className={styles.item}
+            />
+          ))
+        : data.map((item) => (
+            <ProductCard
+              product={item}
+              key={item.id}
+              className={styles.item}
+            />
+          ))
+        }
       </div>
     </div>
   );

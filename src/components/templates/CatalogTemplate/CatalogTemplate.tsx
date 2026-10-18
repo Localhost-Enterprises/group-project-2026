@@ -10,6 +10,7 @@ type CatalogProduct = Product;
 
 export interface CatalogTemplateData {
   items: CatalogProduct[];
+  totalItems: number;
   title: string;
   isLoading: boolean;
 }
@@ -44,7 +45,7 @@ export const CatalogTemplate = ({
         className={styles.modelsCount}
         variant="bodytext"
       >
-        {data.items.length} models
+        {data.totalItems} models
       </Typography>
 
       <CatalogFilter />
