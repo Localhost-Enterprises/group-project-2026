@@ -78,6 +78,7 @@ export const CatalogPage = () => {
     <CatalogTemplate
       data={{
         items: visibleItems,
+        totalItems: items.length,
         title,
         isLoading: isPending,
       }}
