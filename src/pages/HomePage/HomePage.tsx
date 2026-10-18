@@ -3,35 +3,113 @@ import type { ProductsSlidesData } from '@/components/organisms/Product/Products
 import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
 import { HomeTemplate } from '@/components/templates/HomeTemplate';
 
-import slideImage1 from '@/shared/assets/images/phoneSlider1.png';
-import slideImage2 from '@/shared/assets/images/phoneSlider2.png';
-
-import PhoneImage from '@/shared/assets/images/category-iphone.png';
-import TabletImage from '@/shared/assets/images/category-tablets.png';
-import AccesoriesImage from '@/shared/assets/images/category-accesories.png';
-
 import { useProducts } from '@/entities/product/model/product.queries';
 import { getBrandNewModels } from './lib/getBrandModels';
 import { getHotPrices } from './lib/getHotPrices';
 import { useEffect } from 'react';
 
+import backgroundPhonesCategory from '@/shared/assets/images/phones_background.png?no-inline';
+import imagePhonesCategory from '@/shared/assets/images/phones_product.png?no-inline';
+
+import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.png?no-inline';
+import imageTabletsCategory from '@/shared/assets/images/tablets_product.png?no-inline';
+
+import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.png?no-inline';
+import imageAccessoriesCategory from '@/shared/assets/images/accessories_product.png?no-inline';
+
+import imagePhones from '@/shared/assets/images/phones.png?no-inline';
+import imageAccessories from '@/shared/assets/images/accessories.png?no-inline';
+import imageTablets from '@/shared/assets/images/tablets.png?no-inline';
+
+import chip from '@/shared/assets/icons/Chip.svg';
+import camera from '@/shared/assets/icons/Camera.svg';
+import screen from '@/shared/assets/icons/Screen.svg';
+
 const heroSliderData: HeroSliderData = {
-  sliderTitle: 'Now available in our store!',
-  sliderSubtitle: 'Be the first!',
-  sliderButtonText: 'Order now',
-  sliderButtonLink: 'phones',
   slides: [
     {
-      id: 'iphone-14-pro',
+      id: 1,
       title: 'iPhone 14 Pro',
-      subtitle: 'Pro. Beyond',
-      image: slideImage1,
+      accentTitle: 'Now in our store!',
+      subtitle: 'Pro. Beyond.',
+      backgroundImage: backgroundPhonesCategory,
+      image: imagePhones,
+      buttonText: 'Order now',
+      buttonLink: '/phones/apple-iphone-14-pro-128gb-gold',
+      features: [
+        {
+          icon: chip,
+          title: 'A16 Bionic chip',
+          description: 'Super. Human.',
+        },
+        {
+          icon: camera,
+          title: 'Pro camera system',
+          description: '48MP. More detail.',
+        },
+        {
+          icon: screen,
+          title: 'Brilliant display',
+          description: 'Always-On. Always a step ahead.',
+        },
+      ],
+      colorScheme: 'purple',
     },
     {
-      id: 'iphone-13-common',
-      title: 'iPhone 13 Common',
-      subtitle: 'Common. Default',
-      image: slideImage2,
+      id: 2,
+      title: 'iWatch 74 Ultra',
+      accentTitle: 'HAHAHAHA!',
+      subtitle: 'Noob. False.',
+      backgroundImage: backgroundAccessoriesCategory,
+      image: imageAccessories,
+      buttonText: 'Order now',
+      buttonLink: '/accessories/apple-watch-series-6-40mm-space-gray',
+      features: [
+        {
+          icon: chip,
+          title: 'A16 Furry chip',
+          description: 'Spider. Man.',
+        },
+        {
+          icon: camera,
+          title: 'Common camera system',
+          description: '1.5MP. Less detail.',
+        },
+        {
+          icon: screen,
+          title: 'Stone display',
+          description: 'Always-Off. Always a step behind.',
+        },
+      ],
+      colorScheme: 'yellow',
+    },
+    {
+      id: 3,
+      title: 'iPad 2.5 Micro',
+      accentTitle: 'Small! Micro!',
+      subtitle: 'Buy. BUY!',
+      backgroundImage: backgroundTabletsCategory,
+      image: imageTablets,
+      buttonText: 'Order later',
+      buttonLink: '/tablets/apple-ipad-pro-11-2021-128gb-spacegray',
+      features: [
+        {
+          icon: chip,
+          title: 'No chip.',
+          description: 'Sadly',
+        },
+        {
+          icon: camera,
+          title: 'No camera',
+          description: 'No detail.',
+        },
+        {
+          icon: screen,
+          title: 'Paper display',
+          description: 'Never on. Never. Maybe someday',
+        },
+      ],
+      colorScheme: 'blue',
     },
   ],
 };
@@ -57,30 +135,31 @@ export const HomePage = () => {
 
   const shopByCategoryData: ShopByCategoryData = {
     sectionTitle: 'Shop by category',
+    sectionSubtitle: 'Explore our range of products',
     categories: [
       {
         id: 'mobile-phones',
         title: 'Mobile phones',
         count: phonesCount,
-        image: PhoneImage,
         link: 'phones',
-        color: '#6D6474',
+        image: imagePhonesCategory,
+        background: backgroundPhonesCategory,
       },
       {
         id: 'tablets',
         title: 'Tablets',
         count: tabletsCount,
-        image: TabletImage,
         link: 'tablets',
-        color: '#8d8d92',
+        image: imageTabletsCategory,
+        background: backgroundTabletsCategory,
       },
       {
         id: 'accessories',
         title: 'Accessories',
         count: accessoriesCount,
-        image: AccesoriesImage,
         link: 'accessories',
-        color: '#973d5f',
+        image: imageAccessoriesCategory,
+        background: backgroundAccessoriesCategory,
       },
     ],
   };
@@ -90,12 +169,14 @@ export const HomePage = () => {
 
   const brandNewModelsData: ProductsSlidesData = {
     sectionTitle: 'Brand new models',
+    sectionSubTitle: 'The latest devices. Next level performance',
     productCards: newModels,
     isLoading: isPending,
   };
 
   const hotPricesData: ProductsSlidesData = {
     sectionTitle: 'Hot prices',
+    sectionSubTitle: 'Great devices. Even better prices.',
     productCards: hotPrices,
     isLoading: isPending,
   };
@@ -103,7 +184,6 @@ export const HomePage = () => {
   return (
     <HomeTemplate
       data={{
-        pageTitle: 'Welcome to Nice Gadgets store!',
         heroSlider: heroSliderData,
         brandNewModels: brandNewModelsData,
         shopByCategory: shopByCategoryData,

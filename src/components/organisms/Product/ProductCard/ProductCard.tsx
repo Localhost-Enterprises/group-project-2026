@@ -10,6 +10,10 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useFavouritesStore } from '@/entities/favourites';
 
+import screen from '@/shared/assets/icons/Screen.svg';
+import ram from '@/shared/assets/icons/Ram.svg';
+import memory from '@/shared/assets/icons/Memory.svg';
+
 type Props = (
   | {
       product: Product;
@@ -72,6 +76,13 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
     );
   }
 
+  const specsFormatted = {
+    screen:
+      product.screen.length > 10 ?
+        product.screen.slice(0, 7) + '...'
+      : product.screen,
+  };
+
   return (
     <article className={classNames(styles.card, className)}>
       <ProductLink
@@ -121,31 +132,13 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
         )}
       </div>
 
-      <hr className={styles.divider} />
-
       <div className={styles.specs}>
         <div className={styles.specRow}>
-          <Typography
-            variant="smalltext"
-            className={styles.propName}
-          >
-            Screen
-          </Typography>
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {product.screen}
-          </Typography>
-        </div>
-
-        <div className={styles.specRow}>
-          <Typography
-            variant="smalltext"
-            className={styles.propName}
-          >
-            Capacity
-          </Typography>
+          <img
+            src={memory}
+            alt="Capacity"
+            className={styles.specIcon}
+          />
           <Typography
             variant="smalltext"
             className={styles.propText}
@@ -155,17 +148,29 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
         </div>
 
         <div className={styles.specRow}>
-          <Typography
-            variant="smalltext"
-            className={styles.propName}
-          >
-            RAM
-          </Typography>
+          <img
+            src={ram}
+            alt="Ram"
+            className={styles.specIcon}
+          />
           <Typography
             variant="smalltext"
             className={styles.propText}
           >
             {product.ram}
+          </Typography>
+        </div>
+        <div className={styles.specRow}>
+          <img
+            src={screen}
+            alt="Screen Diagonal"
+            className={styles.specIcon}
+          />
+          <Typography
+            variant="smalltext"
+            className={styles.propText}
+          >
+            {specsFormatted.screen}
           </Typography>
         </div>
       </div>

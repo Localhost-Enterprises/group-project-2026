@@ -1,6 +1,6 @@
 type CategoryCard = {
   id: string;
-  color: string;
+  background: string;
   image: string;
   title: string;
   count: number;
@@ -9,5 +9,6 @@ type CategoryCard = {
 
 export type ShopByCategoryData = {
   sectionTitle: string;
+  sectionSubtitle?: string;
   categories: CategoryCard[];
 };

@@ -1,136 +1,145 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { Swiper as Slider, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
+
 import {
   EffectFade,
   Autoplay,
   Keyboard,
   A11y,
   Pagination,
+  Parallax,
 } from 'swiper/modules';
-import { Slide } from './Slide/Slide';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
-import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
+import { Slide } from './Slide/Slide';
 
 import styles from './HeroSlider.module.scss';
-
 import type { HeroSliderData } from './HeroSlider.types';
-import { Link } from 'react-router-dom';
-import { OKIcon } from '@/components/atoms/Icons/OKIcon';
-import { routePaths } from '@/app/router/routes';
 
-type Props = { data: HeroSliderData; className?: string };
+type Props = {
+  data: HeroSliderData;
+  className?: string;
+};
+
 export const HeroSlider = ({ data, className }: Props) => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const paginationRef = useRef<HTMLDivElement | null>(null);
+
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  const updateProgress = (swiper: SwiperType, percentage: number) => {
+    const bullets = paginationRef.current?.querySelectorAll<HTMLElement>(
+      '.swiper-pagination-bullet',
+    );
+
+    if (!bullets) return;
+
+    const progress = Math.max(0, Math.min(1, 1 - percentage));
+
+    bullets.forEach((bullet, index) => {
+      bullet.style.setProperty(
+        '--progress',
+        index === swiper.realIndex ? String(progress) : '0',
+      );
+    });
+  };
 
   return (
-    <section className={classNames(styles.container, className)}>
+    <section
+      className={classNames(
+        styles.container,
+        className,
+        styles[data.slides[currentSlideIndex].colorScheme],
+      )}
+    >
       <div className={styles.content}>
-        <ArrowButton
-          direction="left"
-          onClick={() => swiperRef.current?.slidePrev()}
-          className={styles.button}
-          aria-label="Previous slide"
-        />
-
         <div className={styles.sliderContainer}>
-          <Typography
-            as="h2"
-            variant="h1"
-            className={classNames(styles.bannerTitle, styles.bannerTitleMobile)}
-          >
-            {data.sliderTitle}
-          </Typography>
-
-          <div className={styles.banner}>
-            <div className={styles.bannerContent}>
-              <div className={styles.bannerInfo}>
-                <Typography
-                  as="h2"
-                  variant="h1"
-                  className={styles.bannerTitle}
-                >
-                  {data.sliderTitle}
-                  <OKIcon className={styles.emoji} />
-                </Typography>
-
-                <Typography
-                  variant="bodytext"
-                  className={styles.bannerSubtitle}
-                >
-                  {data.sliderSubtitle}
-                </Typography>
-              </div>
-              <Link to={routePaths.catalog(data.sliderButtonLink)}>
-                <Typography
-                  variant="uppercase"
-                  className={styles.bannerButton}
-                >
-                  {data.sliderButtonText}
-                </Typography>
-              </Link>
-            </div>
-          </div>
-
           <Slider
-            slidesPerView={1}
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-            }}
             className={styles.slider}
-            modules={[EffectFade, Autoplay, Keyboard, A11y, Pagination]}
+            modules={[
+              EffectFade,
+              Autoplay,
+              Keyboard,
+              A11y,
+              Pagination,
+              Parallax,
+            ]}
+            parallax
+            slidesPerView={1}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            loop={data.slides.length > 1}
+            speed={700}
+            autoplay={
+              data.slides.length > 1 ?
+                {
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }
+              : false
+            }
             keyboard={{
               enabled: true,
               onlyInViewport: true,
             }}
-            a11y={{
-              enabled: true,
-            }}
-            effect="fade"
-            fadeEffect={{
-              crossFade: true,
-            }}
-            loop={true}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            a11y={{ enabled: true }}
             pagination={{
               el: `.${styles.pagination}`,
               clickable: true,
+              renderBullet: (_, className) => `
+                <span class="${className}">
+                  <span class="${styles.paginationFill}"></span>
+                </span>
+              `,
+            }}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              setCurrentSlideIndex(swiper.realIndex);
+            }}
+            onSlideChange={(swiper) => {
+              setCurrentSlideIndex(swiper.realIndex);
+            }}
+            onAutoplayTimeLeft={(swiper, _timeLeft, percentage) => {
+              updateProgress(swiper, percentage);
             }}
           >
-            {data.slides.map(({ id, title, subtitle, image }) => (
+            {data.slides.map(({ id, ...slide }) => (
               <SwiperSlide
                 key={id}
-                className={styles.slide}
+                className={classNames(styles.slide)}
               >
-                <Slide
-                  title={title}
-                  subtitle={subtitle}
-                  image={image}
-                />
+                <Slide data={slide} />
               </SwiperSlide>
             ))}
           </Slider>
-        </div>
 
-        <ArrowButton
-          direction="right"
-          onClick={() => swiperRef.current?.slideNext()}
-          className={styles.button}
-          aria-label="Next slide"
-        />
+          <ArrowButton
+            direction="left"
+            onClick={() => swiperRef.current?.slidePrev()}
+            className={classNames(styles.button, styles.buttonLeft)}
+            aria-label="Previous slide"
+          />
+
+          <ArrowButton
+            direction="right"
+            onClick={() => swiperRef.current?.slideNext()}
+            className={classNames(styles.button, styles.buttonRight)}
+            aria-label="Next slide"
+          />
+
+          <div
+            ref={paginationRef}
+            className={styles.pagination}
+          />
+        </div>
       </div>
-      <div className={styles.pagination} />
     </section>
   );
 };
