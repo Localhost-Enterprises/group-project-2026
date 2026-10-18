@@ -66,10 +66,6 @@ export const CatalogPage = () => {
     return <NotFoundPage />;
   }
 
-  if (isPending) {
-    return <h2>Loading products</h2>;
-  }
-
   if (isError) {
     return <h2>Product error</h2>;
   }
@@ -78,6 +74,7 @@ export const CatalogPage = () => {
     <CatalogTemplate
       data={{
         items: visibleItems,
+        totalItems: items.length,
         title,
         isLoading: isPending,
       }}
