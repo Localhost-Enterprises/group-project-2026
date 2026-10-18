@@ -8,23 +8,52 @@
   grid-column: 1 / -1;
 
   min-width: 0;
+  position: relative;
+
+  transition: box-shadow $transition-time;
+
+  @include on('tablet') {
+    border-radius: 16px;
+  }
+
+  @include on('desktop') {
+    border-radius: 20px;
+  }
+
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  &.purple {
+    box-shadow: rgba(243, 48, 198, 0.2) 0px 7px 29px 0px;
+  }
+
+  &.yellow {
+    box-shadow: rgba(234, 211, 59, 0.2) 0px 7px 29px 0px;
+  }
+
+  &.blue {
+    box-shadow: rgba(65, 59, 234, 0.2) 0px 7px 29px 0px;
+  }
 }
 
 .content {
   grid-column: 1 / -1;
   min-width: 0;
+  border-radius: inherit;
 }
 
 .sliderContainer {
-  position: relative;
+  border-radius: inherit;
 
+  overflow: hidden;
+
+  position: relative;
+  border-radius: inherit;
   width: 100vw;
   min-width: 0;
   margin-left: calc(50% - 50vw);
 
   aspect-ratio: 1 / 1;
 
-  overflow: hidden;
   background: #000;
 
   @include on('tablet') {
@@ -32,11 +61,6 @@
     margin-left: 0;
 
     aspect-ratio: 2.6 / 1;
-    border-radius: 16px;
-  }
-
-  @include on('desktop') {
-    border-radius: 20px;
   }
 }
 

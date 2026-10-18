@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { Swiper as Slider, SwiperSlide } from 'swiper/react';
@@ -32,6 +32,8 @@ export const HeroSlider = ({ data, className }: Props) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const paginationRef = useRef<HTMLDivElement | null>(null);
 
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
   const updateProgress = (swiper: SwiperType, percentage: number) => {
     const bullets = paginationRef.current?.querySelectorAll<HTMLElement>(
       '.swiper-pagination-bullet',
@@ -50,7 +52,13 @@ export const HeroSlider = ({ data, className }: Props) => {
   };
 
   return (
-    <section className={classNames(styles.container, className)}>
+    <section
+      className={classNames(
+        styles.container,
+        className,
+        styles[data.slides[currentSlideIndex].colorScheme],
+      )}
+    >
       <div className={styles.content}>
         <div className={styles.sliderContainer}>
           <Slider
@@ -93,6 +101,10 @@ export const HeroSlider = ({ data, className }: Props) => {
             }}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
+              setCurrentSlideIndex(swiper.realIndex);
+            }}
+            onSlideChange={(swiper) => {
+              setCurrentSlideIndex(swiper.realIndex);
             }}
             onAutoplayTimeLeft={(swiper, _timeLeft, percentage) => {
               updateProgress(swiper, percentage);
