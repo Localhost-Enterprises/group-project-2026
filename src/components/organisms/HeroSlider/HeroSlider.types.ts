@@ -14,6 +14,7 @@ export type HeroSlide = {
   buttonText: string;
   buttonLink: string;
   features: HeroSlideFeature[];
+  colorScheme: 'purple' | 'yellow' | 'blue';
 };
 
 export type HeroSliderData = {

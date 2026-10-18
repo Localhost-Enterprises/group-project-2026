@@ -19,6 +19,7 @@ import imageAccessoriesCategory from '@/shared/assets/images/accessories_product
 
 import imagePhones from '@/shared/assets/images/phones.png?no-inline';
 import imageAccessories from '@/shared/assets/images/accessories.png?no-inline';
+import imageTablets from '@/shared/assets/images/tablets.png?no-inline';
 
 import chip from '@/shared/assets/icons/Chip.svg';
 import camera from '@/shared/assets/icons/Camera.svg';
@@ -52,6 +53,7 @@ const heroSliderData: HeroSliderData = {
           description: 'Always-On. Always a step ahead.',
         },
       ],
+      colorScheme: 'purple',
     },
     {
       id: 2,
@@ -79,6 +81,35 @@ const heroSliderData: HeroSliderData = {
           description: 'Always-Off. Always a step behind.',
         },
       ],
+      colorScheme: 'yellow',
+    },
+    {
+      id: 3,
+      title: 'iPad 2.5 Micro',
+      accentTitle: 'Small! Micro!',
+      subtitle: 'Buy. BUY!',
+      backgroundImage: backgroundTabletsCategory,
+      image: imageTablets,
+      buttonText: 'Order later',
+      buttonLink: '/tablets/apple-ipad-pro-11-2021-128gb-spacegray',
+      features: [
+        {
+          icon: chip,
+          title: 'No chip.',
+          description: 'Sadly',
+        },
+        {
+          icon: camera,
+          title: 'No camera',
+          description: 'No detail.',
+        },
+        {
+          icon: screen,
+          title: 'Paper display',
+          description: 'Never on. Never. Maybe someday',
+        },
+      ],
+      colorScheme: 'blue',
     },
   ],
 };

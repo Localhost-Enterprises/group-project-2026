@@ -101,9 +101,9 @@ export const HeroSlider = ({ data, className }: Props) => {
             {data.slides.map(({ id, ...slide }) => (
               <SwiperSlide
                 key={id}
-                className={styles.slide}
+                className={classNames(styles.slide)}
               >
-                <Slide {...slide} />
+                <Slide data={slide} />
               </SwiperSlide>
             ))}
           </Slider>

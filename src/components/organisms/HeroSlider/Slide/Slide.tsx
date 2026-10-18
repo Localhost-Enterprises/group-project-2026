@@ -4,38 +4,18 @@ import { Typography } from '@/components/atoms/Typography';
 import styles from './Slide.module.scss';
 import { TextButton } from '@/components/molecules';
 import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-
-type SlideFeature = {
-  icon: string;
-  title: string;
-  description: string;
-};
+import classNames from 'classnames';
+import type { HeroSlide } from '../HeroSlider.types';
 
 type Props = {
-  title: string;
-  accentTitle: string;
-  subtitle: string;
-  backgroundImage: string;
-  image: string;
-  buttonText: string;
-  buttonLink: string;
-  features: SlideFeature[];
+  data: Omit<HeroSlide, 'id'>;
 };
 
-export const Slide = ({
-  title,
-  accentTitle,
-  subtitle,
-  backgroundImage,
-  image,
-  buttonText,
-  buttonLink,
-  features,
-}: Props) => {
+export const Slide = ({ data }: Props) => {
   return (
     <div
-      className={styles.slideContent}
-      style={{ backgroundImage: `url("${backgroundImage}")` }}
+      className={classNames(styles.slideContent, styles[data.colorScheme])}
+      style={{ backgroundImage: `url("${data.backgroundImage}")` }}
     >
       <div className={styles.slideInfo}>
         <div className={styles.heading}>
@@ -47,20 +27,20 @@ export const Slide = ({
           </Typography>
 
           <h2 className={styles.phoneTitle}>
-            <span className={styles.title}>{title}</span>
-            <span className={styles.accentTitle}>{accentTitle}</span>
+            <span className={styles.title}>{data.title}</span>
+            <span className={styles.accentTitle}>{data.accentTitle}</span>
           </h2>
 
           <Typography
             variant="smalltext"
             className={styles.subtitle}
           >
-            {subtitle}
+            {data.subtitle}
           </Typography>
         </div>
 
         <div className={styles.features}>
-          {features.map((feature) => (
+          {data.features.map((feature) => (
             <div
               key={feature.title}
               className={styles.feature}
@@ -86,10 +66,10 @@ export const Slide = ({
         <div className={styles.actions}>
           <TextButton className={styles.button}>
             <Link
-              to={buttonLink}
+              to={data.buttonLink}
               className={styles.buttonLink}
             >
-              {buttonText}
+              {data.buttonText}
               <ArrowIcon direction="right" />
             </Link>
           </TextButton>
@@ -98,8 +78,8 @@ export const Slide = ({
 
       <div className={styles.imageContainer}>
         <img
-          src={image}
-          alt={title}
+          src={data.image}
+          alt={data.title}
           draggable={false}
           data-swiper-parallax-y="200"
         />
