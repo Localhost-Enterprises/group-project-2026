@@ -30,10 +30,10 @@ export const SearchField = ({
   const query = currentValue.trim();
   const shouldOpen = isOpen && query.length > 0;
   const { data: products, isPending, isError } = useProducts();
-  const normalizedQuery = query.toLowerCase();
+  const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
   const matchingProducts =
-    products?.filter((product) =>
-      [
+    products?.filter((product) => {
+      const searchableText = [
         product.name,
         product.item_id,
         product.capacity,
@@ -41,9 +41,10 @@ export const SearchField = ({
         product.category,
       ]
         .join(' ')
-        .toLowerCase()
-        .includes(normalizedQuery),
-    ) ?? [];
+        .toLowerCase();
+
+      return queryTerms.every((term) => searchableText.includes(term));
+    }) ?? [];
 
   return (
     <Popover.Root
