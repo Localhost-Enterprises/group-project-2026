@@ -12,6 +12,7 @@ import { routePaths } from '@/app/router/routes';
 import { selectCartCount, useCartStore } from '@/entities/cart';
 import classNames from 'classnames';
 import { useFavouritesStore } from '@/entities/favourites';
+import { SearchField } from '../SearchField';
 
 type Props = {
   className?: string;
@@ -73,6 +74,7 @@ export const Header = ({ className }: Props) => {
       </nav>
 
       <div className={styles.headerActions}>
+        <SearchField />
         <NavLink
           to={ROUTES.FAVOURITES}
           className={({ isActive }) =>
@@ -101,6 +103,10 @@ export const Header = ({ className }: Props) => {
           <CloseIcon />
         : <MenuIcon />}
       </button>
+
+      <div className={styles.mobileSearch}>
+        <SearchField />
+      </div>
 
       {/*Mobile menu*/}
 

@@ -4,8 +4,10 @@
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 64px;
+  height: auto;
+  min-height: 64px;
   width: 100%;
   box-sizing: border-box;
   background-color: $white;
@@ -18,6 +20,8 @@
   z-index: 100;
 
   @include on('tablet') {
+    flex-wrap: nowrap;
+    height: 64px;
     padding-left: 24px;
     justify-content: flex-start;
   }
@@ -170,12 +174,28 @@
   }
 }
 
+.mobileSearch {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding-right: 16px;
+  margin-bottom: 12px;
+
+  > div {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  @include on('tablet') {
+    display: none;
+  }
+}
+
 .mobileMenu {
   position: fixed;
-  top: 64px;
+  top: 121px;
   left: 0;
   width: 100vw;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 121px);
   background-color: $white;
   display: flex;
   flex-direction: column;
