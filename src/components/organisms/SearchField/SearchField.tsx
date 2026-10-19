@@ -75,24 +75,27 @@ export const SearchField = ({
               setIsOpen(Boolean(event.target.value.trim()));
             }}
           />
-          {currentValue.length > 0 && (
-            <button
-              className={styles.clearButton}
-              type="button"
-              aria-label="Очистить поиск"
-              onClick={() => {
-                if (value === undefined) {
-                  setInternalValue('');
-                }
+          <button
+            className={classNames(styles.clearButton, {
+              [styles.clearButtonHidden]: currentValue.length === 0,
+            })}
+            type="button"
+            aria-label="Очистить поиск"
+            aria-hidden={currentValue.length === 0}
+            tabIndex={currentValue.length === 0 ? -1 : undefined}
+            disabled={currentValue.length === 0}
+            onClick={() => {
+              if (value === undefined) {
+                setInternalValue('');
+              }
 
-                onClear?.();
-                setIsOpen(false);
-                inputRef.current?.focus();
-              }}
-            >
-              <CloseIcon className={styles.clearIcon} />
-            </button>
-          )}
+              onClear?.();
+              setIsOpen(false);
+              inputRef.current?.focus();
+            }}
+          >
+            <CloseIcon className={styles.clearIcon} />
+          </button>
         </div>
       </Popover.Anchor>
 
