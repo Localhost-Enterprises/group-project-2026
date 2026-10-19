@@ -11,15 +11,18 @@ import { ProductSection } from '@/components/organisms/Product/ProductSection';
 import { ProductDescription } from '@/components/organisms/Product/ProductDescription';
 import { ProductSpecs } from '@/components/organisms/Product/ProductSpecs';
 
-import type { Accessory, Phone, Product, Tablet } from '@/shared/types';
+import type { AnyProductDetails, Product } from '@/shared/types';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
-import type { WithImageUrls } from '@/shared/types/WithImageUrls';
+import type {
+  WithImageUrls,
+  With360ImageUrls,
+} from '@/shared/types/WithImageUrls';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
 import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
 
 type Props = {
   product: WithImageUrls<Product>;
-  productDetails: WithImageUrls<Phone | Tablet | Accessory>;
+  productDetails: With360ImageUrls<AnyProductDetails>;
 };
 
 export const ProductTemplate = ({ product, productDetails }: Props) => {
@@ -50,6 +53,7 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
         <ProductSlider
           key={productDetails.id}
           images={productDetails.imageUrls}
+          images360={productDetails.image360Urls ?? []}
           name={productDetails.name}
           className={styles.slider}
         />
