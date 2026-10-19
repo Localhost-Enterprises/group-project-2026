@@ -5,22 +5,21 @@ import classNames from 'classnames';
 
 import 'swiper/css';
 
-import styles from './ProductSlider.module.scss';
-
 import { React360Viewer } from 'react-360-product-viewer';
 
 import icon360 from '@/shared/assets/icons/360.svg';
+import styles from './ProductSlider.module.scss';
 
 type Props = {
   images: string[];
-  images360: string[];
+  images360?: string[];
   name: string;
   className?: string;
 };
 
 export const ProductSlider = ({
   images,
-  images360,
+  images360 = [],
   name,
   className,
 }: Props) => {
@@ -28,6 +27,7 @@ export const ProductSlider = ({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const has360 = images360.length > 1;
+
   const images360BaseUrl =
     has360 ? images360[0].substring(0, images360[0].lastIndexOf('/') + 1) : '';
 
@@ -51,6 +51,7 @@ export const ProductSlider = ({
             />
           </button>
         ))}
+
         {has360 && (
           <button
             type="button"
@@ -89,18 +90,23 @@ export const ProductSlider = ({
             </div>
           </SwiperSlide>
         ))}
+
         {has360 && (
           <SwiperSlide>
-            <div className={classNames(styles.mainImage, 'swiper-no-swiping')}>
+            <div
+              className={classNames(
+                styles.mainImage,
+                styles.viewer360,
+                'swiper-no-swiping',
+              )}
+            >
               <React360Viewer
                 imagesBaseUrl={images360BaseUrl}
-                imagesCount={36}
+                imagesCount={images360.length}
                 imagesFiletype="webp"
                 mouseDragSpeed={20}
                 autoplay={false}
-                fillContainer={true}
-                inertia
-                showRotationIconOnStartup={true}
+                showRotationIconOnStartup
               />
             </div>
           </SwiperSlide>
