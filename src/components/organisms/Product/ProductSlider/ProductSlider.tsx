@@ -5,17 +5,31 @@ import classNames from 'classnames';
 
 import 'swiper/css';
 
+import { React360Viewer } from 'react-360-product-viewer';
+
+import icon360 from '@/shared/assets/icons/360.svg';
 import styles from './ProductSlider.module.scss';
 
 type Props = {
   images: string[];
+  images360?: string[];
   name: string;
   className?: string;
 };
 
-export const ProductSlider = ({ images, name, className }: Props) => {
+export const ProductSlider = ({
+  images,
+  images360 = [],
+  name,
+  className,
+}: Props) => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const has360 = images360.length > 1;
+
+  const images360BaseUrl =
+    has360 ? images360[0].substring(0, images360[0].lastIndexOf('/') + 1) : '';
 
   return (
     <div className={classNames(styles.slider, className)}>
@@ -37,6 +51,24 @@ export const ProductSlider = ({ images, name, className }: Props) => {
             />
           </button>
         ))}
+
+        {has360 && (
+          <button
+            type="button"
+            className={classNames(styles.thumbnail, styles.thumbnail360, {
+              [styles.activeThumbnail]: activeIndex === images.length,
+            })}
+            onClick={() => swiper?.slideTo(images.length)}
+            aria-label="View product in 360 degrees"
+            aria-pressed={activeIndex === images.length}
+          >
+            <img
+              className={styles.previewIcon}
+              src={icon360}
+              alt="360 Preview"
+            />
+          </button>
+        )}
       </div>
 
       <Swiper
@@ -46,6 +78,7 @@ export const ProductSlider = ({ images, name, className }: Props) => {
         onSlideChange={(instance) => {
           setActiveIndex(instance.activeIndex);
         }}
+        noSwipingClass="swiper-no-swiping"
       >
         {images.map((image, index) => (
           <SwiperSlide key={`${image}-${index}`}>
@@ -57,6 +90,27 @@ export const ProductSlider = ({ images, name, className }: Props) => {
             </div>
           </SwiperSlide>
         ))}
+
+        {has360 && (
+          <SwiperSlide>
+            <div
+              className={classNames(
+                styles.mainImage,
+                styles.viewer360,
+                'swiper-no-swiping',
+              )}
+            >
+              <React360Viewer
+                imagesBaseUrl={images360BaseUrl}
+                imagesCount={images360.length}
+                imagesFiletype="webp"
+                mouseDragSpeed={20}
+                autoplay={false}
+                showRotationIconOnStartup
+              />
+            </div>
+          </SwiperSlide>
+        )}
       </Swiper>
     </div>
   );
