@@ -4,6 +4,7 @@ import { selectAddItem, selectIsInCart, useCartStore } from '@/entities/cart';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/app/router';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   productId: number;
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export const AddToCartButton = ({ productId, className }: Props) => {
+  const { t } = useTranslation();
+
   const addItem = useCartStore(selectAddItem);
   const isAdded = useCartStore(selectIsInCart(productId));
   const location = useLocation();
@@ -26,9 +29,9 @@ export const AddToCartButton = ({ productId, className }: Props) => {
           to={ROUTES.CART}
           state={{ from: `${location.pathname}${location.search}` }}
         >
-          Added to cart
+          {t('addedToCart')}
         </Link>
-      : 'Add to cart'}
+      : t('addToCart')}
     </TextButton>
   );
 };

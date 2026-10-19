@@ -16,6 +16,7 @@ import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import type { WithImageUrls } from '@/shared/types/WithImageUrls';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
 import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   product: WithImageUrls<Product>;
@@ -23,12 +24,22 @@ type Props = {
 };
 
 export const ProductTemplate = ({ product, productDetails }: Props) => {
+  const { t } = useTranslation();
+
   const specs = getProductSpecs(productDetails);
 
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        parts={[product.category, product.name]}
+        items={[
+          {
+            label: t(product.category),
+            to: `/${product.category}`,
+          },
+          {
+            label: product.name,
+          },
+        ]}
         className={styles.breadcrumbs}
       />
 

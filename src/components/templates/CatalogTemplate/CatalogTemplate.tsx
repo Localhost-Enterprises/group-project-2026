@@ -5,6 +5,7 @@ import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography';
 import { CatalogPagination } from '@/components/organisms/CatalogPagination/CatalogPagination';
+import { useTranslation } from 'react-i18next';
 
 type CatalogProduct = Product;
 
@@ -28,24 +29,24 @@ export const CatalogTemplate = ({
   totalPages,
   onPageChange,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        parts={[data.title]}
+        items={[{ label: t(data.title) }]}
         className={styles.breadcrumbs}
       />
 
       <h1 className={styles.title}>
-        {data.title === 'phones' ?
-          'Mobile phones'
-        : data.title[0].toUpperCase() + data.title.slice(1)}
+        {data.title === 'phones' ? t('mobilePhones') : t(data.title)}
       </h1>
 
       <Typography
         className={styles.modelsCount}
         variant="bodytext"
       >
-        {data.totalItems} models
+        {t('modelsCount', { count: data.totalItems })}
       </Typography>
 
       <CatalogFilter />
