@@ -1,5 +1,6 @@
 @use '@/app/styles/mixins' as *;
 @use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
 
 .slider {
   display: flex;
@@ -63,8 +64,10 @@
   background: $white;
   cursor: pointer;
   overflow: hidden;
-
-  transition: border-color 0.2s ease;
+  opacity: 0.5;
+  transition:
+    border-color $transition-time,
+    opacity $transition-time;
 
   @include on('tablet') {
     flex: 0 0 auto;
@@ -98,6 +101,7 @@
 
 .activeThumbnail {
   border-color: $primary;
+  opacity: 1;
 }
 
 .mainSlider {
@@ -136,5 +140,11 @@
 
   @include on('desktop') {
     height: 464px;
+  }
+}
+
+.thumbnail360 {
+  img {
+    width: 50%;
   }
 }

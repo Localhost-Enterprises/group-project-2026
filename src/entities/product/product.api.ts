@@ -3,20 +3,60 @@ import { supabase } from '@/shared/api/supabase';
 import type { Product } from '@/shared/types';
 import type { Category } from '@/shared/types/Category';
 import type { ProductDetailsByCategory } from '@/shared/types/ProductDetailsMap';
-import type { WithImageUrls } from '@/shared/types/WithImageUrls';
+import type {
+  With360ImageUrls,
+  WithImageUrls,
+} from '@/shared/types/WithImageUrls';
 
 type WithImages = {
   images: string | string[];
 };
 
+type WithNamespace = WithImages & {
+  namespace_id: string;
+};
+
+const STORAGE_BUCKET = 'images';
+
 const getFullImageUrls = (item: WithImages): string[] => {
   const images = Array.isArray(item.images) ? item.images : [item.images];
 
   return images.map((imagePath) => {
-    const { data } = supabase.storage.from('images').getPublicUrl(imagePath);
+    const { data } = supabase.storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(imagePath);
 
     return data.publicUrl;
   });
+};
+
+const get360ImageUrls = async (namespaceId: string): Promise<string[]> => {
+  const folderPath = `360/${namespaceId}`;
+
+  const { data, error } = await supabase.storage
+    .from('images')
+    .list(folderPath, {
+      limit: 1000,
+      sortBy: {
+        column: 'name',
+        order: 'asc',
+      },
+    });
+
+  if (error) {
+    return [];
+  }
+
+  if (!data?.length) return [];
+
+  return data
+    .filter((file) => file.id !== null && file.name)
+    .map(
+      (file) =>
+        supabase.storage
+          .from('images')
+          .getPublicUrl(`${folderPath}/${file.name}`).data.publicUrl,
+    );
 };
 
 const withImageUrls = <T extends WithImages>(item: T): WithImageUrls<T> => ({
@@ -24,8 +64,20 @@ const withImageUrls = <T extends WithImages>(item: T): WithImageUrls<T> => ({
   imageUrls: getFullImageUrls(item),
 });
 
+const with360ImageUrls = async <T extends WithNamespace>(
+  item: T,
+): Promise<With360ImageUrls<T>> => {
+  const image360Urls = await get360ImageUrls(item.namespace_id);
+
+  return {
+    ...withImageUrls(item),
+    image360Urls,
+  };
+};
+
 export const productApi = {
   getFullImageUrls,
+  get360ImageUrls,
 
   getAll: async (): Promise<WithImageUrls<Product>[]> => {
     const { data, error } = await supabase.from('products').select('*');
@@ -77,7 +129,7 @@ export const productApi = {
   getByIdInCategory: async <T extends Category>(
     table: T,
     id: string,
-  ): Promise<WithImageUrls<ProductDetailsByCategory<T>> | null> => {
+  ): Promise<With360ImageUrls<ProductDetailsByCategory<T>> | null> => {
     const { data, error } = await supabase
       .from(table)
       .select('*')
@@ -92,7 +144,7 @@ export const productApi = {
       category: table,
     } as ProductDetailsByCategory<T>;
 
-    return withImageUrls(product);
+    return with360ImageUrls(product);
   },
 
   getAllByCategory: async <T extends Category>(
