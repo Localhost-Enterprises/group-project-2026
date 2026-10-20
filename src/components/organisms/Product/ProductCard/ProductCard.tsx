@@ -17,12 +17,14 @@ import type { ProductRating } from '@/entities/product/api/product-ratings.api';
 
 import { ProductLink } from '../ProductLink';
 
-import screen from '@/shared/assets/icons/Screen.svg';
-import ram from '@/shared/assets/icons/Ram.svg';
-import memory from '@/shared/assets/icons/Memory.svg';
+import screenIcon from '@/shared/assets/icons/Screen.svg';
+import ramIcon from '@/shared/assets/icons/Ram.svg';
+import memoryIcon from '@/shared/assets/icons/Memory.svg';
 import { useTranslation } from 'react-i18next';
 
 import styles from './ProductCard.module.scss';
+import { Spec } from './Spec/Spec';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 type Props = (
   | {
@@ -106,10 +108,11 @@ export const ProductCard = ({
     );
   }
 
-  const formattedScreen =
-    product.screen.length > 10 ?
-      `${product.screen.slice(0, 7)}...`
-    : product.screen;
+  const specs = [
+    { label: 'Screen', value: product.screen, icon: screenIcon },
+    { label: 'Memory', value: product.capacity, icon: memoryIcon },
+    { label: 'Ram', value: product.ram, icon: ramIcon },
+  ];
 
   const roundedRating =
     rating ? (Math.max(0, Math.min(5, Math.round(rating.rating))) as Rate) : 0;
@@ -136,14 +139,10 @@ export const ProductCard = ({
         category={product.category}
         itemId={product.item_id}
       >
-        <img
+        <ImageWithFallback
           className={styles.image}
           data-product-image={product.id}
-          src={
-            product.imageUrls?.[0] ||
-            product.images[0] ||
-            'https://placehold.co/500x500'
-          }
+          src={product.imageUrls?.[0] || product.images[0]}
           alt={product.name}
         />
       </ProductLink>
@@ -181,59 +180,16 @@ export const ProductCard = ({
       </div>
 
       <div className={styles.specs}>
-        <div
-          className={styles.specRow}
-          title={`Memory: ${product.capacity}`}
-        >
-          <img
-            src={memory}
-            alt={t('specCapacity')}
-            className={styles.specIcon}
-          />
-
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {product.capacity}
-          </Typography>
-        </div>
-
-        <div
-          className={styles.specRow}
-          title={`Ram: ${product.ram}`}
-        >
-          <img
-            src={ram}
-            alt={t('specRam')}
-            className={styles.specIcon}
-          />
-
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {product.ram}
-          </Typography>
-        </div>
-
-        <div
-          className={styles.specRow}
-          title={`Screen: ${product.screen}`}
-        >
-          <img
-            src={screen}
-            alt={t('specScreenDiagonal')}
-            className={styles.specIcon}
-          />
-
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {formattedScreen}
-          </Typography>
-        </div>
+        {specs.map(({ label, value, icon }) => {
+          return (
+            <Spec
+              label={label}
+              value={value}
+              icon={icon}
+              key={label}
+            />
+          );
+        })}
       </div>
 
       <div className={styles.actions}>

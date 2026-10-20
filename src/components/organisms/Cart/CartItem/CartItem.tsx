@@ -15,6 +15,7 @@ import { ProductLink } from '../../Product/ProductLink';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useTranslation } from 'react-i18next';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 export type CartItemProduct = {
   itemId: string;
@@ -96,7 +97,7 @@ export const CartItem = (props: Props) => {
         category={product.category}
         itemId={product.item_id}
       >
-        <img
+        <ImageWithFallback
           className={styles.image}
           src={imageSrc}
           alt={product.name}

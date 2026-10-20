@@ -7,6 +7,7 @@ import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 import { useProducts } from '@/entities/product';
 import { routePaths } from '@/app/router/routes';
 import styles from './SearchField.module.scss';
+import { ImageWithFallback } from '../ImageWithFallback';
 
 type Props = Omit<React.ComponentProps<'input'>, 'className' | 'type'> & {
   className?: string;
@@ -129,7 +130,7 @@ export const SearchField = ({
                 to={routePaths.product(product.category, product.item_id)}
                 onClick={() => setIsOpen(false)}
               >
-                <img
+                <ImageWithFallback
                   className={styles.productImage}
                   src={
                     product.imageUrls?.[0] ??

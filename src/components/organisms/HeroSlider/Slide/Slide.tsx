@@ -7,6 +7,7 @@ import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import classNames from 'classnames';
 import type { HeroSlide } from '../HeroSlider.types';
 import { useTranslation } from 'react-i18next';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 type Props = {
   data: Omit<HeroSlide, 'id'>;
@@ -80,7 +81,7 @@ export const Slide = ({ data }: Props) => {
       </div>
 
       <div className={styles.imageContainer}>
-        <img
+        <ImageWithFallback
           src={data.image}
           alt={data.title}
           draggable={false}
