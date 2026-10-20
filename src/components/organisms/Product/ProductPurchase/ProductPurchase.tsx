@@ -18,6 +18,8 @@ import { routePaths } from '@/app/router/routes';
 import { productApi } from '@/entities/product/product.api';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import { AddToCartButton } from '@/features/add-to-cart';
+import { useFavouritesStore } from '@/entities/favourites';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 type Props = {
   product: Product;
@@ -32,7 +34,10 @@ export const ProductPurchase = ({
 }: Props) => {
   const navigate = useNavigate();
 
-  const [isFavourite, setIsFavourite] = useState(false);
+  const isFavourite = useFavouritesStore((state) =>
+    state.isFavourite(product.id),
+  );
+  const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
   const [isChanging, setIsChanging] = useState(false);
 
   const specs = getProductSpecs(productDetails).slice(0, 4);
@@ -145,7 +150,13 @@ export const ProductPurchase = ({
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
-          onClick={() => setIsFavourite((prev) => !prev)}
+          onClick={() => {
+            if (!isFavourite) {
+              animateProductToHeader(product.id, 'favourites');
+            }
+
+            toggleFavourite(product);
+          }}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
           aria-label="Add to favourites"

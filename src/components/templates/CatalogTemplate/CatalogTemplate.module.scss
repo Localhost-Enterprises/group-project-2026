@@ -31,6 +31,38 @@
   .content {
     @include grid;
     gap: 40px 16px;
+
+    > .card:nth-child(1) {
+      animation-delay: 0ms;
+    }
+
+    > .card:nth-child(2) {
+      animation-delay: 60ms;
+    }
+
+    > .card:nth-child(3) {
+      animation-delay: 120ms;
+    }
+
+    > .card:nth-child(4) {
+      animation-delay: 180ms;
+    }
+
+    > .card:nth-child(5) {
+      animation-delay: 240ms;
+    }
+
+    > .card:nth-child(6) {
+      animation-delay: 300ms;
+    }
+
+    > .card:nth-child(7) {
+      animation-delay: 360ms;
+    }
+
+    > .card:nth-child(8) {
+      animation-delay: 420ms;
+    }
   }
   .card {
     grid-column: 1/-1;
