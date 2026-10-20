@@ -7,6 +7,7 @@ import { CartIcon } from '@/components/atoms/Icons/CartIcon';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
 import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
+import { SearchIcon } from '@/components/atoms/Icons/SearchIcon';
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
 import { selectCartCount, useCartStore } from '@/entities/cart';
@@ -14,6 +15,7 @@ import classNames from 'classnames';
 import { useFavouritesStore } from '@/entities/favourites';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
+import { SearchField } from '../SearchField';
 
 type Props = {
   className?: string;
@@ -22,6 +24,7 @@ type Props = {
 export const Header = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const cartQuantity = useCartStore(selectCartCount);
   const location = useLocation();
   const previousFrom = location.state?.from;
@@ -81,7 +84,9 @@ export const Header = ({ className }: Props) => {
       </nav>
 
       <div className={styles.headerActions}>
+        <SearchField className={styles.desktopSearch} />
         <LanguageSwitcher />
+
         <NavLink
           to={ROUTES.FAVOURITES}
           className={({ isActive }) =>
@@ -99,6 +104,31 @@ export const Header = ({ className }: Props) => {
         >
           <CartIcon quantity={cartQuantity} />
         </NavLink>
+      </div>
+
+      <div className={styles.mobileSearch}>
+        <button
+          className={styles.mobileSearchButton}
+          type="button"
+          aria-label={isMobileSearchOpen ? 'Close search' : 'Open search'}
+          aria-expanded={isMobileSearchOpen}
+          onClick={() => setIsMobileSearchOpen((open) => !open)}
+        >
+          {isMobileSearchOpen ?
+            <CloseIcon />
+          : <SearchIcon />}
+        </button>
+        {isMobileSearchOpen && (
+          <SearchField
+            autoFocus
+            className={styles.mobileSearchField}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') {
+                setIsMobileSearchOpen(false);
+              }
+            }}
+          />
+        )}
       </div>
 
       <button

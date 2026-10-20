@@ -1,14 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { Typography } from '@/components/atoms/Typography';
 import { CartCheckout } from '../CartCheckout';
 import { CartItem } from '../CartItem';
 import styles from './CartContent.module.scss';
 import type { CartContentData } from './CartContent.types';
 import { useTranslation } from 'react-i18next';
+import { ROUTES } from '@/app/router/routes';
 
 import emptyCartImage from '/img/cart-is-empty.png';
 
 export const CartContent = ({ data }: { data: CartContentData }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   if (data.items.length > 0 && data.isPending) {
     return (
@@ -57,6 +60,7 @@ export const CartContent = ({ data }: { data: CartContentData }) => {
           price: product.price,
           count: product.quantity,
         }))}
+        onCheckout={() => navigate(ROUTES.CHECKOUT)}
       />
     </div>
   );

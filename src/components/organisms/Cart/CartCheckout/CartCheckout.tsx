@@ -3,6 +3,7 @@ import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 import { useTranslation } from 'react-i18next';
 
 import styles from './CartCheckout.module.scss';
+import { useEffect } from 'react';
 
 export type CartCheckoutItem = {
   price: number;
@@ -22,6 +23,11 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
     0,
   );
   const totalItems = items.reduce((total, item) => total + item.count, 0);
+
+  useEffect(() => {
+    localStorage.setItem('totalPrice', totalPrice.toString());
+    localStorage.setItem('totalItems', totalItems.toString());
+  }, [totalPrice, totalItems]);
 
   return (
     <div
