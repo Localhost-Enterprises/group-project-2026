@@ -81,12 +81,14 @@ export const ProductsSlider = ({ data, className }: Props) => {
             direction="left"
             disabled={isBeginning}
             onClick={() => swiperRef.current?.slidePrev()}
+            aria-label={`Show previous ${data.sectionTitle} products`}
           />
 
           <ArrowButton
             direction="right"
             disabled={isEnd}
             onClick={() => swiperRef.current?.slideNext()}
+            aria-label={`Show next ${data.sectionTitle} products`}
           />
         </div>
       </div>

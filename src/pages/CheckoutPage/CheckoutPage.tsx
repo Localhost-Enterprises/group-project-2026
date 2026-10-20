@@ -159,6 +159,7 @@ export const CheckoutPage = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 className={errors.firstName ? styles.errorInput : ''}
+                aria-label="Enter first name"
               />
             </div>
             <div className={styles.fieldGroup}>
@@ -169,6 +170,7 @@ export const CheckoutPage = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 className={errors.lastName ? styles.errorInput : ''}
+                aria-label="Enter last name"
               />
             </div>
           </div>
@@ -180,6 +182,7 @@ export const CheckoutPage = () => {
               name="middleName"
               value={formData.middleName}
               onChange={handleChange}
+              aria-label="Enter middle name"
             />
           </div>
 
@@ -205,6 +208,7 @@ export const CheckoutPage = () => {
                 }}
                 placeholder="XXXXXXXXX"
                 className={errors.phone ? styles.errorInput : ''}
+                aria-label="Enter mobile phone number"
               />
             </div>
           </div>
@@ -218,6 +222,7 @@ export const CheckoutPage = () => {
               onChange={handleChange}
               placeholder="example@gmail.com"
               className={errors.email ? styles.errorInput : ''}
+              aria-label="Enter email address"
             />
           </div>
         </div>
@@ -240,6 +245,7 @@ export const CheckoutPage = () => {
               onChange={handleCityInput}
               autoComplete="off"
               className={errors.city ? styles.errorInput : ''}
+              aria-label="Enter city"
             />
 
             {cities.length > 0 && (
@@ -268,6 +274,7 @@ export const CheckoutPage = () => {
               onChange={handleChange}
               disabled={!warehouses.length}
               className={styles.selectInput}
+              aria-label="Select Nova Poshta branch"
             >
               <option value="">
                 {warehouses.length ? 'Select branch' : 'Select city first'}

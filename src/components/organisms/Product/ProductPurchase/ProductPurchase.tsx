@@ -120,6 +120,7 @@ export const ProductPurchase = ({
                 [styles.selectedCapacity]: capacity === productDetails.capacity,
               })}
               onClick={() => changeVariant(productDetails.color, capacity)}
+              aria-label={`Select ${capacity} capacity`}
             >
               <span className={styles.capacityText}>{capacity}</span>
             </DefaultButton>
@@ -163,7 +164,9 @@ export const ProductPurchase = ({
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
           aria-label={
-            isFavourite ? t('removeFromFavourites') : t('addToFavourites')
+            isFavourite ?
+              `Remove ${product.name} from favourites`
+            : `Add ${product.name} to favourites`
           }
         />
       </div>

@@ -30,10 +30,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
   }, [totalPrice, totalItems]);
 
   return (
-    <div
-      className={styles.container}
-      aria-label={t('cartSummary')}
-    >
+    <div className={styles.container}>
       <div className={styles.summary}>
         <Typography
           className={styles.totalPrice}

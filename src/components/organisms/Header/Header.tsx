@@ -43,6 +43,7 @@ export const Header = ({ className }: Props) => {
       <Link
         to={ROUTES.HOME}
         className={styles.logoLink}
+        aria-label="Go to home page"
       >
         <Logo size="small" />
       </Link>
@@ -90,6 +91,7 @@ export const Header = ({ className }: Props) => {
         <NavLink
           to={ROUTES.FAVOURITES}
           data-fly-target="favourites"
+          aria-label="Open favourites"
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
@@ -99,6 +101,7 @@ export const Header = ({ className }: Props) => {
         <NavLink
           to={ROUTES.CART}
           data-fly-target="cart"
+          aria-label="Open cart"
           state={{ from: cartFrom }}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
@@ -136,7 +139,7 @@ export const Header = ({ className }: Props) => {
       <button
         className={styles.burgerBtn}
         onClick={toggleMenu}
-        aria-label="Toggle menu"
+        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
       >
         {isMenuOpen ?
           <CloseIcon />
@@ -183,6 +186,7 @@ export const Header = ({ className }: Props) => {
           <NavLink
             to={ROUTES.FAVOURITES}
             data-fly-target="favourites"
+            aria-label="Open favourites"
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
@@ -193,6 +197,7 @@ export const Header = ({ className }: Props) => {
           <NavLink
             to={ROUTES.CART}
             data-fly-target="cart"
+            aria-label="Open cart"
             state={{ from: cartFrom }}
             onClick={toggleMenu}
             className={({ isActive }) =>
