@@ -24,8 +24,8 @@ export const HomePage = () => {
   const heroSliderData = getHeroSliderData(t);
 
   useEffect(() => {
-    document.title = 'Home | NICE GADGETS';
-  }, []);
+    document.title = `${t('home')} | NICE GADGETS`;
+  }, [t]);
 
   const { data: products = [], isPending } = useProducts();
 

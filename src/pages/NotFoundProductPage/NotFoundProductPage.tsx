@@ -2,11 +2,14 @@ import { NotFoundTemplate } from '@/components/templates/NotFoundTemplate';
 
 import productNotFoundImage from '/img/product-not-found.png';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const NotFoundProductPage = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
-    document.title = `Product Not Found | NICE GADGETS`;
-  }, []);
+    document.title = `${t('productNotFound')} | NICE GADGETS`;
+  }, [t]);
 
   return (
     <NotFoundTemplate

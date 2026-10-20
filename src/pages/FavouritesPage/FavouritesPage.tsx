@@ -2,11 +2,14 @@ import { FavouritesTemplate } from '@/components/templates/FavouritesTemplate';
 import { useFavouritesStore } from '@/entities/favourites';
 import { useProductByIds } from '@/entities/product';
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const FavouritesPage = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
-    document.title = `Favourites | NICE GADGETS`;
-  }, []);
+    document.title = `${t('favorites')} | NICE GADGETS`;
+  }, [t]);
 
   const savedFavourites = useFavouritesStore((state) => state.favourites);
   const favouriteIds = savedFavourites.map((product) => product.id);
@@ -26,7 +29,7 @@ export const FavouritesPage = () => {
   }, [products, savedFavourites]);
 
   if (isError) {
-    return <h2>Unable to load favourites</h2>;
+    return <h2>{t('unableToLoadFavourites')}</h2>;
   }
 
   return (

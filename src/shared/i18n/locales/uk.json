@@ -25,29 +25,33 @@
   "heroScreenTitle": "Неймовірний дисплей",
   "heroScreenDescription": "Завжди активний. На крок попереду.",
 
-  "heroWatchAccent": "ХА-ХА-ХА!",
-  "heroWatchSubtitle": "Нуб. Фейк.",
-  "heroWatchChipTitle": "Чип A16 Furry",
-  "heroWatchChipDescription": "Павук. Людина.",
-  "heroWatchCameraTitle": "Звичайна система камер",
-  "heroWatchCameraDescription": "1,5 Мп. Менше деталей.",
-  "heroWatchScreenTitle": "Кам'яний дисплей",
-  "heroWatchScreenDescription": "Завжди вимкнений. Завжди на крок позаду.",
+  "heroWatchAccent": "Технології для здоров'я",
+  "heroWatchSubtitle": "Залишайтеся на зв'язку та стежте за активністю.",
+  "heroWatchChipTitle": "Чип S6",
+  "heroWatchChipDescription": "Швидка та плавна робота.",
+  "heroWatchCameraTitle": "Здоров'я та активність",
+  "heroWatchCameraDescription": "Вимірювання кисню в крові та відстеження тренувань.",
+  "heroWatchScreenTitle": "Дисплей Retina",
+  "heroWatchScreenDescription": "Завжди ввімкнений. Уся інформація з першого погляду.",
 
-  "heroIpadAccent": "Маленький! Крихітний!",
-  "heroIpadSubtitle": "Купуй. КУПУЙ!",
-  "heroOrderLater": "Замовити пізніше",
-  "heroIpadChipTitle": "Без чипа.",
-  "heroIpadChipDescription": "На жаль.",
-  "heroIpadCameraTitle": "Без камери",
-  "heroIpadCameraDescription": "Жодних деталей.",
-  "heroIpadScreenTitle": "Паперовий дисплей",
-  "heroIpadScreenDescription": "Ніколи не вмикається. Ніколи. Може, колись.",
+  "heroIpadAccent": "Потужність чипа M1",
+  "heroIpadSubtitle": "Для роботи, творчості та розваг.",
+  "heroIpadChipTitle": "Чип Apple M1",
+  "heroIpadChipDescription": "Висока продуктивність щодня.",
+  "heroIpadCameraTitle": "Професійні камери",
+  "heroIpadCameraDescription": "Ширококутна та надширококутна камери.",
+  "heroIpadScreenTitle": "11-дюймовий Liquid Retina",
+  "heroIpadScreenDescription": "Яскраве та чітке зображення.",
 
   "modelsCount_one": "{{count}} модель",
   "modelsCount_few": "{{count}} моделі",
   "modelsCount_many": "{{count}} моделей",
   "modelsCount_other": "{{count}} моделі",
+
+  "itemsCount_one": "{{count}} товар",
+  "itemsCount_few": "{{count}} товари",
+  "itemsCount_many": "{{count}} товарів",
+  "itemsCount_other": "{{count}} товару",
 
   "addedToCart": "Додано до кошика",
 
@@ -55,5 +59,59 @@
   "footerRights": "Права",
   "footerBackToTop": "На початок",
 
-  "back": "Назад"
+  "back": "Назад",
+
+  "about": "Про товар",
+  "techSpecs": "Технічні характеристики",
+
+  "sortBy": "Сортувати за",
+  "itemsOnPage": "Товарів на сторінці",
+
+  "sortNewest": "Найновіші",
+  "sortCheapest": "Низька ціна",
+  "sortMostExpensive": "Висока ціна",
+
+  "availableColors": "Доступні кольори",
+  "selectCapacity": "Оберіть обсяг пам'яті",
+  "selectColor": "Обрати колір: {{color}}",
+  "addToFavourites": "Додати до обраного",
+  "removeFromFavourites": "Видалити з обраного",
+
+  "specScreen": "Екран",
+  "specResolution": "Роздільна здатність",
+  "specProcessor": "Процесор",
+  "specRam": "Оперативна пам'ять",
+  "specCamera": "Камера",
+  "specZoom": "Зум",
+  "specCell": "Мобільний зв'язок",
+  "specColor": "Колір",
+
+  "youMayAlsoLike": "Вам також може сподобатися",
+
+  "cartIsEmpty": "Кошик порожній",
+  "error": "Помилка",
+
+  "cartSummary": "Підсумок кошика",
+  "cartTotal_one": "Разом за {{count}} товар",
+  "cartTotal_few": "Разом за {{count}} товари",
+  "cartTotal_many": "Разом за {{count}} товарів",
+  "cartTotal_other": "Разом за {{count}} товару",
+  "checkout": "Оформити замовлення",
+
+  "loadingCartItem": "Завантаження товару в кошику",
+  "removeCartItem": "Видалити {{name}} з кошика",
+  "decreaseCartQuantity": "Зменшити кількість {{name}}",
+  "increaseCartQuantity": "Збільшити кількість {{name}}",
+
+  "pageNotFound": "Сторінку не знайдено",
+
+  "unableToLoadFavourites": "Не вдалося завантажити обране",
+
+  "loading": "Зачекайте...",
+
+  "productNotFound": "Товар не знайдено",
+
+  "loadingProduct": "Завантаження товару",
+  "specCapacity": "Обсяг пам'яті",
+  "specScreenDiagonal": "Діагональ екрана"
 }

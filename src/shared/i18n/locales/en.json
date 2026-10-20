@@ -25,27 +25,29 @@
   "heroScreenTitle": "Brilliant display",
   "heroScreenDescription": "Always-On. Always a step ahead.",
 
-  "heroWatchAccent": "HAHAHAHA!",
-  "heroWatchSubtitle": "Noob. False.",
-  "heroWatchChipTitle": "A16 Furry chip",
-  "heroWatchChipDescription": "Spider. Man.",
-  "heroWatchCameraTitle": "Common camera system",
-  "heroWatchCameraDescription": "1.5MP. Less detail.",
-  "heroWatchScreenTitle": "Stone display",
-  "heroWatchScreenDescription": "Always-Off. Always a step behind.",
+  "heroWatchAccent": "Technology for your health",
+  "heroWatchSubtitle": "Stay connected and track your activity.",
+  "heroWatchChipTitle": "S6 chip",
+  "heroWatchChipDescription": "Fast and smooth performance.",
+  "heroWatchCameraTitle": "Health and fitness",
+  "heroWatchCameraDescription": "Blood oxygen monitoring and workout tracking.",
+  "heroWatchScreenTitle": "Retina display",
+  "heroWatchScreenDescription": "Always on. Everything at a glance.",
 
-  "heroIpadAccent": "Small! Micro!",
-  "heroIpadSubtitle": "Buy. BUY!",
-  "heroOrderLater": "Order later",
-  "heroIpadChipTitle": "No chip.",
-  "heroIpadChipDescription": "Sadly",
-  "heroIpadCameraTitle": "No camera",
-  "heroIpadCameraDescription": "No detail.",
-  "heroIpadScreenTitle": "Paper display",
-  "heroIpadScreenDescription": "Never on. Never. Maybe someday",
+  "heroIpadAccent": "Powered by M1",
+  "heroIpadSubtitle": "For work, creativity and entertainment.",
+  "heroIpadChipTitle": "Apple M1 chip",
+  "heroIpadChipDescription": "Powerful performance every day.",
+  "heroIpadCameraTitle": "Pro cameras",
+  "heroIpadCameraDescription": "Wide and ultra-wide cameras.",
+  "heroIpadScreenTitle": "11-inch Liquid Retina",
+  "heroIpadScreenDescription": "Bright and detailed visuals.",
 
   "modelsCount_one": "{{count}} model",
   "modelsCount_other": "{{count}} models",
+
+  "itemsCount_one": "{{count}} item",
+  "itemsCount_other": "{{count}} items",
 
   "addedToCart": "Added to cart",
 
@@ -53,5 +55,57 @@
   "footerRights": "Rights",
   "footerBackToTop": "Back to top",
 
-  "back": "Back"
+  "back": "Back",
+
+  "about": "About",
+  "techSpecs": "Tech specs",
+
+  "sortBy": "Sort by",
+  "itemsOnPage": "Items on page",
+
+  "sortNewest": "Newest",
+  "sortCheapest": "Cheapest",
+  "sortMostExpensive": "Most expensive",
+
+  "availableColors": "Available colors",
+  "selectCapacity": "Select capacity",
+  "selectColor": "Select color: {{color}}",
+  "addToFavourites": "Add to favourites",
+  "removeFromFavourites": "Remove from favourites",
+
+  "specScreen": "Screen",
+  "specResolution": "Resolution",
+  "specProcessor": "Processor",
+  "specRam": "RAM",
+  "specCamera": "Camera",
+  "specZoom": "Zoom",
+  "specCell": "Cell",
+  "specColor": "Color",
+
+  "youMayAlsoLike": "You may also like",
+
+  "cartIsEmpty": "Cart is empty",
+  "error": "Error",
+
+  "cartSummary": "Cart summary",
+  "cartTotal_one": "Total for {{count}} item",
+  "cartTotal_other": "Total for {{count}} items",
+  "checkout": "Checkout",
+
+  "loadingCartItem": "Loading cart item",
+  "removeCartItem": "Remove {{name}} from cart",
+  "decreaseCartQuantity": "Decrease count of {{name}}",
+  "increaseCartQuantity": "Increase count of {{name}}",
+
+  "pageNotFound": "Page Not Found",
+
+  "unableToLoadFavourites": "Unable to load favourites",
+
+  "loading": "Loading...",
+
+  "productNotFound": "Product Not Found",
+
+  "loadingProduct": "Loading product",
+  "specCapacity": "Capacity",
+  "specScreenDiagonal": "Screen diagonal"
 }

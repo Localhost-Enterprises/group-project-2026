@@ -46,7 +46,7 @@ export const getHeroSliderData = (t: TFunction): HeroSliderData => ({
     },
     {
       id: 2,
-      title: 'iWatch 74 Ultra',
+      title: 'Apple Watch Series 6',
       accentTitle: t('heroWatchAccent'),
       subtitle: t('heroWatchSubtitle'),
       backgroundImage: backgroundAccessoriesCategory,
@@ -74,12 +74,12 @@ export const getHeroSliderData = (t: TFunction): HeroSliderData => ({
     },
     {
       id: 3,
-      title: 'iPad 2.5 Micro',
+      title: 'iPad Pro 11″',
       accentTitle: t('heroIpadAccent'),
       subtitle: t('heroIpadSubtitle'),
       backgroundImage: backgroundTabletsCategory,
       image: imageTablets,
-      buttonText: t('heroOrderLater'),
+      buttonText: t('heroOrderNow'),
       buttonLink: '/tablets/apple-ipad-pro-11-2021-128gb-spacegray',
       features: [
         {

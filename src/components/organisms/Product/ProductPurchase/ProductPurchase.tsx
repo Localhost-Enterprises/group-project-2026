@@ -18,6 +18,7 @@ import { routePaths } from '@/app/router/routes';
 import { productApi } from '@/entities/product/product.api';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import { AddToCartButton } from '@/features/add-to-cart';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   product: Product;
@@ -32,10 +33,12 @@ export const ProductPurchase = ({
 }: Props) => {
   const navigate = useNavigate();
 
+  const { t } = useTranslation();
+
   const [isFavourite, setIsFavourite] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
 
-  const specs = getProductSpecs(productDetails).slice(0, 4);
+  const specs = getProductSpecs(productDetails, t).slice(0, 4);
 
   const changeVariant = async (color: string, capacity: string) => {
     if (isChanging) return;
@@ -74,7 +77,7 @@ export const ProductPurchase = ({
   return (
     <div className={classNames(styles.itemBlock, className)}>
       <div className={styles.colors}>
-        <span>Available colors</span>
+        <span>{t('availableColors')}</span>
         <span className={styles.productId}>ID: {product.id}</span>
       </div>
 
@@ -89,7 +92,7 @@ export const ProductPurchase = ({
             })}
             style={{ backgroundColor: getProductColor(color) }}
             onClick={() => changeVariant(color, productDetails.capacity)}
-            aria-label={`Select ${color} color`}
+            aria-label={t('selectColor', { color })}
             aria-pressed={color === productDetails.color}
           />
         ))}
@@ -100,7 +103,7 @@ export const ProductPurchase = ({
           variant="smalltext"
           as="span"
         >
-          Select capacity
+          {t('selectCapacity')}
         </Typography>
 
         <div className={styles.capacityOptions}>
@@ -148,7 +151,9 @@ export const ProductPurchase = ({
           onClick={() => setIsFavourite((prev) => !prev)}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          aria-label="Add to favourites"
+          aria-label={
+            isFavourite ? t('removeFromFavourites') : t('addToFavourites')
+          }
         />
       </div>
 
