@@ -126,11 +126,17 @@
   }
 
   .specs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     padding: 8px 0;
     margin-bottom: 10px;
     opacity: 0.5;
+
+    @include on('tablet') {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      width: 100%;
+      gap: 10px;
+    }
   }
 
   .specRow {
@@ -139,13 +145,8 @@
     gap: 5px;
     align-items: center;
 
-    &:nth-child(2) {
-      justify-content: center;
-    }
-
-    &:last-child {
-      justify-content: end;
-    }
+    width: 100%;
+    justify-content: space-between;
   }
 
   .specIcon {

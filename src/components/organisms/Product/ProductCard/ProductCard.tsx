@@ -134,7 +134,10 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
       </div>
 
       <div className={styles.specs}>
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Memory: ${product.capacity}`}
+        >
           <img
             src={memory}
             alt="Capacity"
@@ -148,7 +151,10 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
           </Typography>
         </div>
 
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Ram: ${product.ram}`}
+        >
           <img
             src={ram}
             alt="Ram"
@@ -161,7 +167,10 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
             {product.ram}
           </Typography>
         </div>
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Screen: ${product.screen}`}
+        >
           <img
             src={screen}
             alt="Screen Diagonal"
