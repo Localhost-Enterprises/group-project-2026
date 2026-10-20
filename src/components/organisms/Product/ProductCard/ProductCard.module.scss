@@ -15,15 +15,21 @@
 }
 
 .card {
+  position: relative;
   box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
+
   width: 100%;
+  height: 100%;
+  min-width: 0;
+
   padding: 32px;
+
   border: 1px solid $elements;
   border-radius: 15px;
 
-  height: 100%;
   background: conic-gradient(
     from 90deg,
     oklch(100% 0 89.88) 0% 7.692%,
@@ -60,10 +66,79 @@
       rgba(0, 0, 0, 0.12) 0px 6px 14px -4px;
   }
 
+  .ratingBadge {
+    position: absolute;
+    z-index: 2;
+
+    top: 12px;
+    right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    max-width: calc(100% - 24px);
+    min-height: 26px;
+    padding: 4px 8px;
+
+    border: 1px solid $elements;
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    pointer-events: none;
+
+    @include on('tablet') {
+      top: 16px;
+      right: 16px;
+    }
+  }
+
+  .ratingStars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+      width: 12px;
+      height: 12px;
+    }
+
+    @include on('tablet') {
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  .ratingValue {
+    color: $primary;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .reviewsCount {
+    color: $secondary;
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
   .image {
     display: block;
+
     width: 100%;
     height: 129px;
+
     object-fit: contain;
 
     @include on('tablet') {
@@ -80,6 +155,7 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
+
     margin-top: auto;
     margin-bottom: 10px;
   }
@@ -87,20 +163,25 @@
   .oldPrice {
     position: relative;
     display: inline-flex;
+
     color: $secondary;
     font-size: 22px;
     font-weight: 400;
     line-height: 1;
     letter-spacing: 0;
+
     text-decoration: none;
 
     &::after {
       content: '';
+
       position: absolute;
       top: 50%;
       left: 0;
+
       width: 100%;
       height: 2px;
+
       background-color: $secondary;
       transform: translateY(-50%);
     }
@@ -126,8 +207,12 @@
   }
 
   .specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
     padding: 8px 0;
     margin-bottom: 10px;
+
     opacity: 0.5;
 
     @include on('tablet') {
@@ -141,9 +226,10 @@
 
   .specRow {
     grid-column: span 1;
+
     display: flex;
-    gap: 5px;
     align-items: center;
+    gap: 5px;
 
     width: 100%;
     justify-content: space-between;

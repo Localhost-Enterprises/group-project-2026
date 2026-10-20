@@ -1,16 +1,20 @@
+import { useMemo } from 'react';
+
 import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
 import { CatalogFilter } from '@/components/organisms/CatalogFilter';
-import type { Product } from '@/shared/types/Product';
-import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography';
 import { CatalogPagination } from '@/components/organisms/CatalogPagination/CatalogPagination';
 import { useTranslation } from 'react-i18next';
 
-type CatalogProduct = Product;
+import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
+
+import type { Product } from '@/shared/types/Product';
+
+import styles from './CatalogTemplate.module.scss';
 
 export interface CatalogTemplateData {
-  items: CatalogProduct[];
+  items: Product[];
   totalItems: number;
   title: string;
   isLoading: boolean;
@@ -29,6 +33,13 @@ export const CatalogTemplate = ({
   totalPages,
   onPageChange,
 }: Props) => {
+  const { data: ratings = [] } = useProductRatings();
+
+  const ratingsMap = useMemo(
+    () => new Map(ratings.map((item) => [item.namespaceId, item])),
+    [ratings],
+  );
+  
   const { t } = useTranslation();
 
   return (
@@ -64,6 +75,7 @@ export const CatalogTemplate = ({
             <ProductCard
               className={styles.card}
               product={item}
+              rating={ratingsMap.get(item.namespace_id)}
               key={item.id}
             />
           ))
