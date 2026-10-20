@@ -109,12 +109,25 @@
 
 .headerActions {
   display: none;
+  position: relative;
 
   @include on('tablet') {
     display: flex;
     align-items: center;
     height: 100%;
     margin-left: auto;
+  }
+}
+
+.headerActions > .desktopSearch {
+  position: absolute;
+  right: 158px;
+  width: clamp(160px, 20vw, 260px);
+  margin: 0;
+  display: none;
+
+  @include on('desktop') {
+    display: grid;
   }
 }
 
@@ -175,27 +188,56 @@
 }
 
 .mobileSearch {
-  flex: 0 0 100%;
-  box-sizing: border-box;
-  padding-right: 16px;
-  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 
-  > div {
-    width: 100%;
-    margin-right: 0;
-  }
-
-  @include on('tablet') {
+  @include on('desktop') {
     display: none;
+  }
+}
+
+.mobileSearchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $primary;
+  cursor: pointer;
+}
+
+.mobileSearchField {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+@include on('tablet') {
+  .mobileSearch {
+    position: absolute;
+    top: 0;
+    right: 128px;
+    height: 64px;
+    margin-left: 0;
   }
 }
 
 .mobileMenu {
   position: fixed;
-  top: 121px;
+  top: 64px;
   left: 0;
   width: 100vw;
-  height: calc(100vh - 121px);
+  height: calc(100vh - 64px);
   background-color: $white;
   display: flex;
   flex-direction: column;
