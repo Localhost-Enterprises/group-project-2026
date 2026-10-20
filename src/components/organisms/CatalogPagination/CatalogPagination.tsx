@@ -34,6 +34,7 @@ export const CatalogPagination = ({
         className={styles.page}
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        aria-label="Go to previous page"
       />
 
       {Array.from({ length: totalPages }, (_, index) => index + 1).map(
@@ -44,6 +45,7 @@ export const CatalogPagination = ({
               currentPage === page ? styles.active : ''
             }`}
             onClick={() => handlePageChange(page)}
+            aria-label={`Go to page ${page}`}
           >
             {page}
           </button>
@@ -55,6 +57,7 @@ export const CatalogPagination = ({
         className={styles.page}
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        aria-label="Go to next page"
       />
     </div>
   );

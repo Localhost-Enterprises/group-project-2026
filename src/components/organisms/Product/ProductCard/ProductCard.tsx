@@ -208,7 +208,9 @@ export const ProductCard = ({
             toggleFavourite(product);
           }}
           aria-label={
-            isFavourite ? t('removeFromFavourites') : t('addToFavourites')
+            isFavourite ?
+              `Remove ${product.name} from favourites`
+            : `Add ${product.name} to favourites`
           }
         />
       </div>

@@ -61,7 +61,7 @@ export const SearchField = ({
             className={styles.input}
             type="search"
             value={value ?? internalValue}
-            aria-label={inputProps['aria-label'] ?? 'Поиск товаров'}
+            aria-label={inputProps['aria-label'] ?? 'Search products'}
             aria-expanded={shouldOpen}
             aria-controls={popoverId}
             onFocus={(event) => {
@@ -82,7 +82,7 @@ export const SearchField = ({
               [styles.clearButtonHidden]: currentValue.length === 0,
             })}
             type="button"
-            aria-label="Очистить поиск"
+            aria-label="Clear product search"
             aria-hidden={currentValue.length === 0}
             tabIndex={currentValue.length === 0 ? -1 : undefined}
             disabled={currentValue.length === 0}

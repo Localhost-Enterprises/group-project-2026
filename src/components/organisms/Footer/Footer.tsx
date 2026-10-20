@@ -36,7 +36,10 @@ export const Footer = ({ className }: Props) => {
     <div className={classNames(styles.wrapper, className)}>
       <div className={styles.container}>
         <div className={styles.itemContainer}>
-          <Link to={ROUTES.HOME}>
+          <Link
+            to={ROUTES.HOME}
+            aria-label="Go to home page"
+          >
             <Logo
               size="big"
               className={styles.logo}
@@ -75,6 +78,7 @@ export const Footer = ({ className }: Props) => {
             <ArrowButton
               className={styles.arrowbutton}
               direction="up"
+              aria-label="Scroll to top"
             />
           </div>
         </div>

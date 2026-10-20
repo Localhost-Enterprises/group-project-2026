@@ -133,6 +133,7 @@ export const CartItem = (props: Props) => {
                 value === '' ? '' : String(Math.min(Number(value), 99));
             }}
             defaultValue={product.quantity}
+            aria-label={`Set quantity for ${product.name}`}
             onBlur={(event) =>
               enterCount(event.currentTarget.value, event.currentTarget)
             }
