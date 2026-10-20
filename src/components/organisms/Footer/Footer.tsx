@@ -19,6 +19,7 @@ export const Footer = ({ className }: Props) => {
       id: 'github',
       label: 'GITHUB',
       to: 'https://github.com/Localhost-Enterprises',
+      target: '_blank',
     },
     { id: 'contacts', label: t('footerContacts'), to: '#' },
     { id: 'rights', label: t('footerRights'), to: '#' },
@@ -44,10 +45,11 @@ export const Footer = ({ className }: Props) => {
         </div>
 
         <div className={classNames(styles.menu, styles.itemContainer)}>
-          {menuItems.map(({ id, label, to }) => (
+          {menuItems.map(({ id, label, to, target }) => (
             <a
               href={to}
               key={id}
+              target={target}
             >
               <Typography
                 className={styles.typo}
