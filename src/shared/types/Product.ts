@@ -14,4 +14,5 @@ export type Product = {
   year: number;
   images: string[];
   imageUrls?: string[];
+  namespace_id: string;
 };

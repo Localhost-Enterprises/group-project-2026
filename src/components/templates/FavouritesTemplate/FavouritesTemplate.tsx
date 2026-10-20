@@ -1,17 +1,26 @@
 import { ProductCard } from '@/components/organisms/Product/ProductCard/';
-import styles from './FavouritesTemplate.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { Breadcrumbs } from '@/components/organisms';
+
 import type { Product } from '@/shared/types';
+import type { ProductRating } from '@/entities/product/api/product-ratings.api';
+
+import styles from './FavouritesTemplate.module.scss';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Product[];
+  ratingsMap: Map<string, ProductRating>;
   count: number;
   isLoading: boolean;
 };
 
-export const FavouritesTemplate = ({ data, count, isLoading }: Props) => {
+export const FavouritesTemplate = ({
+  data,
+  ratingsMap,
+  count,
+  isLoading,
+}: Props) => {
   const { t } = useTranslation();
 
   return (
@@ -28,6 +37,7 @@ export const FavouritesTemplate = ({ data, count, isLoading }: Props) => {
         >
           {t('favorites')}
         </Typography>
+
         <Typography
           variant="bodytext"
           className={styles.count}
@@ -48,6 +58,7 @@ export const FavouritesTemplate = ({ data, count, isLoading }: Props) => {
         : data.map((item) => (
             <ProductCard
               product={item}
+              rating={ratingsMap.get(item.namespace_id)}
               key={item.id}
               className={styles.item}
             />

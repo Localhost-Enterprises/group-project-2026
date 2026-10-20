@@ -4,12 +4,13 @@ import styles from './DefaultButton.module.scss';
 export const DefaultButton = ({
   className,
   children,
+  type = 'button',
   ...props
 }: React.ComponentProps<'button'>) => {
   return (
     <button
       {...props}
-      type="button"
+      type={type}
       className={classNames(styles.button, className)}
     >
       {children}

@@ -3,7 +3,9 @@ import { Typography } from '@/components/atoms/Typography';
 
 import {
   Breadcrumbs,
+  CommentsSection,
   ProductPurchase,
+  ProductRating,
   ProductSlider,
 } from '@/components/organisms';
 
@@ -68,12 +70,15 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
         {t('back')}
       </BackButton>
 
-      <Typography
-        variant="h2"
-        className={styles.title}
-      >
-        {product.name}
-      </Typography>
+      <div className={styles.titleRow}>
+        <Typography
+          variant="h2"
+          className={styles.title}
+        >
+          {product.name}
+        </Typography>
+        <ProductRating namespaceId={productDetails.namespace_id} />
+      </div>
 
       <div className={styles.info}>
         <ProductSlider
@@ -110,6 +115,14 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
         <ProductSpecs specs={specs} />
       </ProductSection>
 
+      <CommentsSection
+        key={productDetails.namespace_id}
+        namespaceId={productDetails.namespace_id}
+        category={product.category}
+        productId={productDetails.id}
+
+        className={styles.comments}
+      />
       <YouMayAlsoLike
         category={product.category}
         currentProductId={product.id}
