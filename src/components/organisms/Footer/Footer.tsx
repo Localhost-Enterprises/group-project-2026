@@ -5,22 +5,25 @@ import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-
-const menuItems = [
-  {
-    id: 'github',
-    label: 'GITHUB',
-    to: 'https://github.com/Localhost-Enterprises',
-  },
-  { id: 'contacts', label: 'CONTACTS', to: '#' },
-  { id: 'rights', label: 'RIGHTS', to: '#' },
-];
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   className?: string;
 };
 
 export const Footer = ({ className }: Props) => {
+  const { t } = useTranslation();
+
+  const menuItems = [
+    {
+      id: 'github',
+      label: 'GITHUB',
+      to: 'https://github.com/Localhost-Enterprises',
+    },
+    { id: 'contacts', label: t('footerContacts'), to: '#' },
+    { id: 'rights', label: t('footerRights'), to: '#' },
+  ];
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -65,7 +68,7 @@ export const Footer = ({ className }: Props) => {
               className={styles.typo}
               variant="smalltext"
             >
-              Back to top
+              {t('footerBackToTop')}
             </Typography>
             <ArrowButton
               className={styles.arrowbutton}

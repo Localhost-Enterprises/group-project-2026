@@ -14,6 +14,7 @@ import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 import screen from '@/shared/assets/icons/Screen.svg';
 import ram from '@/shared/assets/icons/Ram.svg';
 import memory from '@/shared/assets/icons/Memory.svg';
+import { useTranslation } from 'react-i18next';
 
 type Props = (
   | {
@@ -29,6 +30,8 @@ type Props = (
 };
 
 export const ProductCard = ({ product, isLoading, className }: Props) => {
+  const { t } = useTranslation();
+
   const cardId = isLoading ? 0 : product.id;
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
@@ -38,7 +41,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
       <article
         className={classNames(styles.card, className)}
         aria-busy="true"
-        aria-label="Loading product"
+        aria-label={t('loadingProduct')}
       >
         <Skeleton className={styles.image} />
         <Skeleton
@@ -140,7 +143,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
         >
           <img
             src={memory}
-            alt="Capacity"
+            alt={t('specCapacity')}
             className={styles.specIcon}
           />
           <Typography
@@ -157,7 +160,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
         >
           <img
             src={ram}
-            alt="Ram"
+            alt={t('specRam')}
             className={styles.specIcon}
           />
           <Typography
@@ -173,7 +176,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
         >
           <img
             src={screen}
-            alt="Screen Diagonal"
+            alt={t('specScreenDiagonal')}
             className={styles.specIcon}
           />
           <Typography
@@ -200,7 +203,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
             toggleFavourite(product);
           }}
           aria-label={
-            isFavourite ? 'Remove from favourites' : 'Add to favourites'
+            isFavourite ? t('removeFromFavourites') : t('addToFavourites')
           }
         />
       </div>

@@ -5,8 +5,11 @@ import {
   CATALOG_SORT_OPTIONS,
 } from './CatalogFilter.constants';
 import styles from './CatalogFilter.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export const CatalogFilter = () => {
+  const { t } = useTranslation();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy =
     CATALOG_SORT_OPTIONS.find(
@@ -31,7 +34,12 @@ export const CatalogFilter = () => {
       <Dropdown
         className={styles.sortBy}
         options={[...CATALOG_SORT_OPTIONS]}
-        description="Sort by"
+        optionLabels={{
+          'Newest': t('sortNewest'),
+          'Cheapest': t('sortCheapest'),
+          'Most expensive': t('sortMostExpensive'),
+        }}
+        description={t('sortBy')}
         value={sortBy}
         onChange={(value) => updateSearchParam('sort', value)}
       />
@@ -39,7 +47,7 @@ export const CatalogFilter = () => {
       <Dropdown
         className={styles.itemsOnPage}
         options={[...CATALOG_PAGE_SIZE_OPTIONS]}
-        description="Items on page"
+        description={t('itemsOnPage')}
         value={itemsPerPage}
         onChange={(value) => updateSearchParam('perPage', value)}
       />
