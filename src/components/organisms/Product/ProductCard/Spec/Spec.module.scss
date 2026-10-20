@@ -22,10 +22,18 @@
 
   .divider {
     flex: 1;
-    min-width: 8px;
-    height: 1px;
+    align-self: center;
 
-    border-bottom: 1px dashed $primary;
+    min-width: 8px;
+    height: 2px;
+
+    background: repeating-linear-gradient(
+      to right,
+      $elements 0,
+      $elements 2px,
+      transparent 2px,
+      transparent 8px
+    );
   }
 
   .icon {
