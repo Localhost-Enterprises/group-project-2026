@@ -79,6 +79,7 @@ export const Header = ({ className }: Props) => {
         <SearchField className={styles.desktopSearch} />
         <NavLink
           to={ROUTES.FAVOURITES}
+          data-fly-target="favourites"
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
@@ -87,6 +88,7 @@ export const Header = ({ className }: Props) => {
         </NavLink>
         <NavLink
           to={ROUTES.CART}
+          data-fly-target="cart"
           state={{ from: cartFrom }}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
@@ -162,6 +164,7 @@ export const Header = ({ className }: Props) => {
         <div className={styles.mobileActions}>
           <NavLink
             to={ROUTES.FAVOURITES}
+            data-fly-target="favourites"
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
@@ -171,6 +174,7 @@ export const Header = ({ className }: Props) => {
           </NavLink>
           <NavLink
             to={ROUTES.CART}
+            data-fly-target="cart"
             state={{ from: cartFrom }}
             onClick={toggleMenu}
             className={({ isActive }) =>
