@@ -23,6 +23,11 @@ export const ProductSpecs = ({ specs }: Props) => {
             {specName}
           </Typography>
 
+          <span
+            className={styles.specDivider}
+            aria-hidden="true"
+          />
+
           <Typography
             variant="bodytext"
             className={styles.specText}
