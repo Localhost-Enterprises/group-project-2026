@@ -45,7 +45,7 @@ export const ProductCard = ({
   className,
 }: Props) => {
   const { t } = useTranslation();
- 
+
   const cardId = isLoading ? 0 : product.id;
 
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
@@ -217,7 +217,10 @@ export const ProductCard = ({
           </Typography>
         </div>
 
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Screen: ${product.screen}`}
+        >
           <img
             src={screen}
             alt={t('specScreenDiagonal')}
