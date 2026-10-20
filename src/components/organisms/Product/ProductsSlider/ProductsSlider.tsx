@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -7,19 +8,30 @@ import 'swiper/css';
 
 import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
+import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
+
 import { ProductCard } from '../ProductCard';
 
 import styles from './ProductsSlider.module.scss';
 import type { ProductsSlidesData } from './ProductsSlider.types';
-import classNames from 'classnames';
 
-type Props = { data: ProductsSlidesData; className?: string };
+type Props = {
+  data: ProductsSlidesData;
+  className?: string;
+};
 
 export const ProductsSlider = ({ data, className }: Props) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  const { data: ratings = [] } = useProductRatings();
+
+  const ratingsMap = useMemo(
+    () => new Map(ratings.map((item) => [item.namespaceId, item])),
+    [ratings],
+  );
 
   const updateNavigation = (swiper: SwiperType) => {
     setIsBeginning(swiper.isBeginning);
@@ -41,7 +53,10 @@ export const ProductsSlider = ({ data, className }: Props) => {
           className={styles.item}
           key={product.id}
         >
-          <ProductCard product={product} />
+          <ProductCard
+            product={product}
+            rating={ratingsMap.get(product.namespace_id)}
+          />
         </SwiperSlide>
       ));
 
@@ -50,6 +65,7 @@ export const ProductsSlider = ({ data, className }: Props) => {
       <div className={styles.header}>
         <div>
           <Typography variant="h2">{data.sectionTitle}</Typography>
+
           {data.sectionSubTitle && (
             <Typography
               variant="bodytext"
@@ -80,6 +96,7 @@ export const ProductsSlider = ({ data, className }: Props) => {
           className={styles.swiper}
           slidesPerView={1.2}
           spaceBetween={16}
+          watchOverflow
           breakpoints={{
             640: {
               slidesPerView: 2.3,
