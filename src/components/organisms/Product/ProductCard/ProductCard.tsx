@@ -45,7 +45,7 @@ export const ProductCard = ({
   className,
 }: Props) => {
   const { t } = useTranslation();
- 
+
   const cardId = isLoading ? 0 : product.id;
 
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
@@ -181,7 +181,10 @@ export const ProductCard = ({
       </div>
 
       <div className={styles.specs}>
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Memory: ${product.capacity}`}
+        >
           <img
             src={memory}
             alt={t('specCapacity')}
@@ -196,7 +199,10 @@ export const ProductCard = ({
           </Typography>
         </div>
 
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Ram: ${product.ram}`}
+        >
           <img
             src={ram}
             alt={t('specRam')}
@@ -211,7 +217,10 @@ export const ProductCard = ({
           </Typography>
         </div>
 
-        <div className={styles.specRow}>
+        <div
+          className={styles.specRow}
+          title={`Screen: ${product.screen}`}
+        >
           <img
             src={screen}
             alt={t('specScreenDiagonal')}
