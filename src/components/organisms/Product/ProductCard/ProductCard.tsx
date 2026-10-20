@@ -10,6 +10,7 @@ import { Rating } from '@/components/molecules/Rating/Rating';
 
 import { AddToCartButton } from '@/features/add-to-cart';
 import { useFavouritesStore } from '@/entities/favourites';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 import type { Product, Rate } from '@/shared/types';
 import type { ProductRating } from '@/entities/product/api/product-ratings.api';
@@ -111,7 +112,7 @@ export const ProductCard = ({
     rating ? (Math.max(0, Math.min(5, Math.round(rating.rating))) as Rate) : 0;
 
   return (
-    <article className={classNames(styles.card, className)}>
+    <article className={classNames(styles.card, styles.loaded, className)}>
       {rating && rating.reviewsCount > 0 && (
         <div
           className={styles.ratingBadge}
@@ -134,6 +135,7 @@ export const ProductCard = ({
       >
         <img
           className={styles.image}
+          data-product-image={product.id}
           src={
             product.imageUrls?.[0] ||
             product.images[0] ||
@@ -230,7 +232,13 @@ export const ProductCard = ({
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => toggleFavourite(product)}
+          onClick={() => {
+            if (!isFavourite) {
+              animateProductToHeader(product.id, 'favourites');
+            }
+
+            toggleFavourite(product);
+          }}
           aria-label={
             isFavourite ? 'Remove from favourites' : 'Add to favourites'
           }

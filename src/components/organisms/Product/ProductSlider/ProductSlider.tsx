@@ -11,6 +11,7 @@ import icon360 from '@/shared/assets/icons/360.svg';
 import styles from './ProductSlider.module.scss';
 
 type Props = {
+  productId: number;
   images: string[];
   images360?: string[];
   name: string;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export const ProductSlider = ({
+  productId,
   images,
   images360 = [],
   name,
@@ -85,6 +87,7 @@ export const ProductSlider = ({
             <div className={styles.mainImage}>
               <img
                 src={image}
+                data-product-image={productId}
                 alt={`${name} image ${index + 1}`}
               />
             </div>
