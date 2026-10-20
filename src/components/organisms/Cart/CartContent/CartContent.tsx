@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES } from '@/app/router/routes';
 
 import emptyCartImage from '/img/cart-is-empty.png';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 export const CartContent = ({ data }: { data: CartContentData }) => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ export const CartContent = ({ data }: { data: CartContentData }) => {
 
   if (data.cartProducts.length === 0 && data.isPending) {
     return (
-      <img
+      <ImageWithFallback
         src={emptyCartImage}
         alt={t('cartIsEmpty')}
         className={styles.emptyCart}

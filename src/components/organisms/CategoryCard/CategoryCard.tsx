@@ -3,6 +3,7 @@ import styles from './CategoryCard.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { Link } from 'react-router-dom';
 import { routePaths } from '@/app/router/routes';
+import { ImageWithFallback } from '../ImageWithFallback';
 
 interface Props {
   title: string;
@@ -45,7 +46,7 @@ export const CategoryCard = ({
           </Typography>
         </div>
 
-        <img
+        <ImageWithFallback
           src={imageSrc}
           alt={`${title} category`}
           className={styles.image}

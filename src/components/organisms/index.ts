@@ -13,3 +13,4 @@ export * from './Product';
 export { HeroSlider } from './HeroSlider';
 
 export { CommentsSection } from './CommentsSection';
+export { ImageWithFallback } from './ImageWithFallback';

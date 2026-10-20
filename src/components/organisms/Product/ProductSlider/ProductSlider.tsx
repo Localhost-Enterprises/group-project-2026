@@ -9,6 +9,7 @@ import { React360Viewer } from 'react-360-product-viewer';
 
 import icon360 from '@/shared/assets/icons/360.svg';
 import styles from './ProductSlider.module.scss';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 type Props = {
   productId: number;
@@ -47,7 +48,7 @@ export const ProductSlider = ({
             aria-label={`Show image ${index + 1}`}
             aria-pressed={activeIndex === index}
           >
-            <img
+            <ImageWithFallback
               src={image}
               alt={`${name} thumbnail ${index + 1}`}
             />
@@ -64,7 +65,7 @@ export const ProductSlider = ({
             aria-label="View product in 360 degrees"
             aria-pressed={activeIndex === images.length}
           >
-            <img
+            <ImageWithFallback
               className={styles.previewIcon}
               src={icon360}
               alt="360 Preview"
@@ -85,7 +86,7 @@ export const ProductSlider = ({
         {images.map((image, index) => (
           <SwiperSlide key={`${image}-${index}`}>
             <div className={styles.mainImage}>
-              <img
+              <ImageWithFallback
                 src={image}
                 data-product-image={productId}
                 alt={`${name} image ${index + 1}`}
