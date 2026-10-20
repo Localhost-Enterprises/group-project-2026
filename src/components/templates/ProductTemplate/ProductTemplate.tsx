@@ -78,6 +78,7 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
       <div className={styles.info}>
         <ProductSlider
           key={productDetails.id}
+          productId={product.id}
           images={productDetails.imageUrls}
           images360={productDetails.image360Urls ?? []}
           name={productDetails.name}
