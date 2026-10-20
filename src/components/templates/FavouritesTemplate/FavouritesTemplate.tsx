@@ -23,8 +23,6 @@ export const FavouritesTemplate = ({
 }: Props) => {
   const { t } = useTranslation();
 
-  const itemText = count === 1 ? 'item' : 'items';
-
   return (
     <div className={styles.container}>
       <Breadcrumbs

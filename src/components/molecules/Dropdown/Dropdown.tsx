@@ -97,7 +97,7 @@ export const Dropdown = ({
                 >
                   <Select.ItemText>
                     <Typography variant="bodytext">
-                      {optionLabels?.[option] ?? option}
+                      {optionLabels?.[option.label] ?? option.label}
                     </Typography>
                   </Select.ItemText>
                 </Select.Item>
