@@ -14,6 +14,9 @@ import screen from '@/shared/assets/icons/Screen.svg';
 import ram from '@/shared/assets/icons/Ram.svg';
 import memory from '@/shared/assets/icons/Memory.svg';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+
 type Props = (
   | {
       product: Product;
@@ -28,6 +31,8 @@ type Props = (
 };
 
 export const ProductCard = ({ product, isLoading, className }: Props) => {
+  const { data: exchangeRate } = useUsdToUahRate();
+
   const cardId = isLoading ? 0 : product.id;
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
@@ -117,7 +122,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
           variant="h3"
           as="span"
         >
-          ${product.price}
+          {formatPrice(product.price, exchangeRate)}
         </Typography>
 
         {product.fullPrice && (
@@ -126,7 +131,9 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
             as="span"
             className={styles.oldPrice}
           >
-            <span className={styles.oldPriceValue}>${product.fullPrice}</span>
+            <span className={styles.oldPriceValue}>
+              {formatPrice(product.fullPrice, exchangeRate)}
+            </span>
           </Typography>
         )}
       </div>

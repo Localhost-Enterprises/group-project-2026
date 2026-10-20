@@ -19,6 +19,9 @@ import { productApi } from '@/entities/product/product.api';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import { AddToCartButton } from '@/features/add-to-cart';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+
 type Props = {
   product: Product;
   productDetails: Phone | Tablet | Accessory;
@@ -31,6 +34,7 @@ export const ProductPurchase = ({
   className,
 }: Props) => {
   const navigate = useNavigate();
+  const { data: exchangeRate } = useUsdToUahRate();
 
   const [isFavourite, setIsFavourite] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
@@ -125,7 +129,7 @@ export const ProductPurchase = ({
           as="span"
           className={styles.currentPrice}
         >
-          ${product.price}
+          {formatPrice(product.price, exchangeRate)}
         </Typography>
 
         <Typography
@@ -133,7 +137,9 @@ export const ProductPurchase = ({
           as="span"
           className={styles.oldPrice}
         >
-          <span className={styles.oldPriceValue}>${product.fullPrice}</span>
+          <span className={styles.oldPriceValue}>
+            {formatPrice(product.fullPrice, exchangeRate)}
+          </span>
         </Typography>
       </div>
 

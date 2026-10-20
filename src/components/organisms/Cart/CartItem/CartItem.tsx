@@ -15,6 +15,9 @@ import { ProductLink } from '../../Product/ProductLink';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+
 export type CartItemProduct = {
   itemId: string;
   name: string;
@@ -27,6 +30,8 @@ type Props =
   | { product?: never; isLoading: true };
 
 export const CartItem = (props: Props) => {
+  const { data: exchangeRate } = useUsdToUahRate();
+
   const updateQuantity = useCartStore(selectUpdateQuantity);
   const removeItem = useCartStore(selectRemoveItem);
   if (props.isLoading) {
@@ -153,7 +158,7 @@ export const CartItem = (props: Props) => {
           className={styles.price}
           variant="h3"
         >
-          ${product.price * product.quantity}
+          {formatPrice(product.price * product.quantity, exchangeRate)}
         </Typography>
       </div>
     </div>

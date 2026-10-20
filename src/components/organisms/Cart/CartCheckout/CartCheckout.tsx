@@ -4,6 +4,9 @@ import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 import styles from './CartCheckout.module.scss';
 import { useEffect } from 'react';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+
 export type CartCheckoutItem = {
   price: number;
   count: number;
@@ -15,6 +18,8 @@ type Props = {
 };
 
 export const CartCheckout = ({ items, onCheckout }: Props) => {
+  const { data: exchangeRate } = useUsdToUahRate();
+
   const totalPrice = items.reduce(
     (total, item) => total + item.price * item.count,
     0,
@@ -36,7 +41,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
           className={styles.totalPrice}
           variant="h2"
         >
-          ${totalPrice}
+          {formatPrice(totalPrice, exchangeRate)}
         </Typography>
         <Typography
           className={styles.itemCount}
