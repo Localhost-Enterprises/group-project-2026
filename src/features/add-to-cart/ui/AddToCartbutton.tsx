@@ -4,6 +4,7 @@ import { selectAddItem, selectIsInCart, useCartStore } from '@/entities/cart';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/app/router';
 import classNames from 'classnames';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 type Props = {
   productId: number;
@@ -15,11 +16,16 @@ export const AddToCartButton = ({ productId, className }: Props) => {
   const isAdded = useCartStore(selectIsInCart(productId));
   const location = useLocation();
 
+  const handleAddToCart = () => {
+    animateProductToHeader(productId, 'cart');
+    addItem(productId);
+  };
+
   return (
     <TextButton
       className={classNames(styles.button, className)}
       selected={isAdded}
-      onClick={isAdded ? () => {} : () => addItem(productId)}
+      onClick={isAdded ? () => {} : handleAddToCart}
     >
       {isAdded ?
         <Link

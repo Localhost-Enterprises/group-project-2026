@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useFavouritesStore } from '@/entities/favourites';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 import screen from '@/shared/assets/icons/Screen.svg';
 import ram from '@/shared/assets/icons/Ram.svg';
@@ -83,13 +84,14 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
   };
 
   return (
-    <article className={classNames(styles.card, className)}>
+    <article className={classNames(styles.card, styles.loaded, className)}>
       <ProductLink
         category={product.category}
         itemId={product.item_id}
       >
         <img
           className={styles.image}
+          data-product-image={product.id}
           src={
             product.imageUrls?.[0] ||
             product.images[0] ||
@@ -181,7 +183,13 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => toggleFavourite(product)}
+          onClick={() => {
+            if (!isFavourite) {
+              animateProductToHeader(product.id, 'favourites');
+            }
+
+            toggleFavourite(product);
+          }}
           aria-label={
             isFavourite ? 'Remove from favourites' : 'Add to favourites'
           }

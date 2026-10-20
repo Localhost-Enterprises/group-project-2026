@@ -80,7 +80,7 @@ export const CartItem = (props: Props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.loaded}`}>
       <DefaultButton
         className={styles.removeButton}
         onClick={handleRemove}
