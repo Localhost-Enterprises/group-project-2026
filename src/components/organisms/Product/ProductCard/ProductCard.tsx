@@ -50,7 +50,6 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
             height={24}
           />
         </div>
-        <hr className={styles.divider} />
         <div className={styles.specs}>
           {Array.from({ length: 3 }, (_, index) => (
             <div
