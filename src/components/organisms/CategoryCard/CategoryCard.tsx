@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styles from './CategoryCard.module.scss';
 import { Typography } from '@/components/atoms/Typography';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,8 @@ export const CategoryCard = ({
   linkUrl,
   backgroundSrc,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Link
       to={routePaths.catalog(linkUrl)}
@@ -25,7 +28,7 @@ export const CategoryCard = ({
     >
       <div
         className={styles.container}
-        style={{ backgroundImage: `url(${backgroundSrc}` }}
+        style={{ backgroundImage: `url(${backgroundSrc})` }}
       >
         <div className={styles.info}>
           <Typography
@@ -38,7 +41,7 @@ export const CategoryCard = ({
             variant="bodytext"
             className={styles.count}
           >
-            {count} models
+            {t('modelsCount', { count })}
           </Typography>
         </div>
 

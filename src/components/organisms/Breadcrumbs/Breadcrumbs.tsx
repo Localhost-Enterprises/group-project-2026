@@ -5,48 +5,52 @@ import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import classNames from 'classnames';
 import React from 'react';
 
+type BreadcrumbItem = {
+  label: string;
+  to?: string;
+};
+
 type Props = {
-  parts: string[];
+  items: BreadcrumbItem[];
   className?: string;
 };
 
-export const Breadcrumbs = ({ parts, className }: Props) => {
-  const formattedParts = parts.map(
-    (part) => part[0].toUpperCase() + part.slice(1),
-  );
+export const Breadcrumbs = ({ items, className }: Props) => {
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
-    parts.length > 0 && (
-      <div className={classNames(styles.breadcrumb, className)}>
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) =>
-            classNames(styles.itemLink, { [styles.active]: isActive })
+    <div className={classNames(styles.breadcrumb, className)}>
+      <NavLink
+        to="/"
+        end
+        className={({ isActive }) =>
+          classNames(styles.itemLink, {
+            [styles.active]: isActive,
+          })
+        }
+      >
+        <HomeIcon />
+      </NavLink>
+
+      {items.map(({ label, to }, index) => (
+        <React.Fragment key={index}>
+          <ArrowIcon direction="right" />
+
+          {to ?
+            <NavLink
+              to={to}
+              className={styles.itemLink}
+            >
+              {label}
+            </NavLink>
+          : <span className={classNames(styles.itemLink, styles.active)}>
+              {label}
+            </span>
           }
-        >
-          <HomeIcon />
-        </NavLink>
-
-        {formattedParts.map((part, index) => {
-          const isLast = index === parts.length - 1;
-          const routeTo = isLast ? '' : `/${part}`;
-
-          return (
-            <React.Fragment key={routeTo}>
-              <ArrowIcon direction="right" />
-
-              <NavLink
-                to={routeTo.toLowerCase()}
-                className={() =>
-                  classNames(styles.itemLink, { [styles.active]: isLast })
-                }
-              >
-                {part}
-              </NavLink>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    )
+        </React.Fragment>
+      ))}
+    </div>
   );
 };

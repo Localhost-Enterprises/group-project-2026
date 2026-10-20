@@ -19,6 +19,9 @@ import type {
 } from '@/shared/types/WithImageUrls';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
 import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
+import { useTranslation } from 'react-i18next';
+
+import ukDescriptions from '@/shared/i18n/product-descriptions-uk.json';
 
 type Props = {
   product: WithImageUrls<Product>;
@@ -26,12 +29,35 @@ type Props = {
 };
 
 export const ProductTemplate = ({ product, productDetails }: Props) => {
-  const specs = getProductSpecs(productDetails);
+  const { t, i18n } = useTranslation();
+
+  const specs = getProductSpecs(productDetails, t);
+
+  const ukrainianDescription = ukDescriptions.find(
+    (item) =>
+      item.category === product.category && item.id === productDetails.id,
+  );
+
+  const description =
+    i18n.language.startsWith('uk') && ukrainianDescription ?
+      ukrainianDescription.description.map((item) => ({
+        title: item.title,
+        text: item.text.join(' '),
+      }))
+    : productDetails.description;
 
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        parts={[product.category, product.name]}
+        items={[
+          {
+            label: t(product.category),
+            to: `/${product.category}`,
+          },
+          {
+            label: product.name,
+          },
+        ]}
         className={styles.breadcrumbs}
       />
 
@@ -39,7 +65,7 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
         className={styles.backButton}
         fallback={`/${product.category}`}
       >
-        Back
+        {t('back')}
       </BackButton>
 
       <Typography
@@ -69,16 +95,16 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
       </div>
 
       <ProductSection
-        title="About"
+        title={t('about')}
         className={styles.firstSection}
       >
-        <ProductDescription description={productDetails.description} />
+        <ProductDescription description={description} />
       </ProductSection>
 
       <span className={styles.separator} />
 
       <ProductSection
-        title="Tech specs"
+        title={t('techSpecs')}
         className={styles.secondSection}
       >
         <ProductSpecs specs={specs} />

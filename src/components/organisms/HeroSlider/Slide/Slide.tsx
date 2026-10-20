@@ -6,12 +6,15 @@ import { TextButton } from '@/components/molecules';
 import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import classNames from 'classnames';
 import type { HeroSlide } from '../HeroSlider.types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Omit<HeroSlide, 'id'>;
 };
 
 export const Slide = ({ data }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={classNames(styles.slideContent, styles[data.colorScheme])}
@@ -23,7 +26,7 @@ export const Slide = ({ data }: Props) => {
             variant="smalltext"
             className={styles.eyebrow}
           >
-            NEW ARRIVAL
+            {t('newArrival')}
           </Typography>
 
           <h2 className={styles.phoneTitle}>

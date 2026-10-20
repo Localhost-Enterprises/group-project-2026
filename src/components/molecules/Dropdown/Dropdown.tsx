@@ -8,6 +8,7 @@ import { useId } from 'react';
 
 type Props = {
   options: string[];
+  optionLabels?: Record<string, string>;
   description?: string;
   value?: string;
   defaultValue?: string;
@@ -17,6 +18,7 @@ type Props = {
 
 export const Dropdown = ({
   options,
+  optionLabels,
   description,
   value,
   defaultValue,
@@ -77,7 +79,9 @@ export const Dropdown = ({
                   className={styles.item}
                 >
                   <Select.ItemText>
-                    <Typography variant="bodytext">{option}</Typography>
+                    <Typography variant="bodytext">
+                      {optionLabels?.[option] ?? option}
+                    </Typography>
                   </Select.ItemText>
                 </Select.Item>
               ))}
