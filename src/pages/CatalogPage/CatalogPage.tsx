@@ -10,16 +10,19 @@ import { Category } from '@/shared/types/Category';
 
 import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/CatalogFilter.constants';
 import { CatalogTemplate } from '@/components/templates';
+import { useTranslation } from 'react-i18next';
 
 export const CatalogPage = () => {
+  const { t } = useTranslation();
+
   const { catalogSlug } = useParams<'catalogSlug'>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const title = catalogSlug || '';
 
   useEffect(() => {
-    document.title = `${title[0].toUpperCase() + title.slice(1).toLowerCase()} | NICE GADGETS`;
-  }, [title]);
+    document.title = `${t(title)} | NICE GADGETS`;
+  }, [title, t]);
 
   const { data: products, isPending, isError } = useProducts();
 

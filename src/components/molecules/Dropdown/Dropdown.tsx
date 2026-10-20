@@ -16,6 +16,7 @@ type DropdownOption =
 
 type Props = {
   options: DropdownOption[];
+  optionLabels?: Record<string, string>;
   description?: string;
   value?: string;
   defaultValue?: string;
@@ -27,6 +28,7 @@ type Props = {
 
 export const Dropdown = ({
   options,
+  optionLabels,
   description,
   value,
   defaultValue,
@@ -94,7 +96,9 @@ export const Dropdown = ({
                   className={styles.item}
                 >
                   <Select.ItemText>
-                    <Typography variant="bodytext">{option.label}</Typography>
+                    <Typography variant="bodytext">
+                      {optionLabels?.[option] ?? option}
+                    </Typography>
                   </Select.ItemText>
                 </Select.Item>
               ))}

@@ -20,6 +20,7 @@ import { ProductLink } from '../ProductLink';
 import screen from '@/shared/assets/icons/Screen.svg';
 import ram from '@/shared/assets/icons/Ram.svg';
 import memory from '@/shared/assets/icons/Memory.svg';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ProductCard.module.scss';
 
@@ -43,6 +44,8 @@ export const ProductCard = ({
   rating,
   className,
 }: Props) => {
+  const { t } = useTranslation();
+ 
   const cardId = isLoading ? 0 : product.id;
 
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
@@ -54,7 +57,7 @@ export const ProductCard = ({
       <article
         className={classNames(styles.card, className)}
         aria-busy="true"
-        aria-label="Loading product"
+        aria-label={t('loadingProduct')}
       >
         <div className={styles.ratingBadge}>
           <Skeleton
@@ -181,7 +184,7 @@ export const ProductCard = ({
         <div className={styles.specRow}>
           <img
             src={memory}
-            alt="Capacity"
+            alt={t('specCapacity')}
             className={styles.specIcon}
           />
 
@@ -196,7 +199,7 @@ export const ProductCard = ({
         <div className={styles.specRow}>
           <img
             src={ram}
-            alt="RAM"
+            alt={t('specRam')}
             className={styles.specIcon}
           />
 
@@ -211,7 +214,7 @@ export const ProductCard = ({
         <div className={styles.specRow}>
           <img
             src={screen}
-            alt="Screen Diagonal"
+            alt={t('specScreenDiagonal')}
             className={styles.specIcon}
           />
 
@@ -240,7 +243,7 @@ export const ProductCard = ({
             toggleFavourite(product);
           }}
           aria-label={
-            isFavourite ? 'Remove from favourites' : 'Add to favourites'
+            isFavourite ? t('removeFromFavourites') : t('addToFavourites')
           }
         />
       </div>

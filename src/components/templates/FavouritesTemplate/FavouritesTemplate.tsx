@@ -6,6 +6,7 @@ import type { Product } from '@/shared/types';
 import type { ProductRating } from '@/entities/product/api/product-ratings.api';
 
 import styles from './FavouritesTemplate.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Product[];
@@ -20,12 +21,14 @@ export const FavouritesTemplate = ({
   count,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
+
   const itemText = count === 1 ? 'item' : 'items';
 
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        parts={['favourites']}
+        items={[{ label: t('favorites') }]}
         className={styles.breadcrumbs}
       />
 
@@ -34,14 +37,14 @@ export const FavouritesTemplate = ({
           variant="h1"
           className={styles.title}
         >
-          Favourites
+          {t('favorites')}
         </Typography>
 
         <Typography
           variant="bodytext"
           className={styles.count}
         >
-          {`${count} ${itemText}`}
+          {t('itemsCount', { count })}
         </Typography>
       </div>
 
