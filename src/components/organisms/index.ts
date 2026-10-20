@@ -5,6 +5,7 @@ export { ShopByCategory } from './ShopByCategory';
 export { CategoryCard } from './CategoryCard';
 
 export { Breadcrumbs } from './Breadcrumbs';
+export { SearchField } from './SearchField';
 
 export * from './Cart';
 export * from './Product';

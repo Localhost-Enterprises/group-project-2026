@@ -4,8 +4,10 @@
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 64px;
+  height: auto;
+  min-height: 64px;
   width: 100%;
   box-sizing: border-box;
   background-color: $white;
@@ -18,6 +20,8 @@
   z-index: 100;
 
   @include on('tablet') {
+    flex-wrap: nowrap;
+    height: 64px;
     padding-left: 24px;
     justify-content: flex-start;
   }
@@ -105,12 +109,25 @@
 
 .headerActions {
   display: none;
+  position: relative;
 
   @include on('tablet') {
     display: flex;
     align-items: center;
     height: 100%;
     margin-left: auto;
+  }
+}
+
+.headerActions > .desktopSearch {
+  position: absolute;
+  right: 158px;
+  width: clamp(160px, 20vw, 260px);
+  margin: 0;
+  display: none;
+
+  @include on('desktop') {
+    display: grid;
   }
 }
 
@@ -167,6 +184,51 @@
 
   @include on('tablet') {
     display: none;
+  }
+}
+
+.mobileSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  @include on('desktop') {
+    display: none;
+  }
+}
+
+.mobileSearchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $primary;
+  cursor: pointer;
+}
+
+.mobileSearchField {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+@include on('tablet') {
+  .mobileSearch {
+    position: absolute;
+    top: 0;
+    right: 128px;
+    height: 64px;
+    margin-left: 0;
   }
 }
 
