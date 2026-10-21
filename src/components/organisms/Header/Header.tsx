@@ -87,6 +87,30 @@ export const Header = ({ className }: Props) => {
         </nav>
 
         <div className={styles.headerActions}>
+          <div className={styles.mobileSearch}>
+            <button
+              className={styles.mobileSearchButton}
+              type="button"
+              aria-label={isMobileSearchOpen ? 'Close search' : 'Open search'}
+              aria-expanded={isMobileSearchOpen}
+              onClick={() => setIsMobileSearchOpen((open) => !open)}
+            >
+              {isMobileSearchOpen ?
+                <CloseIcon />
+              : <SearchIcon />}
+            </button>
+            {isMobileSearchOpen && (
+              <SearchField
+                autoFocus
+                className={styles.mobileSearchField}
+                onKeyDown={(event) => {
+                  if (event.key === 'Escape') {
+                    setIsMobileSearchOpen(false);
+                  }
+                }}
+              />
+            )}
+          </div>
           <SearchField className={styles.desktopSearch} />
           <div className={styles.headerControls}>
             <LanguageSwitcher />
@@ -114,31 +138,6 @@ export const Header = ({ className }: Props) => {
             </NavLink>
           </div>
         </div>
-      </div>
-
-      <div className={styles.mobileSearch}>
-        <button
-          className={styles.mobileSearchButton}
-          type="button"
-          aria-label={isMobileSearchOpen ? 'Close search' : 'Open search'}
-          aria-expanded={isMobileSearchOpen}
-          onClick={() => setIsMobileSearchOpen((open) => !open)}
-        >
-          {isMobileSearchOpen ?
-            <CloseIcon />
-          : <SearchIcon />}
-        </button>
-        {isMobileSearchOpen && (
-          <SearchField
-            autoFocus
-            className={styles.mobileSearchField}
-            onKeyDown={(event) => {
-              if (event.key === 'Escape') {
-                setIsMobileSearchOpen(false);
-              }
-            }}
-          />
-        )}
       </div>
 
       <button

@@ -122,7 +122,7 @@
 }
 
 .headerActions {
-  display: none;
+  display: contents;
   position: relative;
 
   @include on('tablet') {
@@ -132,14 +132,21 @@
     flex: 1 1 0;
     min-width: 0;
     gap: 16px;
+    @media (max-width: 850px) {
+      justify-content: flex-end;
+    }
   }
 }
 
 .headerControls {
-  display: flex;
+  display: none;
   align-items: center;
   height: 100%;
   flex: 0 0 auto;
+
+  @include on('tablet') {
+    display: flex;
+  }
 }
 
 .headerActions > .desktopSearch {
@@ -308,4 +315,29 @@
   padding: 16px;
   border-top: 1px solid $elements;
   flex-shrink: 0;
+}
+
+@media (min-width: 640px) and (max-width: 950px) {
+  .desktopContent {
+    display: contents;
+  }
+
+  .nav,
+  .headerControls,
+  .headerActions > .desktopSearch {
+    display: none;
+  }
+
+  .mobileSearch {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .burgerBtn {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: flex;
+  }
 }
