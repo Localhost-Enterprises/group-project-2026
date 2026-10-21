@@ -168,7 +168,7 @@ export const ProductPurchase = ({
 
             toggleFavourite(product);
           }}
-          iconInactive={<FavouritesIcon />}
+          iconInactive={<FavouritesIcon className={styles.favouriteIcon} />}
           iconActive={<FavouritesIcon filled />}
           aria-label={
             isFavourite ?
