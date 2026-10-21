@@ -16,6 +16,7 @@ import { useFavouritesStore } from '@/entities/favourites';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
 import { SearchField } from '../SearchField';
+import { ThemeSwitcher } from '@/components/molecules/ThemeSwitcher/ThemeSwitcher';
 import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
 
 type Props = {
@@ -88,8 +89,10 @@ export const Header = ({ className }: Props) => {
 
         <div className={styles.headerActions}>
           <SearchField className={styles.desktopSearch} />
+
           <div className={styles.headerControls}>
             <LanguageSwitcher />
+            <ThemeSwitcher />
 
             <NavLink
               to={ROUTES.FAVOURITES}
@@ -101,6 +104,7 @@ export const Header = ({ className }: Props) => {
             >
               <FavouritesIcon quantity={favouritesCount} />
             </NavLink>
+
             <NavLink
               to={ROUTES.CART}
               data-fly-target="cart"
@@ -182,8 +186,9 @@ export const Header = ({ className }: Props) => {
               </li>
             );
           })}
-          <li>
+          <li className={styles.mobileSettings}>
             <LanguageSwitcher />
+            <ThemeSwitcher />
           </li>
         </ul>
 

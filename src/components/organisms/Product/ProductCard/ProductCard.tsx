@@ -206,7 +206,7 @@ export const ProductCard = ({
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
-          iconInactive={<FavouritesIcon />}
+          iconInactive={<FavouritesIcon className={styles.favouriteIcon} />}
           iconActive={<FavouritesIcon filled />}
           onClick={() => {
             if (!isFavourite) {

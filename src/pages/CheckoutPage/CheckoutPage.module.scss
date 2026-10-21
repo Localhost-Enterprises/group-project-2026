@@ -366,3 +366,8 @@
     font-size: 18px;
   }
 }
+
+:global(html[data-theme='dark']) .submitButton {
+  background-color: #27ae60;
+  color: #fff;
+}

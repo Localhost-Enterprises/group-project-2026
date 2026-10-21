@@ -20,3 +20,9 @@
     white-space: pre-line;
   }
 }
+
+:global(html[data-theme='dark']) .description {
+  .text {
+    color: #aeb5c2;
+  }
+}

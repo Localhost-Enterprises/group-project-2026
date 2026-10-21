@@ -29,6 +29,7 @@ export const CategoryCard = ({
     >
       <div
         className={styles.container}
+        data-category={linkUrl}
         style={{ backgroundImage: `url(${backgroundSrc})` }}
       >
         <div className={styles.info}>
