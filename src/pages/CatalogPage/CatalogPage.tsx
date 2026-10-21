@@ -11,6 +11,7 @@ import { Category } from '@/shared/types/Category';
 import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/CatalogFilter.constants';
 import { CatalogTemplate } from '@/components/templates';
 import { useTranslation } from 'react-i18next';
+import { useTopSales } from '@/shared/api/topsales.queries';
 
 export const CatalogPage = () => {
   const { t } = useTranslation();
@@ -31,6 +32,12 @@ export const CatalogPage = () => {
     isPending: isRatingsPending,
     isError: isRatingsError,
   } = useProductRatings();
+
+  const {
+    data: topSales = [],
+    isPending: isTopSalesPending,
+    isError: isTopSalesError,
+  } = useTopSales();
 
   const isValidCategory = Object.values(Category).some(
     (category) => category === title,
@@ -62,7 +69,17 @@ export const CatalogPage = () => {
 
         case 'Newest':
           return second.year - first.year;
+        case 'Top sales': {
+          const firstSales =
+            topSales.find((sale) => sale.product_id === first.id)?.quantity ??
+            0;
 
+          const secondSales =
+            topSales.find((sale) => sale.product_id === second.id)?.quantity ??
+            0;
+
+          return secondSales - firstSales;
+        }
         case 'Highest rated':
         case 'Lowest rated': {
           const firstRating = ratingsMap.get(first.namespace_id);
@@ -89,7 +106,7 @@ export const CatalogPage = () => {
           return 0;
       }
     });
-  }, [items, sortBy, ratingsMap]);
+  }, [items, sortBy, ratingsMap, topSales]);
 
   const itemsPerPage = Number(searchParams.get('perPage')) || 16;
 
@@ -122,13 +139,20 @@ export const CatalogPage = () => {
     return <h2>Failed to load product ratings</h2>;
   }
 
+  if (sortBy === 'Top sales' && isTopSalesError) {
+    return <h2>Failed to load top sales</h2>;
+  }
+
   return (
     <CatalogTemplate
       data={{
         items: visibleItems,
         totalItems: items.length,
         title,
-        isLoading: isPending || (isRatingSort && isRatingsPending),
+        isLoading:
+          isPending ||
+          (isRatingSort && isRatingsPending) ||
+          (sortBy === 'Top sales' && isTopSalesPending),
       }}
       currentPage={currentPage}
       totalPages={totalPages}
