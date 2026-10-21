@@ -124,14 +124,14 @@ export const HeroSlider = ({ data, className }: Props) => {
             direction="left"
             onClick={() => swiperRef.current?.slidePrev()}
             className={classNames(styles.button, styles.buttonLeft)}
-            aria-label="Previous slide"
+            aria-label="Show previous slide"
           />
 
           <ArrowButton
             direction="right"
             onClick={() => swiperRef.current?.slideNext()}
             className={classNames(styles.button, styles.buttonRight)}
-            aria-label="Next slide"
+            aria-label="Show next slide"
           />
 
           <div

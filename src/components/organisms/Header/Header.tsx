@@ -13,6 +13,8 @@ import { routePaths } from '@/app/router/routes';
 import { selectCartCount, useCartStore } from '@/entities/cart';
 import classNames from 'classnames';
 import { useFavouritesStore } from '@/entities/favourites';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
 import { SearchField } from '../SearchField';
 
 type Props = {
@@ -21,6 +23,7 @@ type Props = {
 
 export const Header = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const cartQuantity = useCartStore(selectCartCount);
   const location = useLocation();
@@ -40,6 +43,7 @@ export const Header = ({ className }: Props) => {
       <Link
         to={ROUTES.HOME}
         className={styles.logoLink}
+        aria-label="Go to home page"
       >
         <Logo size="small" />
       </Link>
@@ -54,7 +58,12 @@ export const Header = ({ className }: Props) => {
             routePaths.catalog('tablets'),
             routePaths.catalog('accessories'),
           ].map((path, idx) => {
-            const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
+            const labels = [
+              t('home'),
+              t('phones'),
+              t('tablets'),
+              t('accessories'),
+            ];
             return (
               <li
                 key={path}
@@ -77,9 +86,12 @@ export const Header = ({ className }: Props) => {
 
       <div className={styles.headerActions}>
         <SearchField className={styles.desktopSearch} />
+        <LanguageSwitcher />
+
         <NavLink
           to={ROUTES.FAVOURITES}
           data-fly-target="favourites"
+          aria-label="Open favourites"
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
           }
@@ -89,6 +101,7 @@ export const Header = ({ className }: Props) => {
         <NavLink
           to={ROUTES.CART}
           data-fly-target="cart"
+          aria-label="Open cart"
           state={{ from: cartFrom }}
           className={({ isActive }) =>
             cn(styles.actionBtn, { [styles.active]: isActive })
@@ -126,7 +139,7 @@ export const Header = ({ className }: Props) => {
       <button
         className={styles.burgerBtn}
         onClick={toggleMenu}
-        aria-label="Toggle menu"
+        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
       >
         {isMenuOpen ?
           <CloseIcon />
@@ -143,7 +156,12 @@ export const Header = ({ className }: Props) => {
             routePaths.catalog('tablets'),
             routePaths.catalog('accessories'),
           ].map((path, idx) => {
-            const labels = ['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'];
+            const labels = [
+              t('home'),
+              t('phones'),
+              t('tablets'),
+              t('accessories'),
+            ];
             return (
               <li key={path}>
                 <NavLink
@@ -159,12 +177,16 @@ export const Header = ({ className }: Props) => {
               </li>
             );
           })}
+          <li>
+            <LanguageSwitcher />
+          </li>
         </ul>
 
         <div className={styles.mobileActions}>
           <NavLink
             to={ROUTES.FAVOURITES}
             data-fly-target="favourites"
+            aria-label="Open favourites"
             onClick={toggleMenu}
             className={({ isActive }) =>
               cn(styles.mobileActionBtn, { [styles.active]: isActive })
@@ -175,6 +197,7 @@ export const Header = ({ className }: Props) => {
           <NavLink
             to={ROUTES.CART}
             data-fly-target="cart"
+            aria-label="Open cart"
             state={{ from: cartFrom }}
             onClick={toggleMenu}
             className={({ isActive }) =>

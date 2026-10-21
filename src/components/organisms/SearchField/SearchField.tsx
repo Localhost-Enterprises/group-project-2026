@@ -7,6 +7,7 @@ import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
 import { useProducts } from '@/entities/product';
 import { routePaths } from '@/app/router/routes';
 import styles from './SearchField.module.scss';
+import { ImageWithFallback } from '../ImageWithFallback';
 
 type Props = Omit<React.ComponentProps<'input'>, 'className' | 'type'> & {
   className?: string;
@@ -60,7 +61,7 @@ export const SearchField = ({
             className={styles.input}
             type="search"
             value={value ?? internalValue}
-            aria-label={inputProps['aria-label'] ?? 'Поиск товаров'}
+            aria-label={inputProps['aria-label'] ?? 'Search products'}
             aria-expanded={shouldOpen}
             aria-controls={popoverId}
             onFocus={(event) => {
@@ -81,7 +82,7 @@ export const SearchField = ({
               [styles.clearButtonHidden]: currentValue.length === 0,
             })}
             type="button"
-            aria-label="Очистить поиск"
+            aria-label="Clear product search"
             aria-hidden={currentValue.length === 0}
             tabIndex={currentValue.length === 0 ? -1 : undefined}
             disabled={currentValue.length === 0}
@@ -129,7 +130,7 @@ export const SearchField = ({
                 to={routePaths.product(product.category, product.item_id)}
                 onClick={() => setIsOpen(false)}
               >
-                <img
+                <ImageWithFallback
                   className={styles.productImage}
                   src={
                     product.imageUrls?.[0] ??

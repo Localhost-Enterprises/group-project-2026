@@ -14,6 +14,8 @@ import {
 import { ProductLink } from '../../Product/ProductLink';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useTranslation } from 'react-i18next';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
@@ -30,6 +32,7 @@ type Props =
   | { product?: never; isLoading: true };
 
 export const CartItem = (props: Props) => {
+  const { t } = useTranslation();
   const { data: exchangeRate } = useUsdToUahRate();
 
   const updateQuantity = useCartStore(selectUpdateQuantity);
@@ -39,7 +42,7 @@ export const CartItem = (props: Props) => {
       <div
         className={styles.container}
         aria-busy="true"
-        aria-label="Loading cart item"
+        aria-label={t('loadingCartItem')}
       >
         <Skeleton
           width={32}
@@ -89,7 +92,7 @@ export const CartItem = (props: Props) => {
       <DefaultButton
         className={styles.removeButton}
         onClick={handleRemove}
-        aria-label={`Remove ${product.name} from cart`}
+        aria-label={t('removeCartItem', { name: product.name })}
       >
         <CloseIcon className={styles.removeIcon} />
       </DefaultButton>
@@ -98,7 +101,7 @@ export const CartItem = (props: Props) => {
         category={product.category}
         itemId={product.item_id}
       >
-        <img
+        <ImageWithFallback
           className={styles.image}
           src={imageSrc}
           alt={product.name}
@@ -119,7 +122,7 @@ export const CartItem = (props: Props) => {
             className={styles.countButton}
             onClick={() => onCountChange(product.quantity - 1)}
             disabled={product.quantity <= 1}
-            aria-label={`Decrease count of ${product.name}`}
+            aria-label={t('decreaseCartQuantity', { name: product.name })}
           >
             <MinusIcon />
           </DefaultButton>
@@ -134,6 +137,7 @@ export const CartItem = (props: Props) => {
                 value === '' ? '' : String(Math.min(Number(value), 99));
             }}
             defaultValue={product.quantity}
+            aria-label={`Set quantity for ${product.name}`}
             onBlur={(event) =>
               enterCount(event.currentTarget.value, event.currentTarget)
             }
@@ -148,7 +152,7 @@ export const CartItem = (props: Props) => {
             className={styles.countButton}
             onClick={() => onCountChange(Math.min(product.quantity + 1, 99))}
             disabled={product.quantity >= 99}
-            aria-label={`Increase count of ${product.name}`}
+            aria-label={t('increaseCartQuantity', { name: product.name })}
           >
             <PlusIcon />
           </DefaultButton>

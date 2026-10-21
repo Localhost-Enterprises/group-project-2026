@@ -10,6 +10,13 @@
   transform-origin: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
 .trigger {
   display: inline-flex;
   align-items: center;

@@ -1,5 +1,6 @@
 import { Typography } from '@/components/atoms/Typography';
 import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CartCheckout.module.scss';
 import { useEffect } from 'react';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export const CartCheckout = ({ items, onCheckout }: Props) => {
+  const { t } = useTranslation();
   const { data: exchangeRate } = useUsdToUahRate();
 
   const totalPrice = items.reduce(
@@ -32,10 +34,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
   }, [totalPrice, totalItems]);
 
   return (
-    <div
-      className={styles.container}
-      aria-label="Cart summary"
-    >
+    <div className={styles.container}>
       <div className={styles.summary}>
         <Typography
           className={styles.totalPrice}
@@ -47,7 +46,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
           className={styles.itemCount}
           variant="bodytext"
         >
-          Total for {totalItems} {totalItems === 1 ? 'item' : 'items'}
+          {t('cartTotal', { count: totalItems })}
         </Typography>
       </div>
 
@@ -56,7 +55,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
         onClick={onCheckout}
         disabled={items.length === 0}
       >
-        <Typography variant="button">Checkout</Typography>
+        <Typography variant="button">{t('checkout')}</Typography>
       </DefaultButton>
     </div>
   );

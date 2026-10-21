@@ -16,12 +16,14 @@ export const ArrowButton = ({
   disabled = false,
   color = 'black',
   className,
+  'aria-label': ariaLabel,
 }: Props) => {
   return (
     <DefaultButton
       onClick={onClick}
       className={classNames(styles.button, className)}
       disabled={disabled}
+      aria-label={ariaLabel}
     >
       <ArrowIcon
         direction={direction}
