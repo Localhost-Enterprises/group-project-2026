@@ -6,6 +6,8 @@ export const ROUTES = {
   CART: '/cart',
   CHECKOUT: '/checkout',
   NOTFOUND: '*',
+  RIGHTS: '/rights',
+  CONTACTS: '/contacts',
 } as const;
 
 export const routePaths = {

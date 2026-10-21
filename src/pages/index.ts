@@ -6,3 +6,5 @@ export { CartPage } from './CartPage';
 export { CheckoutPage } from './CheckoutPage';
 export { NotFoundPage } from './NotFoundPage';
 export { NotFoundProductPage } from './NotFoundProductPage';
+export { RightsPage } from './RightsPage';
+export { ContactsPage } from './ContactsPage';

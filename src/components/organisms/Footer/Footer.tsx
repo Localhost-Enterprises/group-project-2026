@@ -12,8 +12,8 @@ const menuItems = [
     label: 'GITHUB',
     to: 'https://github.com/Localhost-Enterprises',
   },
-  { id: 'contacts', label: 'CONTACTS', to: '#' },
-  { id: 'rights', label: 'RIGHTS', to: '#' },
+  { id: 'contacts', label: 'CONTACTS', to: ROUTES.CONTACTS },
+  { id: 'rights', label: 'RIGHTS', to: ROUTES.RIGHTS },
 ];
 
 type Props = {
