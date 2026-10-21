@@ -13,6 +13,7 @@ import {
   RightsPage,
   ContactsPage,
 } from '@/pages';
+import { OrderHistoryPage } from '@/pages/OrderHistoryPage/OrderHistoryPage';
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.NOTFOUND, element: <NotFoundPage /> },
       { path: ROUTES.RIGHTS, element: <RightsPage /> },
       { path: ROUTES.CONTACTS, element: <ContactsPage /> },
+      { path: ROUTES.HISTORY, element: <OrderHistoryPage /> },
     ],
   },
 ]);
