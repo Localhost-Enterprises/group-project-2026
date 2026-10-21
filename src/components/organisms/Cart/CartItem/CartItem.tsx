@@ -17,6 +17,10 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useTranslation } from 'react-i18next';
 import { ImageWithFallback } from '../../ImageWithFallback';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+
 export type CartItemProduct = {
   itemId: string;
   name: string;
@@ -30,6 +34,8 @@ type Props =
 
 export const CartItem = (props: Props) => {
   const { t } = useTranslation();
+  const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const updateQuantity = useCartStore(selectUpdateQuantity);
   const removeItem = useCartStore(selectRemoveItem);
@@ -158,7 +164,11 @@ export const CartItem = (props: Props) => {
           className={styles.price}
           variant="h3"
         >
-          ${product.price * product.quantity}
+          {formatPrice(
+            product.price * product.quantity,
+            exchangeRate,
+            currency,
+          )}
         </Typography>
       </div>
     </div>

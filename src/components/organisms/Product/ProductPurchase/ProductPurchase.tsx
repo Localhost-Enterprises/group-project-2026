@@ -22,6 +22,10 @@ import { useTranslation } from 'react-i18next';
 import { useFavouritesStore } from '@/entities/favourites';
 import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+
 type Props = {
   product: Product;
   productDetails: Phone | Tablet | Accessory;
@@ -34,6 +38,8 @@ export const ProductPurchase = ({
   className,
 }: Props) => {
   const navigate = useNavigate();
+  const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const { t } = useTranslation();
 
@@ -134,7 +140,7 @@ export const ProductPurchase = ({
           as="span"
           className={styles.currentPrice}
         >
-          ${product.price}
+          {formatPrice(product.price, exchangeRate, currency)}
         </Typography>
 
         <Typography
@@ -142,7 +148,9 @@ export const ProductPurchase = ({
           as="span"
           className={styles.oldPrice}
         >
-          <span className={styles.oldPriceValue}>${product.fullPrice}</span>
+          <span className={styles.oldPriceValue}>
+            {formatPrice(product.fullPrice, exchangeRate, currency)}
+          </span>
         </Typography>
       </div>
 
