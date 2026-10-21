@@ -18,6 +18,7 @@ import styles from './CommentsSection.module.scss';
 import { Dropdown } from '@/components/molecules';
 import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
 import type { Rate } from '@/shared/types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   namespaceId: string;
@@ -32,6 +33,8 @@ export const CommentsSection = ({
   productId,
   className,
 }: Props) => {
+  const { t } = useTranslation();
+
   const [isWriting, setIsWriting] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(productId);
   const [rating, setRating] = useState<Rate>(5);
@@ -104,22 +107,20 @@ export const CommentsSection = ({
         variant="h3"
         className={styles.title}
       >
-        Comments
+        {t('commentsTitle')}
       </Typography>
 
       <div className={styles.comments}>
         {isCommentsPending && (
-          <Typography variant="smalltext">Loading comments...</Typography>
+          <Typography variant="smalltext">{t('commentsLoading')}</Typography>
         )}
 
         {isCommentsError && (
-          <Typography variant="smalltext">Failed to load comments.</Typography>
+          <Typography variant="smalltext">{t('commentsLoadError')}</Typography>
         )}
 
         {!isCommentsPending && !isCommentsError && comments.length === 0 && (
-          <Typography variant="smalltext">
-            No comments yet. Be the first to leave one!
-          </Typography>
+          <Typography variant="smalltext">{t('commentsEmpty')}</Typography>
         )}
 
         {!isCommentsError &&
@@ -132,8 +133,9 @@ export const CommentsSection = ({
               variant ?
                 [
                   variant.color &&
-                    `Color: ${variant.color[0].toUpperCase() + variant.color.slice(1)}`,
-                  variant.capacity && `Capacity: ${variant.capacity}`,
+                    `${t('commentsColor')}: ${variant.color[0].toUpperCase() + variant.color.slice(1)}`,
+                  variant.capacity &&
+                    `${t('commentsCapacity')}: ${variant.capacity}`,
                 ]
                   .filter(Boolean)
                   .join(' · ')
@@ -167,20 +169,20 @@ export const CommentsSection = ({
             setIsWriting(true);
           }}
         >
-          Write a comment
+          {t('commentsWrite')}
         </DefaultButton>
       : <Form.Root
           className={styles.form}
           onSubmit={handleSubmit}
         >
           <div className={styles.formHeader}>
-            <Typography variant="h3">Leave a comment</Typography>
+            <Typography variant="h3"> {t('commentsLeave')}</Typography>
 
             <Typography
               variant="smalltext"
               className={styles.formDescription}
             >
-              Choose a product variant and share your experience.
+              {t('commentsFormDescription')}
             </Typography>
           </div>
 
@@ -189,7 +191,7 @@ export const CommentsSection = ({
               htmlFor="comment-product"
               className={styles.label}
             >
-              Product <span>*</span>
+              {t('commentsProduct')} <span>*</span>
             </label>
 
             <Dropdown
@@ -200,12 +202,12 @@ export const CommentsSection = ({
               value={selectedProductId}
               onChange={setSelectedProductId}
               placeholder={
-                isVariantsPending ? 'Loading variants...'
+                isVariantsPending ? t('commentsLoadingVariants')
                 : isVariantsError ?
-                  'Failed to load variants'
+                  t('commentsVariantsError')
                 : variants.length === 0 ?
-                  'No variants found'
-                : 'Select a product variant'
+                  t('commentsNoVariants')
+                : t('commentsSelectVariant')
               }
               disabled={
                 isVariantsPending || isVariantsError || variants.length === 0
@@ -218,7 +220,7 @@ export const CommentsSection = ({
               variant="bodytext"
               className={styles.label}
             >
-              Your rating <span>*</span>
+              {t('commentsYourRating')} <span>*</span>
             </Typography>
 
             <Rating
@@ -234,14 +236,14 @@ export const CommentsSection = ({
             >
               <div className={styles.fieldHeader}>
                 <Form.Label className={styles.label}>
-                  Name <span>*</span>
+                  {t('commentsName')} <span>*</span>
                 </Form.Label>
 
                 <Form.Message
                   className={styles.message}
                   match="valueMissing"
                 >
-                  Please enter your name
+                  {t('commentsEnterName')}
                 </Form.Message>
               </div>
 
@@ -250,7 +252,7 @@ export const CommentsSection = ({
                   name="name"
                   type="text"
                   className={styles.input}
-                  placeholder="Your name"
+                  placeholder={t('commentsNamePlaceholder')}
                   autoComplete="name"
                   maxLength={80}
                   required
@@ -264,21 +266,21 @@ export const CommentsSection = ({
             >
               <div className={styles.fieldHeader}>
                 <Form.Label className={styles.label}>
-                  Email <span>*</span>
+                  {t('commentsEmail')} <span>*</span>
                 </Form.Label>
 
                 <Form.Message
                   className={styles.message}
                   match="valueMissing"
                 >
-                  Please enter your email
+                  {t('commentsEnterEmail')}
                 </Form.Message>
 
                 <Form.Message
                   className={styles.message}
                   match="typeMismatch"
                 >
-                  Please enter a valid email
+                  {t('commentsInvalidEmail')}
                 </Form.Message>
               </div>
 
@@ -301,14 +303,14 @@ export const CommentsSection = ({
           >
             <div className={styles.fieldHeader}>
               <Form.Label className={styles.label}>
-                Your comment <span>*</span>
+                {t('commentsYourComment')} <span>*</span>
               </Form.Label>
 
               <Form.Message
                 className={styles.message}
                 match="valueMissing"
               >
-                Please write a comment
+                {t('commentsEnterComment')}
               </Form.Message>
             </div>
 
@@ -316,7 +318,7 @@ export const CommentsSection = ({
               <textarea
                 name="comment"
                 className={styles.textarea}
-                placeholder="What do you think about this product?"
+                placeholder={t('commentsPlaceholder')}
                 rows={5}
                 maxLength={1000}
                 required
@@ -329,7 +331,7 @@ export const CommentsSection = ({
               variant="smalltext"
               className={styles.message}
             >
-              Failed to send comment. Please try again.
+              {t('commentsSendError')}
             </Typography>
           )}
 
@@ -339,7 +341,7 @@ export const CommentsSection = ({
               className={classNames(styles.button, styles.cancelButton)}
               onClick={handleCancel}
             >
-              Cancel
+              {t('commentsCancel')}
             </DefaultButton>
 
             <DefaultButton
@@ -347,7 +349,7 @@ export const CommentsSection = ({
               className={classNames(styles.button, styles.clearButton)}
               onClick={handleClear}
             >
-              Clear
+              {t('commentsClear')}
             </DefaultButton>
 
             <Form.Submit asChild>
@@ -362,7 +364,9 @@ export const CommentsSection = ({
                   rating === 0
                 }
               >
-                {createComment.isPending ? 'Sending...' : 'Write a comment'}
+                {createComment.isPending ?
+                  t('commentsSending')
+                : t('commentsWrite')}
               </DefaultButton>
             </Form.Submit>
           </div>

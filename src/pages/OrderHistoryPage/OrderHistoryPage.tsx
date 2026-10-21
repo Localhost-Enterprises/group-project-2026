@@ -3,17 +3,22 @@ import { useProducts } from '@/entities/product/model/product.queries';
 import type { Order } from '@/shared/types/Order';
 import styles from './OrderHistoryPage.module.scss';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export const OrderHistoryPage = () => {
+  const { t } = useTranslation();
+
   const [orders, setOrders] = useState<Order[]>([]);
   const { data: products = [] } = useProducts();
 
   useEffect(() => {
-    document.title = 'Order History | NICE GADGETS';
+    document.title = `${t('orderHistoryTitle')} | NICE GADGETS`;
+  }, [t]);
 
+  useEffect(() => {
     try {
       const savedOrders = localStorage.getItem('orderHistory');
+
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setOrders(savedOrders ? (JSON.parse(savedOrders) as Order[]) : []);
     } catch {
@@ -23,7 +28,7 @@ export const OrderHistoryPage = () => {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>Order History</h1>
+      <h1 className={styles.title}>{t('orderHistoryTitle')}</h1>
 
       <BackButton
         fallback="/"
@@ -33,7 +38,7 @@ export const OrderHistoryPage = () => {
       </BackButton>
 
       {orders.length === 0 ?
-        <p className={styles.empty}>You have no orders yet.</p>
+        <p className={styles.empty}>{t('orderHistoryEmpty')}</p>
       : <div className={styles.list}>
           {orders.map((order) => (
             <article
@@ -41,7 +46,7 @@ export const OrderHistoryPage = () => {
               className={styles.order}
             >
               <div className={styles.section}>
-                <h2>Products</h2>
+                <h2>{t('orderHistoryProducts')}</h2>
 
                 {order.products.map((item, index) => {
                   const product = products.find(
@@ -50,15 +55,18 @@ export const OrderHistoryPage = () => {
 
                   return (
                     <p key={`${item.productId}-${index}`}>
-                      {product?.name ?? `Product #${item.productId}`} ×{' '}
-                      {item.quantity}
+                      {product?.name ??
+                        t('orderHistoryProductFallback', {
+                          id: item.productId,
+                        })}{' '}
+                      × {item.quantity}
                     </p>
                   );
                 })}
               </div>
 
               <div className={styles.section}>
-                <h2>Total quantity</h2>
+                <h2>{t('orderHistoryTotalQuantity')}</h2>
                 <p>
                   {order.products.reduce(
                     (total, item) => total + item.quantity,

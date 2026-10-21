@@ -34,7 +34,7 @@ export const CartTemplate = ({ data }: { data: Data }) => {
         to={ROUTES.HISTORY}
         className={styles.historyButton}
       >
-        History
+        {t('cartHistory')}
       </Link>
 
       <CartContent data={cartContent} />

@@ -3,19 +3,15 @@ export const formatPrice = (
   exchangeRate?: number,
   currency: 'USD' | 'UAH' = 'UAH',
 ): string => {
+  const formatter = new Intl.NumberFormat('uk-UA', {
+    maximumFractionDigits: 0,
+  });
+
   if (currency === 'USD' || !exchangeRate || exchangeRate <= 0) {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(priceInUsd);
+    return `$${formatter.format(priceInUsd)}`;
   }
 
   const priceInUah = priceInUsd * exchangeRate;
 
-  return new Intl.NumberFormat('uk-UA', {
-    style: 'currency',
-    currency: 'UAH',
-    maximumFractionDigits: 0,
-  }).format(priceInUah);
+  return `${formatter.format(priceInUah)} ₴`;
 };
