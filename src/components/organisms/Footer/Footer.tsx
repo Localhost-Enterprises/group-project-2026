@@ -22,8 +22,18 @@ export const Footer = ({ className }: Props) => {
       to: 'https://github.com/Localhost-Enterprises',
       target: '_blank',
     },
-    { id: 'contacts', label: t('footerContacts'), to: '#' },
-    { id: 'rights', label: t('footerRights'), to: '#' },
+    {
+      id: 'contacts',
+      label: t('footerContacts'),
+      to: ROUTES.CONTACTS,
+      target: '_self',
+    },
+    {
+      id: 'rights',
+      label: t('footerRights'),
+      to: ROUTES.RIGHTS,
+      target: '_self',
+    },
   ];
 
   const scrollToTop = () => {
