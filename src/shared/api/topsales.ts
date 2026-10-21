@@ -1,5 +1,10 @@
 import { supabase } from '@/shared/api/supabase';
 
+export type TopSale = {
+  product_id: number;
+  quantity: number;
+};
+
 export const updateTopSales = async (
   productId: number,
   quantity: number,
@@ -20,4 +25,16 @@ export const updateTopSales = async (
   if (error) {
     throw new Error(`Failed to update top sales: ${error.message}`);
   }
+};
+
+export const getTopSales = async (): Promise<TopSale[]> => {
+  const { data, error } = await supabase
+    .from('topSales')
+    .select('product_id, quantity');
+
+  if (error) {
+    throw new Error(`Failed to fetch top sales: ${error.message}`);
+  }
+
+  return data ?? [];
 };

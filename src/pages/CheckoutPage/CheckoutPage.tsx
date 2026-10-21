@@ -13,6 +13,7 @@ import { sendEmail } from '@/shared/api/sendEmail';
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+import { updateTopSales } from '@/shared/api/topsales';
 
 export const CheckoutPage = () => {
   const { data: exchangeRate } = useUsdToUahRate();
@@ -45,6 +46,7 @@ export const CheckoutPage = () => {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [cities, setCities] = useState<CityOption[]>([]);
   const [warehouses, setWarehouses] = useState<WarehouseOption[]>([]);
+  const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
   useEffect(() => {
     document.title = `Checkout | NICE GADGETS`;
@@ -132,6 +134,16 @@ export const CheckoutPage = () => {
     });
 
     if (result.success) {
+      try {
+        await Promise.all(
+          cartItems.map((item) =>
+            updateTopSales(item.productId, item.quantity),
+          ),
+        );
+      } catch (error) {
+        console.error('Failed to update top sales:', error);
+      }
+
       try {
         await sendEmail({
           email: formData.email,
