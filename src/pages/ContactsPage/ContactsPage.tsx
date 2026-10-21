@@ -4,6 +4,7 @@ import { Typography } from '@/components/atoms/Typography';
 import styles from './ContactsPage.module.scss';
 import { TextButton } from '@/components/molecules/Buttons/TextButton';
 import { ArrowButton } from '@/components/molecules';
+import { useTranslation } from 'react-i18next';
 
 type ContactFormData = {
   'title': string;
@@ -50,6 +51,8 @@ const developersData = [
 ];
 
 export const ContactsPage = () => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState<ContactFormData>({
     'title': '',
     'e-mail': '',
@@ -94,7 +97,7 @@ export const ContactsPage = () => {
 
     setFormData({ 'title': '', 'e-mail': '', 'text': '' });
     setIsSubmitted(false);
-    alert('Thank you! Your message has been saved locally.');
+    alert(t('contactsSuccess'));
   };
 
   return (
@@ -103,7 +106,7 @@ export const ContactsPage = () => {
         variant="h3"
         className={styles.title}
       >
-        Contacts
+        {t('contactsPageTitle')}
       </Typography>
 
       <div className={styles.developersSection}>
@@ -111,7 +114,7 @@ export const ContactsPage = () => {
           variant="h4"
           className={styles.sectionTitle}
         >
-          Developers
+          {t('contactsDevelopers')}
         </Typography>
         <div className={styles.collapsiblesList}>
           {developersData.map((dev) => {
@@ -135,7 +138,7 @@ export const ContactsPage = () => {
                 {isOpen && (
                   <div className={styles.collapsibleContent}>
                     <Typography variant="smalltext">
-                      Role: {dev.role}
+                      {t('contactsRole')}: {t(dev.role)}
                     </Typography>
 
                     {dev.info && (
@@ -168,7 +171,7 @@ export const ContactsPage = () => {
           variant="h4"
           className={styles.sectionTitle}
         >
-          Contact us!
+          {t('contactsFormTitle')}
         </Typography>
         <div className={styles.fieldWrapper}>
           <input
@@ -176,7 +179,7 @@ export const ContactsPage = () => {
             name="title"
             value={formData.title}
             onChange={handleChange}
-            placeholder="Your name?"
+            placeholder={t('contactsNamePlaceholder')}
             className={`${styles.input} ${isSubmitted && !formData.title.trim() ? styles.errorInput : ''}`}
           />
           {isSubmitted && !formData.title.trim() && (
@@ -184,7 +187,7 @@ export const ContactsPage = () => {
               variant="smalltext"
               className={styles.errorText}
             >
-              This field is required
+              {t('contactsRequired')}
             </Typography>
           )}
         </div>
@@ -195,7 +198,7 @@ export const ContactsPage = () => {
             name="e-mail"
             value={formData['e-mail']}
             onChange={handleChange}
-            placeholder="Your e-mail?"
+            placeholder={t('contactsEmailPlaceholder')}
             className={`${styles.input} ${isSubmitted && !formData['e-mail'].trim() ? styles.errorInput : ''}`}
           />
           {isSubmitted && !formData['e-mail'].trim() && (
@@ -213,7 +216,7 @@ export const ContactsPage = () => {
             name="text"
             value={formData.text}
             onChange={handleChange}
-            placeholder="What would you like to tell us?"
+            placeholder={t('contactsMessagePlaceholder')}
             rows={9}
             className={`${styles.textarea} ${isSubmitted && !formData.text.trim() ? styles.errorInput : ''}`}
           />
@@ -231,13 +234,13 @@ export const ContactsPage = () => {
           type="button"
           onClick={handleSend}
         >
-          Send
+          {t('contactsSend')}
         </TextButton>
       </form>
 
       <div className={styles.contentWrapper}>
         <div className={styles.info}>
-          <Typography variant="bodytext">Some address</Typography>
+          <Typography variant="bodytext">{t('contactsAddress')}</Typography>
           <Typography variant="bodytext">
             localhostenterprises@whatevermail.com
           </Typography>
@@ -250,7 +253,7 @@ export const ContactsPage = () => {
             allowFullScreen={true}
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
-            title="Location"
+            title={t('contactsMapTitle')}
           ></iframe>
         </div>
       </div>

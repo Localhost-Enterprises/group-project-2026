@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useProductRating } from '@/entities/product/model/product-ratings.queries';
 
 type Props = {
@@ -5,16 +6,18 @@ type Props = {
 };
 
 export const ProductRating = ({ namespaceId }: Props) => {
+  const { t } = useTranslation();
+
   const { data } = useProductRating(namespaceId);
 
   if (!data) {
-    return <span>No reviews yet</span>;
+    return <span>{t('productNoReviews')}</span>;
   }
 
   return (
     <div>
       <strong>{data.rating.toFixed(1)} / 5</strong>
-      <span> ({data.reviewsCount} reviews)</span>
+      <span> ({t('productReviews', { count: data.reviewsCount })})</span>
     </div>
   );
 };

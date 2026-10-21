@@ -17,9 +17,11 @@ import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 import { updateTopSales } from '@/shared/api/topsales';
 import type { Order } from '@/shared/types/Order';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export const CheckoutPage = () => {
+  const { t } = useTranslation();
+
   const { data: exchangeRate } = useUsdToUahRate();
   const currency = useCurrencyStore((state) => state.currency);
 
@@ -245,7 +247,7 @@ NICE GADGETS Team`,
         variant="h1"
         className={styles.title}
       >
-        Ordering
+        {t('checkoutOrdering')}
       </Typography>
 
       <BackButton
@@ -264,12 +266,12 @@ NICE GADGETS Team`,
             variant="h3"
             className={styles.subtitle}
           >
-            Your contact details
+            {t('checkoutContactDetails')}
           </Typography>
 
           <div className={styles.row}>
             <div className={styles.fieldGroup}>
-              <label>First name *</label>
+              <label>{t('checkoutFirstName')} *</label>
               <input
                 type="text"
                 name="firstName"
@@ -281,7 +283,7 @@ NICE GADGETS Team`,
             </div>
 
             <div className={styles.fieldGroup}>
-              <label>Last name *</label>
+              <label>{t('checkoutLastName')} *</label>
               <input
                 type="text"
                 name="lastName"
@@ -294,7 +296,7 @@ NICE GADGETS Team`,
           </div>
 
           <div className={styles.fieldGroup}>
-            <label>Middle name</label>
+            <label>{t('checkoutMiddleName')}</label>
             <input
               type="text"
               name="middleName"
@@ -305,7 +307,7 @@ NICE GADGETS Team`,
           </div>
 
           <div className={styles.fieldGroup}>
-            <label>Mobile phone *</label>
+            <label>{t('checkoutMobilePhone')} *</label>
             <div className={styles.phoneInput}>
               <span>+380</span>
               <input
@@ -332,7 +334,7 @@ NICE GADGETS Team`,
           </div>
 
           <div className={styles.fieldGroup}>
-            <label>E-mail *</label>
+            <label>{t('checkoutEmail')} *</label>
             <input
               type="email"
               name="email"
@@ -350,15 +352,15 @@ NICE GADGETS Team`,
             variant="h3"
             className={styles.subtitle}
           >
-            Delivery
+            {t('checkoutDelivery')}
           </Typography>
 
           <div className={`${styles.fieldGroup} ${styles.relativeContainer}`}>
-            <label>City *</label>
+            <label>{t('checkoutCity')} *</label>
             <input
               type="text"
               name="city"
-              placeholder="Enter city (e.g., Kyiv)"
+              placeholder={t('checkoutCityPlaceholder')}
               value={formData.city}
               onChange={handleCityInput}
               autoComplete="off"
@@ -385,7 +387,7 @@ NICE GADGETS Team`,
           </div>
 
           <div className={styles.fieldGroup}>
-            <label>Nova Poshta Branch *</label>
+            <label>{t('checkoutBranch')} *</label>
 
             <Dropdown
               options={warehouses.map((wh) => ({
@@ -407,7 +409,9 @@ NICE GADGETS Team`,
                 }
               }}
               placeholder={
-                warehouses.length ? 'Select branch' : 'Select city first'
+                warehouses.length ?
+                  t('checkoutSelectBranch')
+                : t('checkoutSelectCityFirst')
               }
               disabled={!warehouses.length}
               className={errors.warehouse ? styles.errorInput : ''}
@@ -420,13 +424,11 @@ NICE GADGETS Team`,
             variant="h3"
             className={styles.subtitle}
           >
-            Order summary
+            {t('checkoutOrderSummary')}
           </Typography>
 
           <div className={styles.amount}>
-            <p>
-              {totalCount} {totalCount === 1 ? 'item' : 'items'} for the amount
-            </p>
+            <p>{t('checkoutTotalItems', { count: totalCount })}</p>
 
             <Typography variant="h2">
               {formatPrice(totalAmount, exchangeRate, currency)}
@@ -439,7 +441,7 @@ NICE GADGETS Team`,
           className={styles.submitButton}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Processing...' : 'I confirm the order'}
+          {isSubmitting ? t('checkoutProcessing') : t('checkoutConfirmOrder')}
         </button>
       </form>
 
@@ -457,17 +459,14 @@ NICE GADGETS Team`,
               id="successTitle"
               className={styles.successTitle}
             >
-              Order Successfully Placed!
+              {t('checkoutSuccessTitle')}
             </h2>
 
-            <p className={styles.successText}>
-              Thank you for shopping with NICE GADGETS. Your order has been
-              successfully created.
-            </p>
+            <p className={styles.successText}>{t('checkoutSuccessText')}</p>
 
             <div className={styles.ttnBlock}>
               <span className={styles.ttnLabel}>
-                Your Tracking Number (TTN)
+                {t('checkoutTrackingNumber')} (TTN)
               </span>
               <strong className={styles.ttnNumber}>{successTtn}</strong>
             </div>
@@ -480,7 +479,7 @@ NICE GADGETS Team`,
                 navigate('/');
               }}
             >
-              Continue Shopping
+              {t('checkoutContinueShopping')}
             </button>
           </div>
         </div>
