@@ -20,3 +20,7 @@
 .active {
   color: $secondary;
 }
+
+:global(html[data-theme='dark']) .homeIcon {
+  filter: brightness(0) invert(1);
+}

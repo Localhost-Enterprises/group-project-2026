@@ -285,3 +285,57 @@
     border-right: none;
   }
 }
+
+:global(html[data-theme='dark']) {
+  .actionBtn,
+  .mobileActionBtn {
+    > span[style*='--icon']:not([style*='--quantity']) {
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    > span[style*='--quantity'] {
+      filter: invert(1);
+
+      &::before {
+        background-color: #14a8a8;
+        color: #000;
+        border-color: #d8d6cf;
+      }
+    }
+  }
+
+  .desktopSearch,
+  .mobileSearchButton {
+    [style*='--icon'] {
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+  }
+}
+
+.mobileSettings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  > :last-child {
+    margin-left: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid $elements;
+    border-radius: 50%;
+
+    background-color: $hover;
+    color: $primary;
+  }
+}
+
+:global(html[data-theme='dark']) .burgerBtn {
+  > span[style*='--icon'] {
+    filter: brightness(0) invert(1);
+  }
+}

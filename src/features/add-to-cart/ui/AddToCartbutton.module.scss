@@ -7,3 +7,18 @@
 
   color: $white;
 }
+
+:global(html[data-theme='dark']) .button {
+  background: #3b3e46;
+  color: #f1f2f3;
+
+  &:not(:disabled):not([data-selected='true']):hover {
+    background: #4a4d57;
+  }
+
+  &[data-selected='true'] {
+    background: #2f4038;
+    color: #b6edce;
+    border-color: #517963;
+  }
+}

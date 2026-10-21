@@ -231,3 +231,24 @@
     flex-shrink: 0;
   }
 }
+
+:global(html[data-theme='dark']) .card {
+  background: var(--color-surface);
+
+  border-color: var(--color-elements);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+  }
+
+  .ratingBadge {
+    background: var(--color-background);
+    border-color: var(--color-elements);
+  }
+}
+
+:global(html[data-theme='dark']) .favouriteIcon {
+  filter: brightness(0) invert(1);
+}

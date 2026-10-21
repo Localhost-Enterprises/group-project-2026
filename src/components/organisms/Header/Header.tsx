@@ -16,6 +16,7 @@ import { useFavouritesStore } from '@/entities/favourites';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
 import { SearchField } from '../SearchField';
+import { ThemeSwitcher } from '@/components/molecules/ThemeSwitcher/ThemeSwitcher';
 
 type Props = {
   className?: string;
@@ -87,6 +88,7 @@ export const Header = ({ className }: Props) => {
       <div className={styles.headerActions}>
         <SearchField className={styles.desktopSearch} />
         <LanguageSwitcher />
+        <ThemeSwitcher />
 
         <NavLink
           to={ROUTES.FAVOURITES}
@@ -177,8 +179,9 @@ export const Header = ({ className }: Props) => {
               </li>
             );
           })}
-          <li>
+          <li className={styles.mobileSettings}>
             <LanguageSwitcher />
+            <ThemeSwitcher />
           </li>
         </ul>
 

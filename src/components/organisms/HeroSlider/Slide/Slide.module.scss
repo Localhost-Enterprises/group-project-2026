@@ -117,7 +117,7 @@
 }
 
 .title {
-  color: $white;
+  color: #fff;
 
   font-size: clamp(20px, 7cqw, 36px);
   font-weight: 800;
@@ -228,7 +228,7 @@
 
 .featureTitle {
   @include on('tablet') {
-    color: $white;
+    color: #fff;
 
     font-size: clamp(9px, 0.95cqw, 14px);
     font-weight: 600;
@@ -435,4 +435,22 @@
   .button {
     box-shadow: 0 4px 20px rgba(125, 147, 238, 0.35);
   }
+}
+
+:global(html[data-theme='dark']) .featureDescription {
+  color: #e8edf5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+:global(html[data-theme='dark']) .button {
+  color: #fff;
+}
+
+:global(html[data-theme='dark']) .blue .accentTitle {
+  background-image: linear-gradient(
+    90deg,
+    #e0f7ff 0%,
+    #bceaff 50%,
+    #8ed8f7 100%
+  );
 }
