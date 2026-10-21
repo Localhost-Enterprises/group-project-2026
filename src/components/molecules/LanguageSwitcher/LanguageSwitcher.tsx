@@ -1,5 +1,6 @@
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import cn from 'classnames';
+
 import styles from './LanguageSwitcher.module.scss';
 
 export const LanguageSwitcher = () => {
@@ -26,7 +27,7 @@ export const LanguageSwitcher = () => {
       }
     >
       <span
-        className={cn(styles.thumb, {
+        className={classNames(styles.thumb, {
           [styles.ukrainian]: isUkrainian,
         })}
       >

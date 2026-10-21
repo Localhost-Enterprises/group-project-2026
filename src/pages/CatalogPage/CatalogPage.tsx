@@ -1,17 +1,17 @@
 import { useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { NotFoundPage } from '../NotFoundPage';
+import { CatalogTemplate } from '@/components/templates';
+import { CATALOG_SORT_OPTIONS } from '@/components/organisms';
 
 import { useProducts } from '@/entities/product/model/product.queries';
 import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
 
+import { useTopSales } from '@/shared/api/topsales.queries';
 import { Category } from '@/shared/types/Category';
 
-import { CATALOG_SORT_OPTIONS } from '@/components/organisms/CatalogFilter/CatalogFilter.constants';
-import { CatalogTemplate } from '@/components/templates';
-import { useTranslation } from 'react-i18next';
-import { useTopSales } from '@/shared/api/topsales.queries';
+import { NotFoundPage } from '../NotFoundPage';
 
 export const CatalogPage = () => {
   const { t } = useTranslation();

@@ -1,7 +1,10 @@
-import styles from './ArrowButton.module.scss';
-import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-import { DefaultButton } from '../DefaultButton';
 import classNames from 'classnames';
+
+import { ArrowIcon } from '@/components/atoms';
+
+import { DefaultButton } from '../DefaultButton';
+
+import styles from './ArrowButton.module.scss';
 
 type ArrowDirection = 'up' | 'down' | 'left' | 'right';
 

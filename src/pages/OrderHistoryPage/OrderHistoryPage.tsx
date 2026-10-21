@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { BackButton } from '@/components';
 import { useProducts } from '@/entities/product/model/product.queries';
 import type { Order } from '@/shared/types/Order';
+
 import styles from './OrderHistoryPage.module.scss';
-import { BackButton } from '@/components/organisms/BackButton/BackButton';
-import { useTranslation } from 'react-i18next';
 
 export const OrderHistoryPage = () => {
   const { t } = useTranslation();

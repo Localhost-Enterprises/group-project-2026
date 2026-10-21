@@ -1,30 +1,29 @@
-import classNames from 'classnames';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
-import styles from './ProductPurchase.module.scss';
+import { routePaths } from '@/app/router/routes';
 
-import { Typography } from '@/components/atoms/Typography';
-import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
-import { IconButton } from '@/components/molecules';
-import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
+import { AddToCartButton } from '@/features/add-to-cart';
+
+import { useFavouritesStore } from '@/entities/favourites';
+import { productApi } from '@/entities/product/product.api';
+import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
+
+import { FavouritesIcon, Typography } from '@/components/atoms';
+import { DefaultButton, IconButton } from '@/components/molecules';
+
+import { getProductColor } from '@/shared/constants/productColors';
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
+import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 import type { Accessory, Phone, Product, Tablet } from '@/shared/types';
 import type { Category } from '@/shared/types/Category';
 
-import { getProductColor } from '@/shared/constants/productColors';
-
-import { routePaths } from '@/app/router/routes';
-import { productApi } from '@/entities/product/product.api';
-import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
-import { AddToCartButton } from '@/features/add-to-cart';
-import { useTranslation } from 'react-i18next';
-import { useFavouritesStore } from '@/entities/favourites';
-import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
-
-import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
-import { formatPrice } from '@/shared/lib/formatPrice';
-import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+import styles from './ProductPurchase.module.scss';
 
 type Props = {
   product: Product;

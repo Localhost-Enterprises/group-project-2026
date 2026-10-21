@@ -1,10 +1,11 @@
-export { HomePage } from './HomePage';
-export { CatalogPage } from './CatalogPage';
-export { ProductPage } from './ProductPage';
-export { FavouritesPage } from './FavouritesPage';
 export { CartPage } from './CartPage';
+export { CatalogPage } from './CatalogPage';
 export { CheckoutPage } from './CheckoutPage';
+export { ContactsPage } from './ContactsPage';
+export { FavouritesPage } from './FavouritesPage';
+export { HomePage } from './HomePage';
 export { NotFoundPage } from './NotFoundPage';
 export { NotFoundProductPage } from './NotFoundProductPage';
+export { OrderHistoryPage } from './OrderHistoryPage';
+export { ProductPage } from './ProductPage';
 export { RightsPage } from './RightsPage';
-export { ContactsPage } from './ContactsPage';

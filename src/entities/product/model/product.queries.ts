@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { productApi } from '../product.api';
+
 import type { Category } from '@/shared/types/Category';
+
+import { productApi } from '../product.api';
 
 export const useProducts = () => {
   return useQuery({

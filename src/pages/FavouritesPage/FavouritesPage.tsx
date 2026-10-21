@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { FavouritesTemplate } from '@/components/templates/FavouritesTemplate';
+import { FavouritesTemplate } from '@/components/templates';
 
 import { useFavouritesStore } from '@/entities/favourites';
 import { useProductByIds } from '@/entities/product';
 import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
-import { useTranslation } from 'react-i18next';
 
 export const FavouritesPage = () => {
   const { t } = useTranslation();

@@ -1,34 +1,31 @@
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import Skeleton from 'react-loading-skeleton';
 
-import 'react-loading-skeleton/dist/skeleton.css';
+import { FavouritesIcon, Typography } from '@/components/atoms';
+import { IconButton, Rating } from '@/components/molecules';
 
-import { Typography } from '@/components/atoms/Typography';
-import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
-import { IconButton } from '@/components/molecules';
-import { Rating } from '@/components/molecules/Rating/Rating';
-
-import { AddToCartButton } from '@/features/add-to-cart';
 import { useFavouritesStore } from '@/entities/favourites';
-import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
-
-import type { Product, Rate } from '@/shared/types';
 import type { ProductRating } from '@/entities/product/api/product-ratings.api';
 
-import { ProductLink } from '../ProductLink';
-
-import screenIcon from '@/shared/assets/icons/Screen.svg';
-import ramIcon from '@/shared/assets/icons/Ram.svg';
-import memoryIcon from '@/shared/assets/icons/Memory.svg';
-import { useTranslation } from 'react-i18next';
-
-import styles from './ProductCard.module.scss';
-import { Spec } from './Spec/Spec';
-import { ImageWithFallback } from '../../ImageWithFallback';
+import { AddToCartButton } from '@/features';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+import type { Product, Rate } from '@/shared/types';
+
+import { ImageWithFallback } from '../../ImageWithFallback';
+import { ProductLink } from '../ProductLink';
+import { Spec } from './Spec';
+
+import memoryIcon from '@/shared/assets/icons/Memory.svg';
+import ramIcon from '@/shared/assets/icons/Ram.svg';
+import screenIcon from '@/shared/assets/icons/Screen.svg';
+
+import 'react-loading-skeleton/dist/skeleton.css';
+import styles from './ProductCard.module.scss';
 
 type Props = (
   | {

@@ -1,9 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import styles from './CategoryCard.module.scss';
-import { Typography } from '@/components/atoms/Typography';
 import { Link } from 'react-router-dom';
+
 import { routePaths } from '@/app/router/routes';
-import { ImageWithFallback } from '../ImageWithFallback';
+
+import { Typography } from '@/components/atoms';
+import { ImageWithFallback } from '@/components/organisms/ImageWithFallback';
+
+import styles from './CategoryCard.module.scss';
 
 interface Props {
   title: string;

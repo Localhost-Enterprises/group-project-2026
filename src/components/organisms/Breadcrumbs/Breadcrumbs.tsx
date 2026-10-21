@@ -1,9 +1,11 @@
-import { NavLink } from 'react-router-dom';
-import styles from './Breadcrumbs.module.scss';
-import { HomeIcon } from '@/components/atoms/Icons/HomeIcon';
-import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-import classNames from 'classnames';
 import React from 'react';
+
+import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
+
+import { ArrowIcon, HomeIcon } from '@/components/atoms';
+
+import styles from './Breadcrumbs.module.scss';
 
 type BreadcrumbItem = {
   label: string;

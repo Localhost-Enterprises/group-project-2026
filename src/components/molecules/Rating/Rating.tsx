@@ -1,8 +1,10 @@
-import { StarIcon } from '@/components/atoms/Icons/StarIcon';
 import classNames from 'classnames';
 
-import styles from './Rating.module.scss';
+import { StarIcon } from '@/components/atoms';
+
 import type { Rate } from '@/shared/types';
+
+import styles from './Rating.module.scss';
 
 type Props = {
   rate: Rate;

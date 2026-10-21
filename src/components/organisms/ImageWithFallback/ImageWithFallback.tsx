@@ -1,5 +1,6 @@
-import { placeholder } from '@/shared/constants';
 import type { ComponentProps } from 'react';
+
+import { placeholder } from '@/shared/constants';
 
 type Props = ComponentProps<'img'> & {
   fallback?: string;

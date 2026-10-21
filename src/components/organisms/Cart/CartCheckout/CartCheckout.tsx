@@ -1,18 +1,17 @@
-import { Typography } from '@/components/atoms/Typography';
-import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
+import { useEffect } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
-import styles from './CartCheckout.module.scss';
-import { useEffect } from 'react';
+import { Typography } from '@/components/atoms';
+import { DefaultButton } from '@/components/molecules';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
-export type CartCheckoutItem = {
-  price: number;
-  count: number;
-};
+import type { CartCheckoutItem } from './CartCheckout.types';
+
+import styles from './CartCheckout.module.scss';
 
 type Props = {
   items: CartCheckoutItem[];

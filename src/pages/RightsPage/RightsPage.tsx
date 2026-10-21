@@ -1,9 +1,12 @@
-import styles from './RightsPage.module.scss';
-import { Typography } from '@/components/atoms/Typography';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
+
+import { Typography } from '@/components/atoms';
+
 import rightsTextEn from './rights.md?raw';
 import rightsTextUk from './rights.uk.md?raw';
-import { useTranslation } from 'react-i18next';
+
+import styles from './RightsPage.module.scss';
 
 export const RightsPage = () => {
   const { t, i18n } = useTranslation();

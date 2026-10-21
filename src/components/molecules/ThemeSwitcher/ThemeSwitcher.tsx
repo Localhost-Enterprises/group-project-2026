@@ -1,4 +1,5 @@
-import { useThemeStore } from '@/store/useThemeStore';
+import { useThemeStore } from '@/shared/store/useThemeStore';
+
 import styles from './ThemeSwitcher.module.scss';
 
 export const ThemeSwitcher = () => {

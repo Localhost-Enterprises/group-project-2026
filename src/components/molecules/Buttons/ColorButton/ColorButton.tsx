@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 
-import styles from './ColorButton.module.scss';
 import { DefaultButton } from '../DefaultButton';
+
+import styles from './ColorButton.module.scss';
 
 type Props = Omit<
   React.ComponentProps<typeof DefaultButton>,

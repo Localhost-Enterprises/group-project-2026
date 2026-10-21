@@ -1,7 +1,8 @@
-import { Typography } from '@/components/atoms/Typography';
-import styles from './ProductDescription.module.scss';
+import { Typography } from '@/components/atoms';
 
 import type { Description } from '@/shared/types';
+
+import styles from './ProductDescription.module.scss';
 
 export const ProductDescription = ({
   description,

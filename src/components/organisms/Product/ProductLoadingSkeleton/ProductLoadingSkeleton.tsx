@@ -1,6 +1,7 @@
-import styles from '@/components/templates/ProductTemplate/ProductTemplate.module.scss';
 import classNames from 'classnames';
 import Skeleton from 'react-loading-skeleton';
+
+import styles from '@/components/templates/ProductTemplate/ProductTemplate.module.scss';
 
 export const ProductLoadingSkeleton = () => (
   <div

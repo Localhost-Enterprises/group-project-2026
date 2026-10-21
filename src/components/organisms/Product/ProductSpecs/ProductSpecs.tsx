@@ -1,4 +1,5 @@
-import { Typography } from '@/components/atoms/Typography';
+import { Typography } from '@/components/atoms';
+
 import styles from './ProductSpecs.module.scss';
 
 type Props = {

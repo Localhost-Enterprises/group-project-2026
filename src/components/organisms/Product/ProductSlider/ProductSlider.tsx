@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
+
 import classNames from 'classnames';
-
-import 'swiper/css';
-
 import { React360Viewer } from 'react-360-product-viewer';
+import type { Swiper as SwiperType } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 import icon360 from '@/shared/assets/icons/360.svg';
+
+import 'swiper/css';
 import styles from './ProductSlider.module.scss';
-import { ImageWithFallback } from '../../ImageWithFallback';
 
 type Props = {
   productId: number;

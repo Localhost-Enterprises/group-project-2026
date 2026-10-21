@@ -1,12 +1,13 @@
-import { ProductCard } from '@/components/organisms/Product/ProductCard/';
-import { Typography } from '@/components/atoms/Typography';
-import { Breadcrumbs } from '@/components/organisms';
+import { useTranslation } from 'react-i18next';
 
-import type { Product } from '@/shared/types';
+import { Breadcrumbs, ProductCard } from '@/components/organisms';
+import { Typography } from '@/components/atoms';
+
 import type { ProductRating } from '@/entities/product/api/product-ratings.api';
 
+import type { Product } from '@/shared/types';
+
 import styles from './FavouritesTemplate.module.scss';
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Product[];

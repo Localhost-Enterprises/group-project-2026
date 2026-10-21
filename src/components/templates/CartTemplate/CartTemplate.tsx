@@ -1,12 +1,15 @@
-import styles from './CartTemplate.module.scss';
-import { Typography } from '@/components/atoms/Typography';
-
-import type { Data } from './CartTemplate.types';
-import { Breadcrumbs, CartContent } from '@/components/organisms';
-import { BackButton } from '@/components/organisms/BackButton/BackButton';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
 import { ROUTES } from '@/app/router';
+
+import { Typography } from '@/components/atoms';
+import { BackButton } from '@/components/molecules';
+import { Breadcrumbs, CartContent } from '@/components/organisms';
+
+import type { Data } from './CartTemplate.types';
+
+import styles from './CartTemplate.module.scss';
 
 export const CartTemplate = ({ data }: { data: Data }) => {
   const { cartContent } = data;

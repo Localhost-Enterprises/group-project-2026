@@ -1,4 +1,5 @@
 import type { ElementType } from 'react';
+
 import type { TypographyProps, TypographyVariant } from './Typography.types';
 
 import styles from './Typography.module.scss';
