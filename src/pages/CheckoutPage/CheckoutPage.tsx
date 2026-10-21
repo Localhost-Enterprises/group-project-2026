@@ -155,7 +155,7 @@ export const CheckoutPage = () => {
       });
 
       if (!result.success) {
-        alert(`Error creating TTN: ${result.errors?.join(', ')}`);
+        alert(`Error: use ukrainian lenguage`);
         return;
       }
 

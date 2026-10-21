@@ -38,7 +38,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 24px;
-  padding: 24px;
+  padding: 25px;
   background-color: $white;
   border: 1px solid $elements;
   border-radius: 12px;
@@ -63,6 +63,7 @@
     color: $primary;
     font-weight: 400;
     margin: 0;
+    padding: 10px;
   }
 }
 
