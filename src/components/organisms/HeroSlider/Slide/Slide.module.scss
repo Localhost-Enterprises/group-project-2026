@@ -241,9 +241,9 @@
 }
 
 .featureDescription {
-  @include on('tablet') {
-    color: #b8b0c3;
+  color: #ffffffa0;
 
+  @include on('tablet') {
     font-size: clamp(8px, 0.85cqw, 12px);
     line-height: 1.3;
   }

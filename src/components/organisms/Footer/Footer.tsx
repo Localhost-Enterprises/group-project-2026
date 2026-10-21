@@ -5,6 +5,7 @@ import { Typography } from '@/components/atoms/Typography';
 import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const menuItems = [
   {
@@ -21,6 +22,19 @@ type Props = {
 };
 
 export const Footer = ({ className }: Props) => {
+  const { t } = useTranslation();
+
+  const menuItems = [
+    {
+      id: 'github',
+      label: 'GITHUB',
+      to: 'https://github.com/Localhost-Enterprises',
+      target: '_blank',
+    },
+    { id: 'contacts', label: t('footerContacts'), to: '#' },
+    { id: 'rights', label: t('footerRights'), to: '#' },
+  ];
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -32,7 +46,10 @@ export const Footer = ({ className }: Props) => {
     <div className={classNames(styles.wrapper, className)}>
       <div className={styles.container}>
         <div className={styles.itemContainer}>
-          <Link to={ROUTES.HOME}>
+          <Link
+            to={ROUTES.HOME}
+            aria-label="Go to home page"
+          >
             <Logo
               size="big"
               className={styles.logo}
@@ -41,10 +58,11 @@ export const Footer = ({ className }: Props) => {
         </div>
 
         <div className={classNames(styles.menu, styles.itemContainer)}>
-          {menuItems.map(({ id, label, to }) => (
+          {menuItems.map(({ id, label, to, target }) => (
             <a
               href={to}
               key={id}
+              target={target}
             >
               <Typography
                 className={styles.typo}
@@ -65,11 +83,12 @@ export const Footer = ({ className }: Props) => {
               className={styles.typo}
               variant="smalltext"
             >
-              Back to top
+              {t('footerBackToTop')}
             </Typography>
             <ArrowButton
               className={styles.arrowbutton}
               direction="up"
+              aria-label="Scroll to top"
             />
           </div>
         </div>

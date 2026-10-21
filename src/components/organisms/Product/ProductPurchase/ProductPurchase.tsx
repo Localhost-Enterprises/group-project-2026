@@ -18,6 +18,9 @@ import { routePaths } from '@/app/router/routes';
 import { productApi } from '@/entities/product/product.api';
 import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 import { AddToCartButton } from '@/features/add-to-cart';
+import { useTranslation } from 'react-i18next';
+import { useFavouritesStore } from '@/entities/favourites';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 type Props = {
   product: Product;
@@ -32,10 +35,15 @@ export const ProductPurchase = ({
 }: Props) => {
   const navigate = useNavigate();
 
-  const [isFavourite, setIsFavourite] = useState(false);
-  const [isChanging, setIsChanging] = useState(false);
+  const { t } = useTranslation();
 
-  const specs = getProductSpecs(productDetails).slice(0, 4);
+  const isFavourite = useFavouritesStore((state) =>
+    state.isFavourite(product.id),
+  );
+  const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
+
+  const [isChanging, setIsChanging] = useState(false);
+  const specs = getProductSpecs(productDetails, t).slice(0, 4);
 
   const changeVariant = async (color: string, capacity: string) => {
     if (isChanging) return;
@@ -74,7 +82,7 @@ export const ProductPurchase = ({
   return (
     <div className={classNames(styles.itemBlock, className)}>
       <div className={styles.colors}>
-        <span>Available colors</span>
+        <span>{t('availableColors')}</span>
         <span className={styles.productId}>ID: {product.id}</span>
       </div>
 
@@ -89,7 +97,7 @@ export const ProductPurchase = ({
             })}
             style={{ backgroundColor: getProductColor(color) }}
             onClick={() => changeVariant(color, productDetails.capacity)}
-            aria-label={`Select ${color} color`}
+            aria-label={t('selectColor', { color })}
             aria-pressed={color === productDetails.color}
           />
         ))}
@@ -100,7 +108,7 @@ export const ProductPurchase = ({
           variant="smalltext"
           as="span"
         >
-          Select capacity
+          {t('selectCapacity')}
         </Typography>
 
         <div className={styles.capacityOptions}>
@@ -112,6 +120,7 @@ export const ProductPurchase = ({
                 [styles.selectedCapacity]: capacity === productDetails.capacity,
               })}
               onClick={() => changeVariant(productDetails.color, capacity)}
+              aria-label={`Select ${capacity} capacity`}
             >
               <span className={styles.capacityText}>{capacity}</span>
             </DefaultButton>
@@ -145,10 +154,20 @@ export const ProductPurchase = ({
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
-          onClick={() => setIsFavourite((prev) => !prev)}
+          onClick={() => {
+            if (!isFavourite) {
+              animateProductToHeader(product.id, 'favourites');
+            }
+
+            toggleFavourite(product);
+          }}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          aria-label="Add to favourites"
+          aria-label={
+            isFavourite ?
+              `Remove ${product.name} from favourites`
+            : `Add ${product.name} to favourites`
+          }
         />
       </div>
 

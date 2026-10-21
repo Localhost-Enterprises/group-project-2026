@@ -1,15 +1,20 @@
+import { useMemo } from 'react';
+
 import { Breadcrumbs } from '@/components/organisms/Breadcrumbs';
 import { CatalogFilter } from '@/components/organisms/CatalogFilter';
-import type { Product } from '@/shared/types/Product';
-import styles from './CatalogTemplate.module.scss';
 import { ProductCard } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography';
 import { CatalogPagination } from '@/components/organisms/CatalogPagination/CatalogPagination';
+import { useTranslation } from 'react-i18next';
 
-type CatalogProduct = Product;
+import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
+
+import type { Product } from '@/shared/types/Product';
+
+import styles from './CatalogTemplate.module.scss';
 
 export interface CatalogTemplateData {
-  items: CatalogProduct[];
+  items: Product[];
   totalItems: number;
   title: string;
   isLoading: boolean;
@@ -28,24 +33,31 @@ export const CatalogTemplate = ({
   totalPages,
   onPageChange,
 }: Props) => {
+  const { data: ratings = [] } = useProductRatings();
+
+  const ratingsMap = useMemo(
+    () => new Map(ratings.map((item) => [item.namespaceId, item])),
+    [ratings],
+  );
+  
+  const { t } = useTranslation();
+
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        parts={[data.title]}
+        items={[{ label: t(data.title) }]}
         className={styles.breadcrumbs}
       />
 
       <h1 className={styles.title}>
-        {data.title === 'phones' ?
-          'Mobile phones'
-        : data.title[0].toUpperCase() + data.title.slice(1)}
+        {data.title === 'phones' ? t('mobilePhones') : t(data.title)}
       </h1>
 
       <Typography
         className={styles.modelsCount}
         variant="bodytext"
       >
-        {data.totalItems} models
+        {t('modelsCount', { count: data.totalItems })}
       </Typography>
 
       <CatalogFilter />
@@ -63,6 +75,7 @@ export const CatalogTemplate = ({
             <ProductCard
               className={styles.card}
               product={item}
+              rating={ratingsMap.get(item.namespace_id)}
               key={item.id}
             />
           ))

@@ -11,8 +11,11 @@ import type { Category } from '@/shared/types/Category';
 import { NotFoundProductPage } from '../NotFoundProductPage';
 import { ProductLoadingSkeleton } from '@/components';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const ProductPage = () => {
+  const { t } = useTranslation();
+
   const { productSlug } = useParams<'productSlug'>();
 
   const {
@@ -31,8 +34,8 @@ export const ProductPage = () => {
   );
 
   useEffect(() => {
-    document.title = `${productDetails?.name || 'Loading...'} | NICE GADGETS`;
-  }, [productDetails]);
+    document.title = `${productDetails?.name || t('loading')} | NICE GADGETS`;
+  }, [productDetails, t]);
 
   if (isProductPending) return <ProductLoadingSkeleton />;
   if (!product || isProductError) return <NotFoundProductPage />;

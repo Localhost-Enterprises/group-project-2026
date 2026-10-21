@@ -1,18 +1,30 @@
+import classNames from 'classnames';
+import Skeleton from 'react-loading-skeleton';
+
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { Typography } from '@/components/atoms/Typography';
 import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
 import { IconButton } from '@/components/molecules';
-import styles from './ProductCard.module.scss';
-import type { Product } from '@/shared/types';
-import { AddToCartButton } from '@/features/add-to-cart';
-import { ProductLink } from '../ProductLink';
-import classNames from 'classnames';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { useFavouritesStore } from '@/entities/favourites';
+import { Rating } from '@/components/molecules/Rating/Rating';
 
-import screen from '@/shared/assets/icons/Screen.svg';
-import ram from '@/shared/assets/icons/Ram.svg';
-import memory from '@/shared/assets/icons/Memory.svg';
+import { AddToCartButton } from '@/features/add-to-cart';
+import { useFavouritesStore } from '@/entities/favourites';
+import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
+
+import type { Product, Rate } from '@/shared/types';
+import type { ProductRating } from '@/entities/product/api/product-ratings.api';
+
+import { ProductLink } from '../ProductLink';
+
+import screenIcon from '@/shared/assets/icons/Screen.svg';
+import ramIcon from '@/shared/assets/icons/Ram.svg';
+import memoryIcon from '@/shared/assets/icons/Memory.svg';
+import { useTranslation } from 'react-i18next';
+
+import styles from './ProductCard.module.scss';
+import { Spec } from './Spec/Spec';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 type Props = (
   | {
@@ -24,12 +36,22 @@ type Props = (
       isLoading: true;
     }
 ) & {
+  rating?: ProductRating;
   className?: string;
 };
 
-export const ProductCard = ({ product, isLoading, className }: Props) => {
+export const ProductCard = ({
+  product,
+  isLoading,
+  rating,
+  className,
+}: Props) => {
+  const { t } = useTranslation();
+
   const cardId = isLoading ? 0 : product.id;
+
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
+
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
   if (isLoading) {
@@ -37,20 +59,29 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
       <article
         className={classNames(styles.card, className)}
         aria-busy="true"
-        aria-label="Loading product"
+        aria-label={t('loadingProduct')}
       >
+        <div className={styles.ratingBadge}>
+          <Skeleton
+            width={76}
+            height={18}
+          />
+        </div>
+
         <Skeleton className={styles.image} />
+
         <Skeleton
           className={styles.title}
           height={20}
         />
+
         <div className={styles.prices}>
           <Skeleton
             width={80}
             height={24}
           />
         </div>
-        <hr className={styles.divider} />
+
         <div className={styles.specs}>
           {Array.from({ length: 3 }, (_, index) => (
             <div
@@ -62,6 +93,7 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
             </div>
           ))}
         </div>
+
         <div className={styles.actions}>
           <Skeleton
             width={160}
@@ -76,26 +108,41 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
     );
   }
 
-  const specsFormatted = {
-    screen:
-      product.screen.length > 10 ?
-        product.screen.slice(0, 7) + '...'
-      : product.screen,
-  };
+  const specs = [
+    { label: 'Screen', value: product.screen, icon: screenIcon },
+    { label: 'Memory', value: product.capacity, icon: memoryIcon },
+    { label: 'Ram', value: product.ram, icon: ramIcon },
+  ];
+
+  const roundedRating =
+    rating ? (Math.max(0, Math.min(5, Math.round(rating.rating))) as Rate) : 0;
 
   return (
-    <article className={classNames(styles.card, className)}>
+    <article className={classNames(styles.card, styles.loaded, className)}>
+      {rating && rating.reviewsCount > 0 && (
+        <div
+          className={styles.ratingBadge}
+          aria-label={`Rated ${rating.rating.toFixed(1)} out of 5 from ${rating.reviewsCount} reviews`}
+        >
+          <Rating
+            rate={roundedRating}
+            className={styles.ratingStars}
+          />
+
+          <span className={styles.ratingValue}>{rating.rating.toFixed(1)}</span>
+
+          <span className={styles.reviewsCount}>({rating.reviewsCount})</span>
+        </div>
+      )}
+
       <ProductLink
         category={product.category}
         itemId={product.item_id}
       >
-        <img
+        <ImageWithFallback
           className={styles.image}
-          src={
-            product.imageUrls?.[0] ||
-            product.images[0] ||
-            'https://placehold.co/500x500'
-          }
+          data-product-image={product.id}
+          src={product.imageUrls?.[0] || product.images[0]}
           alt={product.name}
         />
       </ProductLink>
@@ -133,58 +180,37 @@ export const ProductCard = ({ product, isLoading, className }: Props) => {
       </div>
 
       <div className={styles.specs}>
-        <div className={styles.specRow}>
-          <img
-            src={memory}
-            alt="Capacity"
-            className={styles.specIcon}
-          />
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {product.capacity}
-          </Typography>
-        </div>
-
-        <div className={styles.specRow}>
-          <img
-            src={ram}
-            alt="Ram"
-            className={styles.specIcon}
-          />
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {product.ram}
-          </Typography>
-        </div>
-        <div className={styles.specRow}>
-          <img
-            src={screen}
-            alt="Screen Diagonal"
-            className={styles.specIcon}
-          />
-          <Typography
-            variant="smalltext"
-            className={styles.propText}
-          >
-            {specsFormatted.screen}
-          </Typography>
-        </div>
+        {specs.map(({ label, value, icon }) => {
+          return (
+            <Spec
+              label={label}
+              value={value}
+              icon={icon}
+              key={label}
+            />
+          );
+        })}
       </div>
 
       <div className={styles.actions}>
         <AddToCartButton productId={product.id} />
+
         <IconButton
           className={styles.favourite}
           selected={isFavourite}
           iconInactive={<FavouritesIcon />}
           iconActive={<FavouritesIcon filled />}
-          onClick={() => toggleFavourite(product)}
+          onClick={() => {
+            if (!isFavourite) {
+              animateProductToHeader(product.id, 'favourites');
+            }
+
+            toggleFavourite(product);
+          }}
           aria-label={
-            isFavourite ? 'Remove from favourites' : 'Add to favourites'
+            isFavourite ?
+              `Remove ${product.name} from favourites`
+            : `Add ${product.name} to favourites`
           }
         />
       </div>

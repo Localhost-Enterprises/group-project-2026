@@ -1,32 +1,50 @@
 import classNames from 'classnames';
-import styles from './Dropdown.module.scss';
-
+import { useId } from 'react';
 import { Select } from 'radix-ui';
+
 import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import { Typography } from '@/components/atoms/Typography';
-import { useId } from 'react';
+
+import styles from './Dropdown.module.scss';
+
+type DropdownOption =
+  | string
+  | {
+      label: string;
+      value: string;
+    };
 
 type Props = {
-  options: string[];
+  options: DropdownOption[];
+  optionLabels?: Record<string, string>;
   description?: string;
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
   className?: string;
+  placeholder?: string;
+  disabled?: boolean;
 };
 
 export const Dropdown = ({
   options,
+  optionLabels,
   description,
   value,
   defaultValue,
   onChange,
   className,
+  placeholder = 'Choose...',
+  disabled = false,
 }: Props) => {
   const labelId = useId();
 
+  const normalizedOptions = options.map((option) =>
+    typeof option === 'string' ? { label: option, value: option } : option,
+  );
+
   return (
-    <div className="flex flex-col gap-1">
+    <div className={styles.container}>
       {description && (
         <Typography
           variant="smalltext"
@@ -39,8 +57,9 @@ export const Dropdown = ({
 
       <Select.Root
         value={value}
-        defaultValue={defaultValue ?? options[0]}
+        defaultValue={defaultValue}
         onValueChange={onChange}
+        disabled={disabled}
       >
         <Select.Trigger
           className={classNames(styles.trigger, className)}
@@ -50,7 +69,7 @@ export const Dropdown = ({
             variant="button"
             className="min-w-0"
           >
-            <Select.Value placeholder="Choose..." />
+            <Select.Value placeholder={placeholder} />
           </Typography>
 
           <Select.Icon className={`${styles.icon} shrink-0`}>
@@ -70,14 +89,16 @@ export const Dropdown = ({
             }}
           >
             <Select.Viewport className={styles.viewport}>
-              {options.map((option) => (
+              {normalizedOptions.map((option) => (
                 <Select.Item
-                  value={option}
-                  key={option}
+                  key={option.value}
+                  value={option.value}
                   className={styles.item}
                 >
                   <Select.ItemText>
-                    <Typography variant="bodytext">{option}</Typography>
+                    <Typography variant="bodytext">
+                      {optionLabels?.[option.label] ?? option.label}
+                    </Typography>
                   </Select.ItemText>
                 </Select.Item>
               ))}

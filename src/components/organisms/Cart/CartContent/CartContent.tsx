@@ -1,12 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import { Typography } from '@/components/atoms/Typography';
 import { CartCheckout } from '../CartCheckout';
 import { CartItem } from '../CartItem';
 import styles from './CartContent.module.scss';
 import type { CartContentData } from './CartContent.types';
+import { useTranslation } from 'react-i18next';
+import { ROUTES } from '@/app/router/routes';
 
 import emptyCartImage from '/img/cart-is-empty.png';
+import { ImageWithFallback } from '../../ImageWithFallback';
 
 export const CartContent = ({ data }: { data: CartContentData }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   if (data.items.length > 0 && data.isPending) {
     return (
       <div className={styles.content}>
@@ -24,16 +31,16 @@ export const CartContent = ({ data }: { data: CartContentData }) => {
 
   if (data.cartProducts.length === 0 && data.isPending) {
     return (
-      <img
+      <ImageWithFallback
         src={emptyCartImage}
-        alt="Cart is empty"
+        alt={t('cartIsEmpty')}
         className={styles.emptyCart}
       />
     );
   }
 
   if (data.isError) {
-    return <Typography variant="h3">Error</Typography>;
+    return <Typography variant="h3">{t('error')}</Typography>;
   }
 
   return (
@@ -54,6 +61,7 @@ export const CartContent = ({ data }: { data: CartContentData }) => {
           price: product.price,
           count: product.quantity,
         }))}
+        onCheckout={() => navigate(ROUTES.CHECKOUT)}
       />
     </div>
   );
