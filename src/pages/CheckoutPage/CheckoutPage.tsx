@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Typography } from '@/components/atoms/Typography';
+import { Dropdown } from '@/components/molecules/Dropdown/Dropdown';
 import {
   fetchCities,
   fetchWarehouses,
@@ -93,6 +94,14 @@ export const CheckoutPage = () => {
     } else {
       setCities([]);
     }
+
+    if (errors.city || errors.warehouse) {
+      setErrors((prev) => ({
+        ...prev,
+        city: false,
+        warehouse: false,
+      }));
+    }
   };
 
   const handleSelectCity = async (cityItem: CityOption) => {
@@ -100,9 +109,11 @@ export const CheckoutPage = () => {
       ...prev,
       city: cityItem.Description,
       cityRef: cityItem.Ref,
+      warehouse: '',
     }));
 
     setCities([]);
+    setWarehouses([]);
 
     const warehouseList = await fetchWarehouses(cityItem.Ref);
     setWarehouses(warehouseList);
@@ -155,7 +166,7 @@ export const CheckoutPage = () => {
       });
 
       if (!result.success) {
-        alert(`Error: use ukrainian lenguage`);
+        alert('Не вдалося створити ТТН. Перевірте дані та спробуйте ще раз.');
         return;
       }
 
@@ -221,7 +232,7 @@ NICE GADGETS Team`,
       localStorage.removeItem('shopping-cart');
     } catch (error) {
       console.error('Order processing error:', error);
-      alert('An error occurred while placing your order. Please try again.');
+      alert('Сталася помилка під час оформлення замовлення. Спробуйте ще раз.');
     } finally {
       isSubmittingRef.current = false;
       setIsSubmitting(false);
@@ -375,45 +386,52 @@ NICE GADGETS Team`,
 
           <div className={styles.fieldGroup}>
             <label>Nova Poshta Branch *</label>
-            <select
-              name="warehouse"
-              value={formData.warehouse}
-              onChange={handleChange}
-              disabled={!warehouses.length}
-              className={styles.selectInput}
-              aria-label="Select Nova Poshta branch"
-            >
-              <option value="">
-                {warehouses.length ? 'Select branch' : 'Select city first'}
-              </option>
 
-              {warehouses.map((wh) => (
-                <option
-                  key={wh.Ref}
-                  value={wh.Ref}
-                >
-                  {wh.Description}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              options={warehouses.map((wh) => ({
+                label: wh.Description,
+                value: wh.Ref,
+              }))}
+              value={formData.warehouse}
+              onChange={(value) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  warehouse: value,
+                }));
+
+                if (errors.warehouse) {
+                  setErrors((prev) => ({
+                    ...prev,
+                    warehouse: false,
+                  }));
+                }
+              }}
+              placeholder={
+                warehouses.length ? 'Select branch' : 'Select city first'
+              }
+              disabled={!warehouses.length}
+              className={errors.warehouse ? styles.errorInput : ''}
+            />
           </div>
         </div>
 
-        <Typography
-          variant="h3"
-          className={styles.subtitle}
-        >
-          Order summary
-        </Typography>
-
-        <div className={styles.amount}>
-          <p>
-            {totalCount} {totalCount === 1 ? 'item' : 'items'} for the amount
-          </p>
-
-          <Typography variant="h2">
-            {formatPrice(totalAmount, exchangeRate, currency)}
+        <div className={styles.section}>
+          <Typography
+            variant="h3"
+            className={styles.subtitle}
+          >
+            Order summary
           </Typography>
+
+          <div className={styles.amount}>
+            <p>
+              {totalCount} {totalCount === 1 ? 'item' : 'items'} for the amount
+            </p>
+
+            <Typography variant="h2">
+              {formatPrice(totalAmount, exchangeRate, currency)}
+            </Typography>
+          </div>
         </div>
 
         <button
