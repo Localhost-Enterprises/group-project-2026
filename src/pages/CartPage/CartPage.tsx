@@ -2,11 +2,14 @@ import { useCartStore } from '@/entities/cart';
 import { useProductByIds } from '@/entities/product';
 import { CartTemplate } from '@/components/templates';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const CartPage = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
-    document.title = 'Cart | NICE GADGETS';
-  }, []);
+    document.title = `${t('cart')} | NICE GADGETS`;
+  }, [t]);
 
   const items = useCartStore((state) => state.items);
 

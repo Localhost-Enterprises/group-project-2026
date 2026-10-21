@@ -1,6 +1,7 @@
 import { Typography } from '@/components/atoms/Typography';
 import styles from './NotFouindTemplate.module.scss';
 import classNames from 'classnames';
+import { ImageWithFallback } from '@/components/organisms';
 
 type Props = {
   title: string;
@@ -17,7 +18,7 @@ export const NotFoundTemplate = ({ title, image, className }: Props) => {
       >
         {title}
       </Typography>
-      <img
+      <ImageWithFallback
         src={image}
         alt={title}
         className={styles.image}
