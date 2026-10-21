@@ -7,16 +7,6 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-const menuItems = [
-  {
-    id: 'github',
-    label: 'GITHUB',
-    to: 'https://github.com/Localhost-Enterprises',
-  },
-  { id: 'contacts', label: 'CONTACTS', to: ROUTES.CONTACTS },
-  { id: 'rights', label: 'RIGHTS', to: ROUTES.RIGHTS },
-];
-
 type Props = {
   className?: string;
 };
@@ -31,8 +21,18 @@ export const Footer = ({ className }: Props) => {
       to: 'https://github.com/Localhost-Enterprises',
       target: '_blank',
     },
-    { id: 'contacts', label: t('footerContacts'), to: '#' },
-    { id: 'rights', label: t('footerRights'), to: '#' },
+    {
+      id: 'contacts',
+      label: t('footerContacts'),
+      to: ROUTES.CONTACTS,
+      target: '_self',
+    },
+    {
+      id: 'rights',
+      label: t('footerRights'),
+      to: ROUTES.RIGHTS,
+      target: '_self',
+    },
   ];
 
   const scrollToTop = () => {
