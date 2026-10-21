@@ -1,4 +1,5 @@
 @use '@/app/styles/mixins' as *;
+@use '@/app/styles/colors' as *;
 
 .container {
   grid-column: 1 / -1;
@@ -19,6 +20,24 @@
 
 .cart {
   margin-bottom: 16px;
+}
+
+.historyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid $primary;
+  border-radius: 48px;
+  color: $primary;
+  text-decoration: none;
+  font-weight: 600;
+  transition: border-color 0.3s;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: $hover;
+  }
 }
 
 .backButton {

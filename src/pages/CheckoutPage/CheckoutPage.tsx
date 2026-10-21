@@ -14,6 +14,9 @@ import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 import { updateTopSales } from '@/shared/api/topsales';
+import type { Order } from '@/shared/types/Order';
+import { BackButton } from '@/components/organisms/BackButton/BackButton';
+import { t } from 'i18next';
 
 export const CheckoutPage = () => {
   const { data: exchangeRate } = useUsdToUahRate();
@@ -144,6 +147,24 @@ export const CheckoutPage = () => {
         console.error('Failed to update top sales:', error);
       }
 
+      const order: Order = {
+        id: crypto.randomUUID(),
+        products: cartItems.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })),
+        ttn: result.enNumber,
+      };
+
+      const savedOrders: Order[] = JSON.parse(
+        localStorage.getItem('orderHistory') || '[]',
+      );
+
+      localStorage.setItem(
+        'orderHistory',
+        JSON.stringify([...savedOrders, order]),
+      );
+
       try {
         await sendEmail({
           email: formData.email,
@@ -191,6 +212,13 @@ export const CheckoutPage = () => {
       >
         Ordering
       </Typography>
+
+      <BackButton
+        fallback="/"
+        className={styles.backButton}
+      >
+        {t('back')}
+      </BackButton>
 
       <form
         onSubmit={handleSubmit}
