@@ -51,65 +51,69 @@ export const Header = ({ className }: Props) => {
 
       {/*Desktop*/}
 
-      <nav className={styles.nav}>
-        <ul className={styles.navList}>
-          {[
-            ROUTES.HOME,
-            routePaths.catalog('phones'),
-            routePaths.catalog('tablets'),
-            routePaths.catalog('accessories'),
-          ].map((path, idx) => {
-            const labels = [
-              t('home'),
-              t('phones'),
-              t('tablets'),
-              t('accessories'),
-            ];
-            return (
-              <li
-                key={path}
-                className={styles.navItem}
-              >
-                <NavLink
-                  to={path}
-                  end={path === '/'}
-                  className={({ isActive }) =>
-                    cn(styles.navLink, { [styles.active]: isActive })
-                  }
+      <div className={styles.desktopContent}>
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+            {[
+              ROUTES.HOME,
+              routePaths.catalog('phones'),
+              routePaths.catalog('tablets'),
+              routePaths.catalog('accessories'),
+            ].map((path, idx) => {
+              const labels = [
+                t('home'),
+                t('phones'),
+                t('tablets'),
+                t('accessories'),
+              ];
+              return (
+                <li
+                  key={path}
+                  className={styles.navItem}
                 >
-                  {labels[idx]}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+                  <NavLink
+                    to={path}
+                    end={path === '/'}
+                    className={({ isActive }) =>
+                      cn(styles.navLink, { [styles.active]: isActive })
+                    }
+                  >
+                    {labels[idx]}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-      <div className={styles.headerActions}>
-        <SearchField className={styles.desktopSearch} />
-        <LanguageSwitcher />
+        <div className={styles.headerActions}>
+          <SearchField className={styles.desktopSearch} />
+          <div className={styles.headerControls}>
+            <LanguageSwitcher />
 
-        <NavLink
-          to={ROUTES.FAVOURITES}
-          data-fly-target="favourites"
-          aria-label="Open favourites"
-          className={({ isActive }) =>
-            cn(styles.actionBtn, { [styles.active]: isActive })
-          }
-        >
-          <FavouritesIcon quantity={favouritesCount} />
-        </NavLink>
-        <NavLink
-          to={ROUTES.CART}
-          data-fly-target="cart"
-          aria-label="Open cart"
-          state={{ from: cartFrom }}
-          className={({ isActive }) =>
-            cn(styles.actionBtn, { [styles.active]: isActive })
-          }
-        >
-          <CartIcon quantity={cartQuantity} />
-        </NavLink>
+            <NavLink
+              to={ROUTES.FAVOURITES}
+              data-fly-target="favourites"
+              aria-label="Open favourites"
+              className={({ isActive }) =>
+                cn(styles.actionBtn, { [styles.active]: isActive })
+              }
+            >
+              <FavouritesIcon quantity={favouritesCount} />
+            </NavLink>
+            <NavLink
+              to={ROUTES.CART}
+              data-fly-target="cart"
+              aria-label="Open cart"
+              state={{ from: cartFrom }}
+              className={({ isActive }) =>
+                cn(styles.actionBtn, { [styles.active]: isActive })
+              }
+            >
+              <CartIcon quantity={cartQuantity} />
+            </NavLink>
+          </div>
+        </div>
       </div>
 
       <div className={styles.mobileSearch}>
