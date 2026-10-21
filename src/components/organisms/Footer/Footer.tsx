@@ -6,6 +6,7 @@ import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
 
 type Props = {
   className?: string;
@@ -72,6 +73,10 @@ export const Footer = ({ className }: Props) => {
               </Typography>
             </a>
           ))}
+
+          <div className={styles.footerCurrency}>
+            <CurrencySwitcher />
+          </div>
         </div>
 
         <div className={styles.itemContainer}>

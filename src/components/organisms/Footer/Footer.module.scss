@@ -35,9 +35,10 @@
 
   @include on('tablet') {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 0;
+    gap: 12;
   }
 }
 
@@ -79,5 +80,15 @@
 
   @include on('tablet') {
     justify-content: flex-end;
+  }
+}
+
+.footerCurrency {
+  display: none;
+
+  @include on('tablet') {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import styles from './CartCheckout.module.scss';
 import { useEffect } from 'react';
 
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+
 export type CartCheckoutItem = {
   price: number;
   count: number;
@@ -17,6 +21,8 @@ type Props = {
 
 export const CartCheckout = ({ items, onCheckout }: Props) => {
   const { t } = useTranslation();
+  const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const totalPrice = items.reduce(
     (total, item) => total + item.price * item.count,
@@ -36,7 +42,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
           className={styles.totalPrice}
           variant="h2"
         >
-          ${totalPrice}
+          {formatPrice(totalPrice, exchangeRate, currency)}
         </Typography>
         <Typography
           className={styles.itemCount}
