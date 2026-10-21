@@ -46,6 +46,7 @@ export const CatalogFilter = () => {
           'Newest': t('sortNewest'),
           'Cheapest': t('sortCheapest'),
           'Most expensive': t('sortMostExpensive'),
+          'Top sales': t('Top Sales'),
         }}
         description={t('sortBy')}
         value={sortBy}

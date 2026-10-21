@@ -6,6 +6,7 @@ import { ArrowButton } from '@/components/molecules';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
 
 type Props = {
   className?: string;
@@ -21,8 +22,18 @@ export const Footer = ({ className }: Props) => {
       to: 'https://github.com/Localhost-Enterprises',
       target: '_blank',
     },
-    { id: 'contacts', label: t('footerContacts'), to: '#' },
-    { id: 'rights', label: t('footerRights'), to: '#' },
+    {
+      id: 'contacts',
+      label: t('footerContacts'),
+      to: ROUTES.CONTACTS,
+      target: '_self',
+    },
+    {
+      id: 'rights',
+      label: t('footerRights'),
+      to: ROUTES.RIGHTS,
+      target: '_self',
+    },
   ];
 
   const scrollToTop = () => {
@@ -62,6 +73,10 @@ export const Footer = ({ className }: Props) => {
               </Typography>
             </a>
           ))}
+
+          <div className={styles.footerCurrency}>
+            <CurrencySwitcher />
+          </div>
         </div>
 
         <div className={styles.itemContainer}>

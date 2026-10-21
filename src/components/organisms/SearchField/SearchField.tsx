@@ -109,7 +109,12 @@ export const SearchField = ({
           side="bottom"
           sideOffset={8}
           collisionPadding={8}
-          style={{ width: 'var(--radix-popover-trigger-width)' }}
+          style={{
+            width:
+              'min(var(--radix-popover-trigger-width), calc(100vw - 16px))',
+            maxWidth: 'calc(100vw - 16px)',
+            boxSizing: 'border-box',
+          }}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
           {isPending ?
