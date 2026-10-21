@@ -334,3 +334,20 @@ $warning-red: #d64545;
   align-items: flex-start;
   gap: 10px;
 }
+
+:global(html[data-theme='dark']) {
+  .form {
+    background: var(--color-surface);
+    border-color: var(--color-elements);
+  }
+
+  .formActions {
+    border-top-color: var(--color-elements);
+  }
+
+  .commentItem {
+    &:not(:last-child) {
+      border-bottom-color: var(--color-elements);
+    }
+  }
+}
