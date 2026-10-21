@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 export type CartCheckoutItem = {
   price: number;
@@ -21,6 +22,7 @@ type Props = {
 export const CartCheckout = ({ items, onCheckout }: Props) => {
   const { t } = useTranslation();
   const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const totalPrice = items.reduce(
     (total, item) => total + item.price * item.count,
@@ -40,7 +42,7 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
           className={styles.totalPrice}
           variant="h2"
         >
-          {formatPrice(totalPrice, exchangeRate)}
+          {formatPrice(totalPrice, exchangeRate, currency)}
         </Typography>
         <Typography
           className={styles.itemCount}

@@ -11,9 +11,11 @@ import { useCartStore } from '@/entities/cart';
 import { useNavigate } from 'react-router-dom';
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 export const CheckoutPage = () => {
   const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const [formData, setFormData] = useState(() => {
     const savedEmail = localStorage.getItem('userEmail') || '';
@@ -313,7 +315,7 @@ export const CheckoutPage = () => {
             {totalCount} {totalCount > 1 ? 'items' : 'item'} for the amount
           </p>
           <Typography variant="h2">
-            {formatPrice(totalAmount, exchangeRate)}
+            {formatPrice(totalAmount, exchangeRate, currency)}
           </Typography>
         </div>
 

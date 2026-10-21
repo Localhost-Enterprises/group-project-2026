@@ -24,6 +24,7 @@ import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 type Props = {
   product: Product;
@@ -38,6 +39,7 @@ export const ProductPurchase = ({
 }: Props) => {
   const navigate = useNavigate();
   const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const { t } = useTranslation();
 
@@ -138,7 +140,7 @@ export const ProductPurchase = ({
           as="span"
           className={styles.currentPrice}
         >
-          {formatPrice(product.price, exchangeRate)}
+          {formatPrice(product.price, exchangeRate, currency)}
         </Typography>
 
         <Typography
@@ -147,7 +149,7 @@ export const ProductPurchase = ({
           className={styles.oldPrice}
         >
           <span className={styles.oldPriceValue}>
-            {formatPrice(product.fullPrice, exchangeRate)}
+            {formatPrice(product.fullPrice, exchangeRate, currency)}
           </span>
         </Typography>
       </div>

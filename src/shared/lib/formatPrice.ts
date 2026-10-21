@@ -1,8 +1,9 @@
 export const formatPrice = (
   priceInUsd: number,
   exchangeRate?: number,
+  currency: 'USD' | 'UAH' = 'UAH',
 ): string => {
-  if (!exchangeRate || exchangeRate <= 0) {
+  if (currency === 'USD' || !exchangeRate || exchangeRate <= 0) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',

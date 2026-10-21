@@ -16,6 +16,7 @@ import { useFavouritesStore } from '@/entities/favourites';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
 import { SearchField } from '../SearchField';
+import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
 
 type Props = {
   className?: string;
@@ -181,6 +182,10 @@ export const Header = ({ className }: Props) => {
             <LanguageSwitcher />
           </li>
         </ul>
+
+        <div className={styles.mobileCurrency}>
+          <CurrencySwitcher />
+        </div>
 
         <div className={styles.mobileActions}>
           <NavLink

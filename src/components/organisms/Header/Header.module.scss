@@ -264,6 +264,8 @@
   gap: 32px;
   padding: 24px;
   margin: 0;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .mobileNavLink {
@@ -284,4 +286,13 @@
   &:last-child {
     border-right: none;
   }
+}
+
+.mobileCurrency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-top: 1px solid $elements;
+  flex-shrink: 0;
 }

@@ -28,6 +28,7 @@ import { ImageWithFallback } from '../../ImageWithFallback';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 type Props = (
   | {
@@ -51,6 +52,7 @@ export const ProductCard = ({
 }: Props) => {
   const { t } = useTranslation();
   const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
 
   const cardId = isLoading ? 0 : product.id;
 
@@ -169,7 +171,7 @@ export const ProductCard = ({
           variant="h3"
           as="span"
         >
-          {formatPrice(product.price, exchangeRate)}
+          {formatPrice(product.price, exchangeRate, currency)}
         </Typography>
 
         {product.fullPrice && (
@@ -179,7 +181,7 @@ export const ProductCard = ({
             className={styles.oldPrice}
           >
             <span className={styles.oldPriceValue}>
-              {formatPrice(product.fullPrice, exchangeRate)}
+              {formatPrice(product.fullPrice, exchangeRate, currency)}
             </span>
           </Typography>
         )}
