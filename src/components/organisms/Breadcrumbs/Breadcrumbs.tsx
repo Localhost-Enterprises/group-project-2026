@@ -31,7 +31,7 @@ export const Breadcrumbs = ({ items, className }: Props) => {
           })
         }
       >
-        <HomeIcon />
+        <HomeIcon className={styles.homeIcon} />
       </NavLink>
 
       {items.map(({ label, to }, index) => (

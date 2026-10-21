@@ -8,6 +8,7 @@ export const ROUTES = {
   NOTFOUND: '*',
   RIGHTS: '/rights',
   CONTACTS: '/contacts',
+  HISTORY: '/history',
 } as const;
 
 export const routePaths = {

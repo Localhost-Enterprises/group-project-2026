@@ -5,6 +5,8 @@ import type { Data } from './CartTemplate.types';
 import { Breadcrumbs, CartContent } from '@/components/organisms';
 import { BackButton } from '@/components/organisms/BackButton/BackButton';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '@/app/router';
 
 export const CartTemplate = ({ data }: { data: Data }) => {
   const { cartContent } = data;
@@ -28,6 +30,12 @@ export const CartTemplate = ({ data }: { data: Data }) => {
       >
         {t('cart')}
       </Typography>
+      <Link
+        to={ROUTES.HISTORY}
+        className={styles.historyButton}
+      >
+        History
+      </Link>
 
       <CartContent data={cartContent} />
     </div>
