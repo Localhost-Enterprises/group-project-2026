@@ -109,7 +109,7 @@
 }
 
 .desktopContent {
-  display: none;
+  display: contents;
 
   @include on('tablet') {
     display: flex;

@@ -6,7 +6,6 @@
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  min-width: 0;
   box-sizing: border-box;
   padding-inline: 14px;
   border: 1px solid $elements;
@@ -35,7 +34,6 @@
   outline: 0;
   background: transparent;
   color: $primary;
-  font: inherit;
   font-size: 14px;
   line-height: 20px;
 

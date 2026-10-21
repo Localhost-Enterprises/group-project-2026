@@ -31,21 +31,27 @@ export const SearchField = ({
   const query = currentValue.trim();
   const shouldOpen = isOpen && query.length > 0;
   const { data: products, isPending, isError } = useProducts();
-  const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ');
+  const queryTerms = normalizedQuery.split(' ').filter(Boolean);
+  const nameMatches =
+    products?.filter((product) =>
+      product.name.toLowerCase().includes(normalizedQuery),
+    ) ?? [];
   const matchingProducts =
-    products?.filter((product) => {
-      const searchableText = [
-        product.name,
-        product.item_id,
-        product.capacity,
-        product.color,
-        product.category,
-      ]
-        .join(' ')
-        .toLowerCase();
+    nameMatches.length > 0 ?
+      nameMatches
+    : (products?.filter((product) => {
+        const searchableParameters = [
+          product.item_id,
+          product.capacity,
+          product.color,
+          product.category,
+        ]
+          .join(' ')
+          .toLowerCase();
 
-      return queryTerms.every((term) => searchableText.includes(term));
-    }) ?? [];
+        return queryTerms.every((term) => searchableParameters.includes(term));
+      }) ?? []);
 
   return (
     <Popover.Root
