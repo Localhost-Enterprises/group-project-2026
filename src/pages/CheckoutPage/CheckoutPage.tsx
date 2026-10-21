@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Typography } from '@/components/atoms/Typography';
 import {
   fetchCities,
@@ -22,8 +22,13 @@ export const CheckoutPage = () => {
   const { data: exchangeRate } = useUsdToUahRate();
   const currency = useCurrencyStore((state) => state.currency);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const [successTtn, setSuccessTtn] = useState<string | null>(null);
+
   const [formData, setFormData] = useState(() => {
     const savedEmail = localStorage.getItem('userEmail') || '';
+
     return {
       firstName: '',
       lastName: '',
@@ -49,17 +54,20 @@ export const CheckoutPage = () => {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [cities, setCities] = useState<CityOption[]>([]);
   const [warehouses, setWarehouses] = useState<WarehouseOption[]>([]);
+
   const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
-  useEffect(() => {
-    document.title = `Checkout | NICE GADGETS`;
-  }, []);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Checkout | NICE GADGETS';
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (errors[name]) {
@@ -69,12 +77,14 @@ export const CheckoutPage = () => {
 
   const handleCityInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+
     setFormData((prev) => ({
       ...prev,
       city: value,
       cityRef: '',
       warehouse: '',
     }));
+
     setWarehouses([]);
 
     if (value.length >= 2) {
@@ -91,6 +101,7 @@ export const CheckoutPage = () => {
       city: cityItem.Description,
       cityRef: cityItem.Ref,
     }));
+
     setCities([]);
 
     const warehouseList = await fetchWarehouses(cityItem.Ref);
@@ -100,12 +111,17 @@ export const CheckoutPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isSubmittingRef.current) {
+      return;
+    }
+
     const newErrors = {
       firstName: !formData.firstName.trim(),
       lastName: !formData.lastName.trim(),
-      phone: !formData.phone.trim(),
+      phone:
+        !formData.phone.trim() || formData.phone.replace(/\D/g, '').length < 12,
       email: !formData.email.trim(),
-      city: !formData.city.trim(),
+      city: !formData.city.trim() || !formData.cityRef,
       warehouse: !formData.warehouse.trim(),
     };
 
@@ -115,28 +131,34 @@ export const CheckoutPage = () => {
       return;
     }
 
-    localStorage.setItem('userEmail', formData.email);
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
 
-    if (!exchangeRate || exchangeRate <= 0) {
-      alert('Не вдалося отримати курс валют. Спробуйте пізніше.');
-      return;
-    }
+    try {
+      localStorage.setItem('userEmail', formData.email);
 
-    const totalAmountUah = Math.round(totalAmount * exchangeRate);
+      if (!exchangeRate || exchangeRate <= 0) {
+        alert('Unable to retrieve the exchange rate. Please try again later.');
+        return;
+      }
 
-    const result = await createNewPostDocument({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      middleName: formData.middleName,
-      phone: formData.phone,
-      email: formData.email,
-      cityRef: formData.cityRef,
-      warehouseRef: formData.warehouse,
-      paymentMethod: formData.paymentMethod,
-      cost: totalAmountUah,
-    });
+      const result = await createNewPostDocument({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        middleName: formData.middleName,
+        phone: formData.phone,
+        email: formData.email,
+        cityRef: formData.cityRef,
+        warehouseRef: formData.warehouse,
+        paymentMethod: formData.paymentMethod,
+        cost: 100,
+      });
 
-    if (result.success) {
+      if (!result.success) {
+        alert(`Error creating TTN: ${result.errors?.join(', ')}`);
+        return;
+      }
+
       try {
         await Promise.all(
           cartItems.map((item) =>
@@ -170,37 +192,39 @@ export const CheckoutPage = () => {
           email: formData.email,
           message: `Dear ${formData.firstName} ${formData.lastName},
 
-    Thank you for your order!
+Thank you for your order!
 
-    Your order has been successfully placed.
+Your order has been successfully placed.
 
-    Tracking number (TTN): ${result.enNumber}
-    City: ${formData.city}
-    Nova Poshta branch: ${
-      warehouses.find((wh) => wh.Ref === formData.warehouse)?.Description ||
-      'Not specified'
-    }
-    Total amount: $${totalAmount}
+Tracking number (TTN): ${result.enNumber}
+City: ${formData.city}
+Nova Poshta branch: ${
+            warehouses.find((wh) => wh.Ref === formData.warehouse)
+              ?.Description || 'Not specified'
+          }
+Total amount: ${formatPrice(totalAmount, exchangeRate, currency)}
 
-    Thank you for shopping with NICE GADGETS!
+Thank you for shopping with NICE GADGETS!
 
-    Best regards,
-    NICE GADGETS Team`,
+Best regards,
+NICE GADGETS Team`,
         });
       } catch (error) {
         console.error('Email sending error:', error);
       }
 
-      alert(`Order successfully created! TTN: ${result.enNumber}`);
+      setSuccessTtn(result.enNumber);
 
       clearCart();
       localStorage.removeItem('totalPrice');
       localStorage.removeItem('totalItems');
       localStorage.removeItem('shopping-cart');
-
-      navigate('/');
-    } else {
-      alert(`Error creating TTN: ${result.errors?.join(', ')}`);
+    } catch (error) {
+      console.error('Order processing error:', error);
+      alert('An error occurred while placing your order. Please try again.');
+    } finally {
+      isSubmittingRef.current = false;
+      setIsSubmitting(false);
     }
   };
 
@@ -244,6 +268,7 @@ export const CheckoutPage = () => {
                 aria-label="Enter first name"
               />
             </div>
+
             <div className={styles.fieldGroup}>
               <label>Last name *</label>
               <input
@@ -361,6 +386,7 @@ export const CheckoutPage = () => {
               <option value="">
                 {warehouses.length ? 'Select branch' : 'Select city first'}
               </option>
+
               {warehouses.map((wh) => (
                 <option
                   key={wh.Ref}
@@ -377,12 +403,14 @@ export const CheckoutPage = () => {
           variant="h3"
           className={styles.subtitle}
         >
-          Together
+          Order summary
         </Typography>
+
         <div className={styles.amount}>
           <p>
-            {totalCount} {totalCount > 1 ? 'items' : 'item'} for the amount
+            {totalCount} {totalCount === 1 ? 'item' : 'items'} for the amount
           </p>
+
           <Typography variant="h2">
             {formatPrice(totalAmount, exchangeRate, currency)}
           </Typography>
@@ -391,10 +419,54 @@ export const CheckoutPage = () => {
         <button
           type="submit"
           className={styles.submitButton}
+          disabled={isSubmitting}
         >
-          I confirm the order
+          {isSubmitting ? 'Processing...' : 'I confirm the order'}
         </button>
       </form>
+
+      {successTtn && (
+        <div className={styles.modalOverlay}>
+          <div
+            className={styles.successModal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="successTitle"
+          >
+            <div className={styles.successIcon}>✓</div>
+
+            <h2
+              id="successTitle"
+              className={styles.successTitle}
+            >
+              Order Successfully Placed!
+            </h2>
+
+            <p className={styles.successText}>
+              Thank you for shopping with NICE GADGETS. Your order has been
+              successfully created.
+            </p>
+
+            <div className={styles.ttnBlock}>
+              <span className={styles.ttnLabel}>
+                Your Tracking Number (TTN)
+              </span>
+              <strong className={styles.ttnNumber}>{successTtn}</strong>
+            </div>
+
+            <button
+              type="button"
+              className={styles.successButton}
+              onClick={() => {
+                setSuccessTtn(null);
+                navigate('/');
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
