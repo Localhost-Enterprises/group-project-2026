@@ -1,1 +1,1 @@
-Deploy page: https://group-project-2026.onrender.com/
+[NiceGadgets](https://nicegadgets.online/)
