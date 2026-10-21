@@ -10,8 +10,14 @@ import styles from './CheckoutPage.module.scss';
 import { useCartStore } from '@/entities/cart';
 import { useNavigate } from 'react-router-dom';
 import { sendEmail } from '@/shared/api/sendEmail';
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { formatPrice } from '@/shared/lib/formatPrice';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 
 export const CheckoutPage = () => {
+  const { data: exchangeRate } = useUsdToUahRate();
+  const currency = useCurrencyStore((state) => state.currency);
+
   const [formData, setFormData] = useState(() => {
     const savedEmail = localStorage.getItem('userEmail') || '';
     return {
@@ -106,6 +112,13 @@ export const CheckoutPage = () => {
 
     localStorage.setItem('userEmail', formData.email);
 
+    if (!exchangeRate || exchangeRate <= 0) {
+      alert('Не вдалося отримати курс валют. Спробуйте пізніше.');
+      return;
+    }
+
+    const totalAmountUah = Math.round(totalAmount * exchangeRate);
+
     const result = await createNewPostDocument({
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -115,7 +128,7 @@ export const CheckoutPage = () => {
       cityRef: formData.cityRef,
       warehouseRef: formData.warehouse,
       paymentMethod: formData.paymentMethod,
-      cost: totalAmount,
+      cost: totalAmountUah,
     });
 
     if (result.success) {
@@ -330,7 +343,9 @@ export const CheckoutPage = () => {
           <p>
             {totalCount} {totalCount > 1 ? 'items' : 'item'} for the amount
           </p>
-          <Typography variant="h2">{totalAmount} $</Typography>
+          <Typography variant="h2">
+            {formatPrice(totalAmount, exchangeRate, currency)}
+          </Typography>
         </div>
 
         <button
