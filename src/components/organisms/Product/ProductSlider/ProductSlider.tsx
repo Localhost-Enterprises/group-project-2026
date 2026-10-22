@@ -7,8 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ImageWithFallback } from '../../ImageWithFallback';
 
-import icon360 from '@/shared/assets/icons/360.svg';
-
 import 'swiper/css';
 import styles from './ProductSlider.module.scss';
 
@@ -66,10 +64,9 @@ export const ProductSlider = ({
             aria-label="View product in 360 degrees"
             aria-pressed={activeIndex === images.length}
           >
-            <ImageWithFallback
+            <span
               className={styles.previewIcon}
-              src={icon360}
-              alt="360 Preview"
+              aria-hidden="true"
             />
           </button>
         )}

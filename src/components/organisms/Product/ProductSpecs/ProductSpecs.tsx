@@ -33,7 +33,7 @@ export const ProductSpecs = ({ specs }: Props) => {
             variant="bodytext"
             className={styles.specText}
           >
-            {specText}
+            {specText[0].toUpperCase() + specText.slice(1)}
           </Typography>
         </div>
       ))}

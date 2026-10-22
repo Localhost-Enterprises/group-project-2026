@@ -119,13 +119,6 @@
   opacity: 1;
 }
 
-.thumbnail360 {
-  img {
-    width: 50%;
-    height: 50%;
-  }
-}
-
 .mainSlider {
   width: 100%;
   min-width: 0;
@@ -214,5 +207,26 @@
 
   @include on('desktop') {
     height: 464px;
+  }
+}
+
+.thumbnail360 {
+  .previewIcon {
+    display: block;
+
+    width: 50%;
+    height: 50%;
+
+    background-color: $primary;
+
+    mask-image: url('@/shared/assets/icons/360.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+
+    -webkit-mask-image: url('@/shared/assets/icons/360.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
   }
 }

@@ -6,3 +6,4 @@ export { MainTemplate } from './MainTemplate';
 export { NotFoundTemplate } from './NotFoundTemplate';
 export { ProductTemplate } from './ProductTemplate';
 export { OrderHistoryTemplate } from './OrderHistoryTemplate';
+export { RightsTemplate } from './RightsTemplate';
