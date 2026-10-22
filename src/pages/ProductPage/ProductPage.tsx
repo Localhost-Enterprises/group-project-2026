@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ProductLoadingSkeleton } from '@/components';
@@ -15,6 +15,16 @@ import type { Category } from '@/shared/types/Category';
 import { NotFoundProductPage } from '../NotFoundProductPage';
 
 export const ProductPage = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [pathname]);
+
   const { t } = useTranslation();
 
   const { catalogSlug, productSlug } = useParams<

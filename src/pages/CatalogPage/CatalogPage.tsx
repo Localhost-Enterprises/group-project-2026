@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { CatalogTemplate } from '@/components/templates';
@@ -16,6 +16,16 @@ import { Category } from '@/shared/types/Category';
 import { NotFoundPage } from '../NotFoundPage';
 
 export const CatalogPage = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [pathname]);
+
   const { t } = useTranslation();
 
   const { catalogSlug } = useParams<'catalogSlug'>();
