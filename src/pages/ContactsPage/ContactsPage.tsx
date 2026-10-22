@@ -26,7 +26,7 @@ const developersData = [
     name: 'Sasha',
     link: 'https://github.com/skuzmenk',
     role: 'Project Manager',
-    info: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sodales eleifend magna. Vivamus eros mi, tempor sagittis convallis nec, facilisis vitae neque. Curabitur dictum leo gravida magna hendrerit iaculis. Phasellus lacinia bibendum tortor. Integer convallis ipsum ipsum, porttitor egestas metus condimentum non. Aliquam nec lorem porttitor, semper sem sed, cursus ligula. Nunc at sollicitudin sem. Maecenas nec eros ac mi lobortis sodales. Sed eget consequat neque. Ut porttitor augue sed nisi mattis, id pellentesque massa sodales. ',
+    info: '',
   },
   {
     id: 3,
