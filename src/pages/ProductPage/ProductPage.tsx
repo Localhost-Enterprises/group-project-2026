@@ -17,7 +17,9 @@ import { NotFoundProductPage } from '../NotFoundProductPage';
 export const ProductPage = () => {
   const { t } = useTranslation();
 
-  const { productSlug } = useParams<'productSlug'>();
+  const { catalogSlug, productSlug } = useParams<
+    'catalogSlug' | 'productSlug'
+  >();
 
   const {
     data: product,
@@ -39,7 +41,9 @@ export const ProductPage = () => {
   }, [productDetails, t]);
 
   if (isProductPending) return <ProductLoadingSkeleton />;
-  if (!product || isProductError) return <NotFoundProductPage />;
+  if (!product || isProductError || product.category !== catalogSlug) {
+    return <NotFoundProductPage />;
+  }
 
   if (isDetailsPending) return <ProductLoadingSkeleton />;
   if (!productDetails || isDetailsError) return <NotFoundProductPage />;

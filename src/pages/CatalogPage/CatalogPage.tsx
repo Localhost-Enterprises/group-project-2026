@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import { CatalogTemplate } from '@/components/templates';
 import { CATALOG_SORT_OPTIONS } from '@/components/organisms';
+import { CATALOG_PAGE_SIZE_OPTIONS } from '@/components/organisms/Catalog/CatalogFilter/CatalogFilter.constants';
 
 import { useProducts } from '@/entities/product/model/product.queries';
 import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
 
 import { useTopSales } from '@/shared/api/topsales.queries';
+import { resolveCatalogPagination } from '@/shared/lib/resolveCatalogPagination';
 import { Category } from '@/shared/types/Category';
 
 import { NotFoundPage } from '../NotFoundPage';
@@ -51,6 +53,11 @@ export const CatalogPage = () => {
     return new Map(ratings.map((item) => [item.namespaceId, item.rating]));
   }, [ratings]);
 
+  const salesMap = useMemo(
+    () => new Map(topSales.map((sale) => [sale.product_id, sale.quantity])),
+    [topSales],
+  );
+
   const sortBy =
     CATALOG_SORT_OPTIONS.find(
       (option) => option === searchParams.get('sort'),
@@ -70,13 +77,8 @@ export const CatalogPage = () => {
         case 'Newest':
           return second.year - first.year;
         case 'Top sales': {
-          const firstSales =
-            topSales.find((sale) => sale.product_id === first.id)?.quantity ??
-            0;
-
-          const secondSales =
-            topSales.find((sale) => sale.product_id === second.id)?.quantity ??
-            0;
+          const firstSales = salesMap.get(first.id) ?? 0;
+          const secondSales = salesMap.get(second.id) ?? 0;
 
           return secondSales - firstSales;
         }
@@ -106,18 +108,17 @@ export const CatalogPage = () => {
           return 0;
       }
     });
-  }, [items, sortBy, ratingsMap, topSales]);
+  }, [items, sortBy, ratingsMap, salesMap]);
 
-  const itemsPerPage = Number(searchParams.get('perPage')) || 16;
+  const { currentPage, totalPages, startIndex, itemsPerPage } =
+    resolveCatalogPagination({
+      pageParam: searchParams.get('page'),
+      perPageParam: searchParams.get('perPage'),
+      totalItems: sortedItems.length,
+      allowedPageSizes: CATALOG_PAGE_SIZE_OPTIONS,
+    });
 
-  const currentPage = Number(searchParams.get('page')) || 1;
-
-  const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
-
-  const visibleItems = sortedItems.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
+  const visibleItems = sortedItems.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams);

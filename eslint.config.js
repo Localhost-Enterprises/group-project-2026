@@ -12,23 +12,24 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      prettier, // This is a config, so it goes under "extends"
+      prettier,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    settings: { react: { version: 'detect' } },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      react, // We register the "eslint-plugin-react" plugin
+      react,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...react.configs.recommended.rules, // This way we use recommended set of rules from "eslint-plugin-react" plugin
+      ...react.configs.recommended.rules,
 
-      'react/react-in-jsx-scope': 'off', // This rule is included in "recommended", but since React 17 it is not needed!
+      'react/react-in-jsx-scope': 'off',
 
       'react-refresh/only-export-components': [
         'warn',

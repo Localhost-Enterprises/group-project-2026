@@ -27,10 +27,11 @@ export const useCreateComment = (namespaceId: string) => {
   return useMutation({
     mutationFn: (comment: CreateComment) => commentsApi.create(comment),
 
-    onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['comments', namespaceId],
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['comments', namespaceId] }),
+        queryClient.invalidateQueries({ queryKey: ['product-ratings'] }),
+      ]);
     },
   });
 };

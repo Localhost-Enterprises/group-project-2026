@@ -27,16 +27,9 @@ import screenIcon from '@/shared/assets/icons/Screen.svg';
 import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './ProductCard.module.scss';
 
-type Props = (
-  | {
-      product: Product;
-      isLoading?: never;
-    }
-  | {
-      product?: never;
-      isLoading: true;
-    }
-) & {
+type Props = {
+  product?: Product;
+  isLoading?: boolean;
   rating?: ProductRating;
   className?: string;
 };
@@ -51,13 +44,13 @@ export const ProductCard = ({
   const { data: exchangeRate } = useUsdToUahRate();
   const currency = useCurrencyStore((state) => state.currency);
 
-  const cardId = isLoading ? 0 : product.id;
+  const cardId = product?.id ?? 0;
 
   const isFavourite = useFavouritesStore((state) => state.isFavourite(cardId));
 
   const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
 
-  if (isLoading) {
+  if (isLoading || !product) {
     return (
       <article
         className={classNames(styles.card, className)}

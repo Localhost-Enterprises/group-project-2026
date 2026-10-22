@@ -66,6 +66,10 @@ async function requestNovaPoshta<T>(
     }),
   });
 
+  if (!response.ok) {
+    throw new Error(`Nova Poshta request failed (${response.status})`);
+  }
+
   return (await response.json()) as NPResponse<T>;
 }
 
@@ -90,6 +94,10 @@ export async function fetchCities(search: string): Promise<CityOption[]> {
     Limit: '20',
   });
 
+  if (!response.success) {
+    throw new Error(getApiError(response, 'Nova Poshta lookup failed'));
+  }
+
   return response.data ?? [];
 }
 
@@ -101,6 +109,10 @@ export async function fetchWarehouses(
     'getWarehouses',
     { CityRef: cityRef },
   );
+
+  if (!response.success) {
+    throw new Error(getApiError(response, 'Nova Poshta lookup failed'));
+  }
 
   return response.data ?? [];
 }

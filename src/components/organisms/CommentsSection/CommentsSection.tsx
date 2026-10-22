@@ -89,17 +89,21 @@ export const CommentsSection = ({
       return;
     }
 
-    await createComment.mutateAsync({
-      productId: selectedVariant.id,
-      namespaceId,
-      username,
-      email,
-      comment,
-      rate: rating,
-    });
+    try {
+      await createComment.mutateAsync({
+        productId: selectedVariant.id,
+        namespaceId,
+        username,
+        email,
+        comment,
+        rate: rating,
+      });
 
-    form.reset();
-    handleCancel();
+      form.reset();
+      handleCancel();
+    } catch (error) {
+      console.error('Failed to submit comment:', error);
+    }
   };
 
   return (

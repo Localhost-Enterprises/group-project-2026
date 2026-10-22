@@ -31,7 +31,7 @@ const get360ImageUrls = async (namespaceId: string): Promise<string[]> => {
   const folderPath = `360/${namespaceId}`;
 
   const { data, error } = await supabase.storage
-    .from('images')
+    .from(STORAGE_BUCKET)
     .list(folderPath, {
       limit: 1000,
       sortBy: {
@@ -47,11 +47,15 @@ const get360ImageUrls = async (namespaceId: string): Promise<string[]> => {
   if (!data?.length) return [];
 
   return data
-    .filter((file) => file.id !== null && file.name)
+    .filter((file) => file.id !== null && /^\d+\.webp$/i.test(file.name))
+    .sort(
+      (first, second) =>
+        Number.parseInt(first.name, 10) - Number.parseInt(second.name, 10),
+    )
     .map(
       (file) =>
         supabase.storage
-          .from('images')
+          .from(STORAGE_BUCKET)
           .getPublicUrl(`${folderPath}/${file.name}`).data.publicUrl,
     );
 };
@@ -77,11 +81,25 @@ export const productApi = {
   get360ImageUrls,
 
   getAll: async (): Promise<WithImageUrls<Product>[]> => {
-    const { data, error } = await supabase.from('products').select('*');
+    const pageSize = 1000;
+    const products: Product[] = [];
 
-    if (error) throw error;
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('id', { ascending: true })
+        .range(from, from + pageSize - 1);
 
-    return (data as Product[]).map(withImageUrls);
+      if (error) throw error;
+
+      const batch = (data ?? []) as Product[];
+      products.push(...batch);
+
+      if (batch.length < pageSize) break;
+    }
+
+    return products.map(withImageUrls);
   },
 
   getBySlug: async (slug: string): Promise<WithImageUrls<Product> | null> => {

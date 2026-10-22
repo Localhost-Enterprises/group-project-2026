@@ -1,1 +1,0 @@
-[NiceGadgets](https://nicegadgets.online/)

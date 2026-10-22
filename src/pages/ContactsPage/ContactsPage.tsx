@@ -61,6 +61,9 @@ export const ContactsPage = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'success' | 'error' | null>(
+    null,
+  );
   const [openDevId, setOpenDevId] = useState<number | null>(null);
 
   const toggleCollapsible = (id: number) => {
@@ -71,6 +74,7 @@ export const ContactsPage = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
+    setSaveStatus(null);
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -88,17 +92,23 @@ export const ContactsPage = () => {
       return;
     }
 
-    const existingMessages: ContactFormData[] = JSON.parse(
-      localStorage.getItem('contacts_messages') || '[]',
-    );
+    try {
+      const saved: unknown = JSON.parse(
+        localStorage.getItem('contacts_messages') || '[]',
+      );
+      const existingMessages = Array.isArray(saved) ? saved : [];
 
-    const updatedMessages = [...existingMessages, formData];
-
-    localStorage.setItem('contacts_messages', JSON.stringify(updatedMessages));
-
-    setFormData({ 'title': '', 'e-mail': '', 'text': '' });
-    setIsSubmitted(false);
-    alert(t('contactsSuccess'));
+      localStorage.setItem(
+        'contacts_messages',
+        JSON.stringify([...existingMessages, formData]),
+      );
+      setFormData({ 'title': '', 'e-mail': '', 'text': '' });
+      setIsSubmitted(false);
+      setSaveStatus('success');
+    } catch (error) {
+      console.error('Unable to save contact message:', error);
+      setSaveStatus('error');
+    }
   };
 
   return (
@@ -165,7 +175,10 @@ export const ContactsPage = () => {
       </div>
 
       <form
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSend();
+        }}
         className={styles.form}
       >
         <Typography
@@ -231,12 +244,21 @@ export const ContactsPage = () => {
           )}
         </div>
 
-        <TextButton
-          type="button"
-          onClick={handleSend}
-        >
-          {t('contactsSend')}
-        </TextButton>
+        {saveStatus && (
+          <Typography
+            variant="smalltext"
+            className={
+              saveStatus === 'success' ? styles.successText : styles.errorText
+            }
+            role="status"
+          >
+            {saveStatus === 'success' ?
+              t('contactsSuccess')
+            : t('contactsSaveError')}
+          </Typography>
+        )}
+
+        <TextButton type="submit">{t('contactsSend')}</TextButton>
       </form>
 
       <div className={styles.contentWrapper}>

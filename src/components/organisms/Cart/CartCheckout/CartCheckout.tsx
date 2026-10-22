@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { Typography } from '@/components/atoms';
@@ -28,11 +26,6 @@ export const CartCheckout = ({ items, onCheckout }: Props) => {
     0,
   );
   const totalItems = items.reduce((total, item) => total + item.count, 0);
-
-  useEffect(() => {
-    localStorage.setItem('totalPrice', totalPrice.toString());
-    localStorage.setItem('totalItems', totalItems.toString());
-  }, [totalPrice, totalItems]);
 
   return (
     <div className={styles.container}>

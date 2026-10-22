@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '@/app/router';
 
 import { Typography } from '@/components/atoms';
-import { BackButton } from '@/components/molecules';
+import { BackButton, DefaultButton } from '@/components/molecules';
 import { Breadcrumbs, CartContent } from '@/components/organisms';
 
 import type { Data } from './CartTemplate.types';
@@ -27,18 +27,17 @@ export const CartTemplate = ({ data }: { data: Data }) => {
       >
         {t('back')}
       </BackButton>
-      <Typography
-        variant="h1"
-        className={styles.cart}
-      >
-        {t('cart')}
-      </Typography>
-      <Link
-        to={ROUTES.HISTORY}
-        className={styles.historyButton}
-      >
-        {t('cartHistory')}
-      </Link>
+      <div className={styles.cartHeader}>
+        <Typography
+          variant="h1"
+          className={styles.cart}
+        >
+          {t('cart')}
+        </Typography>
+        <DefaultButton className={styles.historyButton}>
+          <Link to={ROUTES.HISTORY}>{t('cartHistory')}</Link>
+        </DefaultButton>
+      </div>
 
       <CartContent data={cartContent} />
     </div>

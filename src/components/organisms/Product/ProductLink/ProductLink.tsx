@@ -28,7 +28,7 @@ export const ProductLink = ({
     >
       <Typography
         variant="bodytext"
-        as="h3"
+        as="span"
         className={className}
       >
         {children}

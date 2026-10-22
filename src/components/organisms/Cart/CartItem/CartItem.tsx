@@ -4,8 +4,10 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import { CloseIcon, MinusIcon, PlusIcon, Typography } from '@/components/atoms';
-import { DefaultButton } from '@/components/molecules';
+import { DefaultButton, Rating } from '@/components/molecules';
+import type { ProductRating } from '@/entities/product/api/product-ratings.api';
 
+import { MAX_CART_ITEM_QUANTITY } from '@/entities/cart/model/cart.constants';
 import {
   selectRemoveItem,
   selectUpdateQuantity,
@@ -15,16 +17,17 @@ import {
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
-import type { Product } from '@/shared/types';
+import type { Product, Rate } from '@/shared/types';
 
 import { ImageWithFallback } from '../../ImageWithFallback';
 import { ProductLink } from '../../Product/ProductLink';
 
 import styles from './CartItem.module.scss';
 
-type Props =
+type Props = (
   | { product: Product & { quantity: number }; isLoading?: false }
-  | { product?: never; isLoading: true };
+  | { product?: never; isLoading: true }
+) & { rating?: ProductRating };
 
 export const CartItem = (props: Props) => {
   const { t } = useTranslation();
@@ -62,19 +65,18 @@ export const CartItem = (props: Props) => {
     );
   }
 
-  const { product } = props;
+  const { product, rating } = props;
 
   const onCountChange = (count: number) => updateQuantity(product.id, count);
   const handleRemove = () => removeItem(product.id);
 
-  const imageSrc =
-    product.imageUrls ? product.imageUrls[0] : 'https://placehold.co/500x500';
+  const imageSrc = product.imageUrls ? product.imageUrls[0] : '';
 
   const enterCount = (value: string, input: HTMLInputElement) => {
     const nextCount =
       value === '' ?
         product.quantity
-      : Math.min(Math.max(Number(value), 1), 99);
+      : Math.min(Math.max(Number(value), 1), MAX_CART_ITEM_QUANTITY);
 
     input.value = String(nextCount);
 
@@ -104,13 +106,29 @@ export const CartItem = (props: Props) => {
         />
       </ProductLink>
 
-      <ProductLink
-        category={product.category}
-        itemId={product.item_id}
-        className={styles.name}
-      >
-        {product.name}
-      </ProductLink>
+      <div className={styles.productInfo}>
+        <ProductLink
+          category={product.category}
+          itemId={product.item_id}
+          className={styles.name}
+        >
+          {product.name}
+        </ProductLink>
+
+        {rating && rating.reviewsCount > 0 && (
+          <div
+            className={styles.rating}
+            aria-label={`Rated ${rating.rating.toFixed(1)} out of 5`}
+          >
+            <Rating
+              rate={Math.max(0, Math.min(5, Math.round(rating.rating))) as Rate}
+              className={styles.ratingStars}
+            />
+            <span>{rating.rating.toFixed(1)}</span>
+            <span>({rating.reviewsCount})</span>
+          </div>
+        )}
+      </div>
 
       <div className={styles.bottomRow}>
         <div className={styles.count}>
@@ -130,7 +148,9 @@ export const CartItem = (props: Props) => {
             onChange={(event) => {
               const value = event.target.value.replace(/\D/g, '');
               event.target.value =
-                value === '' ? '' : String(Math.min(Number(value), 99));
+                value === '' ? '' : (
+                  String(Math.min(Number(value), MAX_CART_ITEM_QUANTITY))
+                );
             }}
             defaultValue={product.quantity}
             aria-label={`Set quantity for ${product.name}`}
@@ -146,8 +166,12 @@ export const CartItem = (props: Props) => {
 
           <DefaultButton
             className={styles.countButton}
-            onClick={() => onCountChange(Math.min(product.quantity + 1, 99))}
-            disabled={product.quantity >= 99}
+            onClick={() =>
+              onCountChange(
+                Math.min(product.quantity + 1, MAX_CART_ITEM_QUANTITY),
+              )
+            }
+            disabled={product.quantity >= MAX_CART_ITEM_QUANTITY}
             aria-label={t('increaseCartQuantity', { name: product.name })}
           >
             <PlusIcon />
