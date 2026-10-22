@@ -10,9 +10,9 @@ import backgroundPhonesCategory from '@/shared/assets/images/phones_background.w
 import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.webp?no-inline';
 import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.webp?no-inline';
 
-import imagePhones from '@/shared/assets/images/phones.png?no-inline';
-import imageTablets from '@/shared/assets/images/tablets.png?no-inline';
-import imageAccessories from '@/shared/assets/images/accessories.png?no-inline';
+import imagePhones from '@/shared/assets/images/phones.webp?no-inline';
+import imageTablets from '@/shared/assets/images/tablets.webp?no-inline';
+import imageAccessories from '@/shared/assets/images/accessories.webp?no-inline';
 
 export const getHeroSliderData = (t: TFunction): HeroSliderData => ({
   slides: [

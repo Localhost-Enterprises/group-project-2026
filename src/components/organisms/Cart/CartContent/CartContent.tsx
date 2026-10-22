@@ -13,7 +13,7 @@ import { CartItem } from '../CartItem';
 
 import type { CartContentData } from './CartContent.types';
 
-import emptyCartImage from '/img/cart-is-empty.png';
+import emptyCartImage from '/img/cart-is-empty.webp';
 
 import styles from './CartContent.module.scss';
 
