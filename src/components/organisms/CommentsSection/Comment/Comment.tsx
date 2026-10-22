@@ -1,6 +1,7 @@
-import { Typography } from '@/components/atoms/Typography';
-import { Rating } from '@/components/molecules/Rating/Rating';
 import classNames from 'classnames';
+
+import { Typography } from '@/components/atoms';
+import { Rating } from '@/components/molecules';
 
 import styles from './Comment.module.scss';
 

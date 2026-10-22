@@ -1,8 +1,9 @@
+import type { TFunction } from 'i18next';
+
 import { Category } from '@/shared/types/Category';
+import type { Accessory } from '@/shared/types/Accessory';
 import type { Phone } from '@/shared/types/Phone';
 import type { Tablet } from '@/shared/types/Tablet';
-import type { Accessory } from '@/shared/types/Accessory';
-import type { TFunction } from 'i18next';
 
 export const getProductSpecs = (
   product: Phone | Tablet | Accessory,

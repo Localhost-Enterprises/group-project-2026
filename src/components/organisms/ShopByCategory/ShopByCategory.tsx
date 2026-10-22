@@ -1,9 +1,11 @@
-import { CategoryCard } from '../CategoryCard/CategoryCard';
-import styles from './ShopByCategory.module.scss';
-
-import { Typography } from '@/components/atoms/Typography';
-import type { ShopByCategoryData } from './ShopByCategory.types';
 import classNames from 'classnames';
+
+import { Typography } from '@/components/atoms';
+
+import { CategoryCard } from './CategoryCard';
+import type { ShopByCategoryData } from './ShopByCategory.types';
+
+import styles from './ShopByCategory.module.scss';
 
 type Props = { data: ShopByCategoryData; className?: string };
 

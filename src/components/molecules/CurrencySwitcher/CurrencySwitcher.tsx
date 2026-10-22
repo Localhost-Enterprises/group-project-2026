@@ -1,5 +1,7 @@
 import classNames from 'classnames';
+
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+
 import styles from './CurrencySwitcher.module.scss';
 
 export const CurrencySwitcher = () => {

@@ -1,6 +1,8 @@
-import { Typography } from '@/components/atoms/Typography';
-import styles from './ProductSection.module.scss';
 import classNames from 'classnames';
+
+import { Typography } from '@/components/atoms';
+
+import styles from './ProductSection.module.scss';
 
 type Props = {
   title: string;
@@ -17,6 +19,7 @@ export const ProductSection = ({ title, className, children }: Props) => {
       >
         {title}
       </Typography>
+
       <span className={styles.line} />
 
       {children}

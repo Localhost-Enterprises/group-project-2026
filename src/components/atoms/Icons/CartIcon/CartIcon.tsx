@@ -1,9 +1,8 @@
 import { Icon } from '../Icon';
+import { IconWithCounter } from '../IconWithCounter';
 
 import cartIcon from '@/shared/assets/icons/Cart.svg?no-inline';
 import cartWithCounterIcon from '@/shared/assets/icons/CartWithCounter.svg?no-inline';
-
-import { IconWithCounter } from '../IconWithCounter';
 
 type Props = {
   quantity?: number;

@@ -1,8 +1,9 @@
-import { NotFoundTemplate } from '@/components/templates/NotFoundTemplate';
-
-import pageNotFoundImage from '/img/page-not-found.png';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { NotFoundTemplate } from '@/components/templates';
+
+import pageNotFoundImage from '/img/page-not-found.png';
 
 export const NotFoundPage = () => {
   const { t } = useTranslation();

@@ -1,23 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
-import { Typography } from '@/components/atoms/Typography';
-import { Dropdown } from '@/components/molecules/Dropdown/Dropdown';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { useCartStore } from '@/entities/cart';
+
+import { BackButton, Dropdown } from '@/components/molecules';
+import { Typography } from '@/components/atoms';
+
 import {
   fetchCities,
   fetchWarehouses,
   createNewPostDocument,
 } from '@/shared/api/novaPoshta';
 import type { CityOption, WarehouseOption } from '@/shared/api/novaPoshta';
-import styles from './CheckoutPage.module.scss';
-import { useCartStore } from '@/entities/cart';
-import { useNavigate } from 'react-router-dom';
 import { sendEmail } from '@/shared/api/sendEmail';
-import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
-import { formatPrice } from '@/shared/lib/formatPrice';
-import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
 import { updateTopSales } from '@/shared/api/topsales';
+
+import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
+import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+import { formatPrice } from '@/shared/lib/formatPrice';
+
 import type { Order } from '@/shared/types/Order';
-import { BackButton } from '@/components/organisms/BackButton/BackButton';
-import { useTranslation } from 'react-i18next';
+
+import styles from './CheckoutPage.module.scss';
 
 export const CheckoutPage = () => {
   const { t } = useTranslation();

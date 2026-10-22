@@ -1,10 +1,11 @@
+import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
+import { ArrowTextButton } from '@/components/molecules';
+
 import { useNavigationStore } from '@/shared/model/navigation.store';
-import classNames from 'classnames';
 
 import styles from './BackButton.module.scss';
-import { ArrowTextButton } from '@/components/molecules';
 
 type Props = {
   children: React.ReactNode;

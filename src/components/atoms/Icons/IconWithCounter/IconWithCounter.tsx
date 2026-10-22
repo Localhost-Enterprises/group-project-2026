@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import styles from './IconWithCounter.module.scss';
 
 import { Icon } from '../Icon/Icon';
+
+import styles from './IconWithCounter.module.scss';
 
 type Props = {
   icon: string;

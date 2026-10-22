@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 
-import styles from './TextButton.module.scss';
-import { Typography } from '@/components/atoms/Typography';
 import { DefaultButton } from '../DefaultButton';
+import { Typography } from '@/components/atoms';
+
+import styles from './TextButton.module.scss';
 
 type Props = React.ComponentProps<typeof DefaultButton> & {
   selected?: boolean;

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
+
 import classNames from 'classnames';
 import { Form } from 'radix-ui';
+import { useTranslation } from 'react-i18next';
 
-import type { Category } from '@/shared/types/Category';
-import { Typography } from '@/components/atoms/Typography';
-import { Rating } from '@/components/molecules/Rating/Rating';
+import { Typography } from '@/components/atoms';
+import { DefaultButton, Dropdown, Rating } from '@/components/molecules';
 
 import {
   useComments,
@@ -13,12 +14,12 @@ import {
   useCreateComment,
 } from '@/entities/comment/model/comments.quries';
 
-import { Comment } from './Comment/Comment';
-import styles from './CommentsSection.module.scss';
-import { Dropdown } from '@/components/molecules';
-import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
+import type { Category } from '@/shared/types/Category';
 import type { Rate } from '@/shared/types';
-import { useTranslation } from 'react-i18next';
+
+import { Comment } from './Comment/Comment';
+
+import styles from './CommentsSection.module.scss';
 
 type Props = {
   namespaceId: string;
@@ -70,7 +71,7 @@ export const CommentsSection = ({
     createComment.reset();
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!selectedVariant || rating === 0 || createComment.isPending) {

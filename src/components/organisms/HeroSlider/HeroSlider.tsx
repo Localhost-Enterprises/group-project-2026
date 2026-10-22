@@ -1,27 +1,26 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
-
-import { Swiper as Slider, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-
 import {
-  EffectFade,
-  Autoplay,
-  Keyboard,
   A11y,
+  Autoplay,
+  EffectFade,
+  Keyboard,
   Pagination,
   Parallax,
 } from 'swiper/modules';
+import { Swiper as Slider, SwiperSlide } from 'swiper/react';
+
+import { ArrowButton } from '@/components/molecules';
+
+import { Slide } from './Slide';
+import type { HeroSliderData } from './HeroSlider.types';
+
+import styles from './HeroSlider.module.scss';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
-
-import { ArrowButton } from '@/components/molecules';
-import { Slide } from './Slide/Slide';
-
-import styles from './HeroSlider.module.scss';
-import type { HeroSliderData } from './HeroSlider.types';
 
 type Props = {
   data: HeroSliderData;

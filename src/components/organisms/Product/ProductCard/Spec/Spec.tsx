@@ -1,7 +1,9 @@
-import { Typography } from '@/components/atoms/Typography';
-import styles from './Spec.module.scss';
 import { t } from 'i18next';
+
+import { Typography } from '@/components/atoms';
 import { ImageWithFallback } from '@/components/organisms/ImageWithFallback';
+
+import styles from './Spec.module.scss';
 
 type Props = {
   label: string;

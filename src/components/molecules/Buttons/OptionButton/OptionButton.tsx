@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 
-import styles from './OptionButton.module.scss';
-import { Typography } from '@/components/atoms/Typography';
+import { Typography } from '@/components/atoms';
 import { DefaultButton } from '../DefaultButton';
+
+import styles from './OptionButton.module.scss';
 
 type Props = React.ComponentProps<typeof DefaultButton> & {
   selected?: boolean;

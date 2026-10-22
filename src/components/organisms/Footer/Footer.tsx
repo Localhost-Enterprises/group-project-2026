@@ -1,12 +1,13 @@
-import { ROUTES } from '@/app/router';
-import styles from './Footer.module.scss';
-import { Logo } from '@/components/atoms/Logo';
-import { Typography } from '@/components/atoms/Typography';
-import { ArrowButton } from '@/components/molecules';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
+
+import { ROUTES } from '@/app/router';
+
+import { Logo, Typography } from '@/components/atoms';
+import { ArrowButton, CurrencySwitcher } from '@/components/molecules';
+
+import styles from './Footer.module.scss';
 
 type Props = {
   className?: string;
