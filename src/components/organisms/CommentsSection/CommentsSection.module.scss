@@ -68,12 +68,14 @@ $warning-red: #d64545;
   width: 100%;
 
   color: $primary;
-  background: $white;
-  border-color: #b4bdc3;
+  background-color: $white;
+  border-color: $icons;
 
-  &:hover {
+  &:not(:disabled):hover {
+    color: $primary;
+    background-color: $hover;
     border-color: $primary;
-    box-shadow: 0 2px 8px rgba(49, 50, 55, 0.08);
+    box-shadow: none;
   }
 
   @include on('tablet') {
@@ -89,8 +91,8 @@ $warning-red: #d64545;
   width: 100%;
   padding: 20px;
 
-  background: #fafbfc;
-  border: 1px solid #e2e6e9;
+  background: $background;
+  border: 1px solid $elements;
   border-radius: 12px;
 
   @include on('tablet') {
@@ -221,11 +223,14 @@ $warning-red: #d64545;
   width: 100%;
 
   color: $secondary;
-  background: transparent;
+  background-color: transparent;
+  border-color: transparent;
 
-  &:hover {
+  &:not(:disabled):hover {
     color: $primary;
-    background: #e9ecef;
+    background-color: $hover;
+    border-color: $elements;
+    box-shadow: none;
   }
 
   @include on('tablet') {
@@ -237,11 +242,14 @@ $warning-red: #d64545;
   width: 100%;
 
   color: $primary;
-  background: $white;
-  border-color: #b4bdc3;
+  background-color: $white;
+  border-color: $icons;
 
-  &:hover {
+  &:not(:disabled):hover {
+    color: $primary;
+    background-color: $hover;
     border-color: $primary;
+    box-shadow: none;
   }
 
   @include on('tablet') {
