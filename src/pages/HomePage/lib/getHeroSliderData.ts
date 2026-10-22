@@ -6,9 +6,9 @@ import chip from '@/shared/assets/icons/Chip.svg';
 import camera from '@/shared/assets/icons/Camera.svg';
 import screen from '@/shared/assets/icons/Screen.svg';
 
-import backgroundPhonesCategory from '@/shared/assets/images/phones_background.png?no-inline';
-import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.png?no-inline';
-import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.png?no-inline';
+import backgroundPhonesCategory from '@/shared/assets/images/phones_background.webp?no-inline';
+import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.webp?no-inline';
+import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.webp?no-inline';
 
 import imagePhones from '@/shared/assets/images/phones.png?no-inline';
 import imageTablets from '@/shared/assets/images/tablets.png?no-inline';
