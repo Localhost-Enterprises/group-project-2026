@@ -1,29 +1,27 @@
-import styles from './ProductTemplate.module.scss';
-import { Typography } from '@/components/atoms/Typography';
+import { useTranslation } from 'react-i18next';
 
+import { Typography } from '@/components/atoms';
+import { BackButton } from '@/components/molecules';
 import {
   Breadcrumbs,
   CommentsSection,
+  ProductDescription,
   ProductPurchase,
   ProductRating,
+  ProductSection,
   ProductSlider,
+  ProductSpecs,
 } from '@/components/organisms';
+import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
 
-import { ProductSection } from '@/components/organisms/Product/ProductSection';
-import { ProductDescription } from '@/components/organisms/Product/ProductDescription';
-import { ProductSpecs } from '@/components/organisms/Product/ProductSpecs';
+import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
 
 import type { AnyProductDetails, Product } from '@/shared/types';
-import { getProductSpecs } from '@/entities/product/lib/getProductSpecs';
-import type {
-  WithImageUrls,
-  With360ImageUrls,
-} from '@/shared/types/WithImageUrls';
-import { BackButton } from '@/components/organisms/BackButton/BackButton';
-import { YouMayAlsoLike } from '@/components/organisms/YouMayAlsoLike';
-import { useTranslation } from 'react-i18next';
+import type { WithImageUrls, With360ImageUrls } from '@/shared/types';
 
 import ukDescriptions from '@/shared/i18n/product-descriptions-uk.json';
+
+import styles from './ProductTemplate.module.scss';
 
 type Props = {
   product: WithImageUrls<Product>;

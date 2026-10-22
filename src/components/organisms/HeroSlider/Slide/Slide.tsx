@@ -1,13 +1,14 @@
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { Typography } from '@/components/atoms/Typography';
-import styles from './Slide.module.scss';
+import { ArrowIcon, Typography } from '@/components/atoms';
 import { TextButton } from '@/components/molecules';
-import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-import classNames from 'classnames';
-import type { HeroSlide } from '../HeroSlider.types';
-import { useTranslation } from 'react-i18next';
+
 import { ImageWithFallback } from '../../ImageWithFallback';
+import type { HeroSlide } from '../HeroSlider.types';
+
+import styles from './Slide.module.scss';
 
 type Props = {
   data: Omit<HeroSlide, 'id'>;

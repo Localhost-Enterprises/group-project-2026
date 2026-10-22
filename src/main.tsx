@@ -4,7 +4,7 @@ import { App } from './app';
 import '@/shared/i18n/i18n';
 import '@/app/styles/tailwind.css';
 import '@/app/styles/globals.scss';
-import { useThemeStore } from '@//store/useThemeStore';
+import { useThemeStore } from '@/shared/store/useThemeStore';
 
 document.documentElement.dataset.theme = useThemeStore.getState().theme;
 

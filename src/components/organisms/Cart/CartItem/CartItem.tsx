@@ -1,32 +1,26 @@
-import { Typography } from '@/components/atoms/Typography';
-import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
-import { MinusIcon } from '@/components/atoms/Icons/MinusIcon';
-import { PlusIcon } from '@/components/atoms/Icons/PlusIcon';
-import { DefaultButton } from '@/components/molecules/Buttons/DefaultButton';
+import { useTranslation } from 'react-i18next';
+import Skeleton from 'react-loading-skeleton';
 
-import styles from './CartItem.module.scss';
-import type { Product } from '@/shared/types';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import { CloseIcon, MinusIcon, PlusIcon, Typography } from '@/components/atoms';
+import { DefaultButton } from '@/components/molecules';
+
 import {
   selectRemoveItem,
   selectUpdateQuantity,
   useCartStore,
 } from '@/entities/cart';
-import { ProductLink } from '../../Product/ProductLink';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { useTranslation } from 'react-i18next';
-import { ImageWithFallback } from '../../ImageWithFallback';
 
 import { useUsdToUahRate } from '@/shared/hooks/useUsdToUahRate';
 import { formatPrice } from '@/shared/lib/formatPrice';
 import { useCurrencyStore } from '@/shared/store/useCurrencyStore';
+import type { Product } from '@/shared/types';
 
-export type CartItemProduct = {
-  itemId: string;
-  name: string;
-  image: string;
-  price: number;
-};
+import { ImageWithFallback } from '../../ImageWithFallback';
+import { ProductLink } from '../../Product/ProductLink';
+
+import styles from './CartItem.module.scss';
 
 type Props =
   | { product: Product & { quantity: number }; isLoading?: false }

@@ -1,19 +1,19 @@
 import { useMemo, useRef, useState } from 'react';
+
 import classNames from 'classnames';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-
-import { Typography } from '@/components/atoms/Typography';
+import { Typography } from '@/components/atoms';
 import { ArrowButton } from '@/components/molecules';
+
 import { useProductRatings } from '@/entities/product/model/product-ratings.queries';
 
 import { ProductCard } from '../ProductCard';
-
-import styles from './ProductsSlider.module.scss';
 import type { ProductsSlidesData } from './ProductsSlider.types';
+
+import 'swiper/css';
+import styles from './ProductsSlider.module.scss';
 
 type Props = {
   data: ProductsSlidesData;

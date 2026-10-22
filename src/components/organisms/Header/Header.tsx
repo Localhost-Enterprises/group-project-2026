@@ -1,23 +1,31 @@
 import { useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import cn from 'classnames';
-import styles from './Header.module.scss';
-import { Logo } from '@/components/atoms/Logo';
-import { CartIcon } from '@/components/atoms/Icons/CartIcon';
-import { FavouritesIcon } from '@/components/atoms/Icons/FavouritesIcon';
-import { MenuIcon } from '@/components/atoms/Icons/MenuIcon';
-import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
-import { SearchIcon } from '@/components/atoms/Icons/SearchIcon';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
+
 import { selectCartCount, useCartStore } from '@/entities/cart';
-import classNames from 'classnames';
 import { useFavouritesStore } from '@/entities/favourites';
-import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '@/components/molecules/LanguageSwitcher/LanguageSwitcher';
+
+import {
+  CartIcon,
+  CloseIcon,
+  FavouritesIcon,
+  Logo,
+  MenuIcon,
+  SearchIcon,
+} from '@/components/atoms';
+import {
+  CurrencySwitcher,
+  LanguageSwitcher,
+  ThemeSwitcher,
+} from '@/components/molecules';
+
 import { SearchField } from '../SearchField';
-import { ThemeSwitcher } from '@/components/molecules/ThemeSwitcher/ThemeSwitcher';
-import { CurrencySwitcher } from '@/components/molecules/CurrencySwitcher/CurrencySwitcher';
+
+import styles from './Header.module.scss';
 
 type Props = {
   className?: string;
@@ -76,7 +84,7 @@ export const Header = ({ className }: Props) => {
                     to={path}
                     end={path === '/'}
                     className={({ isActive }) =>
-                      cn(styles.navLink, { [styles.active]: isActive })
+                      classNames(styles.navLink, { [styles.active]: isActive })
                     }
                   >
                     {labels[idx]}
@@ -123,7 +131,7 @@ export const Header = ({ className }: Props) => {
               data-fly-target="favourites"
               aria-label="Open favourites"
               className={({ isActive }) =>
-                cn(styles.actionBtn, { [styles.active]: isActive })
+                classNames(styles.actionBtn, { [styles.active]: isActive })
               }
             >
               <FavouritesIcon quantity={favouritesCount} />
@@ -135,7 +143,7 @@ export const Header = ({ className }: Props) => {
               aria-label="Open cart"
               state={{ from: cartFrom }}
               className={({ isActive }) =>
-                cn(styles.actionBtn, { [styles.active]: isActive })
+                classNames(styles.actionBtn, { [styles.active]: isActive })
               }
             >
               <CartIcon quantity={cartQuantity} />
@@ -156,7 +164,9 @@ export const Header = ({ className }: Props) => {
 
       {/*Mobile menu*/}
 
-      <div className={cn(styles.mobileMenu, { [styles.open]: isMenuOpen })}>
+      <div
+        className={classNames(styles.mobileMenu, { [styles.open]: isMenuOpen })}
+      >
         <ul className={styles.mobileNavList}>
           {[
             ROUTES.HOME,
@@ -177,7 +187,9 @@ export const Header = ({ className }: Props) => {
                   onClick={toggleMenu}
                   end={path === '/'}
                   className={({ isActive }) =>
-                    cn(styles.mobileNavLink, { [styles.active]: isActive })
+                    classNames(styles.mobileNavLink, {
+                      [styles.active]: isActive,
+                    })
                   }
                 >
                   {labels[idx]}
@@ -202,7 +214,7 @@ export const Header = ({ className }: Props) => {
             aria-label="Open favourites"
             onClick={toggleMenu}
             className={({ isActive }) =>
-              cn(styles.mobileActionBtn, { [styles.active]: isActive })
+              classNames(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
             <FavouritesIcon quantity={favouritesCount} />
@@ -214,7 +226,7 @@ export const Header = ({ className }: Props) => {
             state={{ from: cartFrom }}
             onClick={toggleMenu}
             className={({ isActive }) =>
-              cn(styles.mobileActionBtn, { [styles.active]: isActive })
+              classNames(styles.mobileActionBtn, { [styles.active]: isActive })
             }
           >
             <CartIcon quantity={cartQuantity} />

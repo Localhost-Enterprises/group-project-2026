@@ -1,11 +1,16 @@
-import { TextButton } from '@/components/molecules';
-import styles from './AddToCartbutton.module.scss';
-import { selectAddItem, selectIsInCart, useCartStore } from '@/entities/cart';
 import { Link, useLocation } from 'react-router-dom';
-import { ROUTES } from '@/app/router';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
+import { ROUTES } from '@/app/router';
+
+import { selectAddItem, selectIsInCart, useCartStore } from '@/entities/cart';
+
+import { TextButton } from '@/components/molecules';
+
 import { animateProductToHeader } from '@/shared/lib/animateProductToHeader';
+
+import styles from './AddToCartbutton.module.scss';
 
 type Props = {
   productId: number;

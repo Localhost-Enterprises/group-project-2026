@@ -1,22 +1,24 @@
-import type { ProductsSlidesData } from '@/components/organisms/Product/ProductsSlider';
-import type { ShopByCategoryData } from '@/components/organisms/ShopByCategory';
-import { HomeTemplate } from '@/components/templates/HomeTemplate';
-
-import { useProducts } from '@/entities/product/model/product.queries';
-import { getBrandNewModels } from './lib/getBrandModels';
-import { getHotPrices } from './lib/getHotPrices';
-import { getHeroSliderData } from './lib/getHeroSliderData';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { HomeTemplate } from '@/components/templates';
+import type {
+  ShopByCategoryData,
+  ProductsSlidesData,
+} from '@/components/organisms';
+
+import { useProducts } from '@/entities/product/model/product.queries';
+
 import backgroundPhonesCategory from '@/shared/assets/images/phones_background.png?no-inline';
 import imagePhonesCategory from '@/shared/assets/images/phones_product.png?no-inline';
-
 import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.png?no-inline';
 import imageTabletsCategory from '@/shared/assets/images/tablets_product.png?no-inline';
-
 import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.png?no-inline';
 import imageAccessoriesCategory from '@/shared/assets/images/accessories_product.png?no-inline';
+
+import { getBrandNewModels } from './lib/getBrandModels';
+import { getHotPrices } from './lib/getHotPrices';
+import { getHeroSliderData } from './lib/getHeroSliderData';
 
 export const HomePage = () => {
   const { t } = useTranslation();

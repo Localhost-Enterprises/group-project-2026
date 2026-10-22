@@ -1,8 +1,10 @@
-import { useCartStore } from '@/entities/cart';
-import { useProductByIds } from '@/entities/product';
-import { CartTemplate } from '@/components/templates';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { CartTemplate } from '@/components/templates';
+
+import { useCartStore } from '@/entities/cart';
+import { useProductByIds } from '@/entities/product';
 
 export const CartPage = () => {
   const { t } = useTranslation();

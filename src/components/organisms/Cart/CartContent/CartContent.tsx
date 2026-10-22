@@ -1,14 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { Typography } from '@/components/atoms/Typography';
-import { CartCheckout } from '../CartCheckout';
-import { CartItem } from '../CartItem';
-import styles from './CartContent.module.scss';
-import type { CartContentData } from './CartContent.types';
 import { useTranslation } from 'react-i18next';
+
 import { ROUTES } from '@/app/router/routes';
 
-import emptyCartImage from '/img/cart-is-empty.png';
+import { Typography } from '@/components/atoms';
+
 import { ImageWithFallback } from '../../ImageWithFallback';
+import { CartCheckout } from '../CartCheckout';
+import { CartItem } from '../CartItem';
+
+import type { CartContentData } from './CartContent.types';
+
+import emptyCartImage from '/img/cart-is-empty.png';
+
+import styles from './CartContent.module.scss';
 
 export const CartContent = ({ data }: { data: CartContentData }) => {
   const { t } = useTranslation();

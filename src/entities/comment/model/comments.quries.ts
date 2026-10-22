@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import type { Category } from '@/shared/types/Category';
+
 import { commentsApi } from '../api/comments.api';
 import type { CreateComment } from '../api/comments.api';
-import type { Category } from '@/shared/types/Category';
 
 export const useComments = (namespaceId: string) => {
   return useQuery({

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '@/components/atoms/Typography';
-import styles from './ContactsPage.module.scss';
-import { TextButton } from '@/components/molecules/Buttons/TextButton';
-import { ArrowButton } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
+
+import { ArrowButton, TextButton } from '@/components/molecules';
+import { Typography } from '@/components/atoms';
+
+import styles from './ContactsPage.module.scss';
 
 type ContactFormData = {
   'title': string;

@@ -1,8 +1,10 @@
-import styles from './ArrowText.module.scss';
-import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-import { DefaultButton } from '../DefaultButton';
 import classNames from 'classnames';
-import { Typography } from '@/components/atoms/Typography';
+
+import { ArrowIcon, Typography } from '@/components/atoms';
+
+import { DefaultButton } from '../DefaultButton';
+
+import styles from './ArrowText.module.scss';
 
 type Props = React.ComponentProps<typeof DefaultButton> & {
   direction?: 'up' | 'down' | 'left' | 'right';

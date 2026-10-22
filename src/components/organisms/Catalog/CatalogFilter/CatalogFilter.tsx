@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Dropdown } from '@/components/molecules';
 
@@ -9,7 +10,6 @@ import {
 } from './CatalogFilter.constants';
 
 import styles from './CatalogFilter.module.scss';
-import { useTranslation } from 'react-i18next';
 
 export const CatalogFilter = () => {
   const { t } = useTranslation();

@@ -1,6 +1,8 @@
-import { ArrowButton } from '@/components/molecules';
-import styles from './CatalogPagination.module.scss';
 import classNames from 'classnames';
+
+import { ArrowButton } from '@/components/molecules';
+
+import styles from './CatalogPagination.module.scss';
 
 type Props = {
   currentPage: number;

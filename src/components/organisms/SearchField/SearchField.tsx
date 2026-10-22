@@ -1,13 +1,18 @@
-import classNames from 'classnames';
 import { useId, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import classNames from 'classnames';
 import { Popover } from 'radix-ui';
-import { SearchIcon } from '@/components/atoms/Icons/SearchIcon';
-import { CloseIcon } from '@/components/atoms/Icons/CloseIcon';
-import { useProducts } from '@/entities/product';
+import { Link } from 'react-router-dom';
+
 import { routePaths } from '@/app/router/routes';
-import styles from './SearchField.module.scss';
+
+import { CloseIcon, SearchIcon } from '@/components/atoms';
+
+import { useProducts } from '@/entities/product';
+
 import { ImageWithFallback } from '../ImageWithFallback';
+
+import styles from './SearchField.module.scss';
 
 type Props = Omit<React.ComponentProps<'input'>, 'className' | 'type'> & {
   className?: string;

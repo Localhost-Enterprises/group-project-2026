@@ -1,12 +1,12 @@
-import classNames from 'classnames';
 import { useId } from 'react';
-import { Select } from 'radix-ui';
 
-import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
-import { Typography } from '@/components/atoms/Typography';
+import classNames from 'classnames';
+import { Select } from 'radix-ui';
+import { useTranslation } from 'react-i18next';
+
+import { ArrowIcon, Typography } from '@/components/atoms';
 
 import styles from './Dropdown.module.scss';
-import { useTranslation } from 'react-i18next';
 
 type DropdownOption =
   | string
