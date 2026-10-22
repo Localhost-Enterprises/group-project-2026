@@ -50,7 +50,7 @@ export const CatalogPage = () => {
   }, [products, title]);
 
   const ratingsMap = useMemo(() => {
-    return new Map(ratings.map((item) => [item.namespaceId, item.rating]));
+    return new Map(ratings.map((item) => [item.namespaceId, item]));
   }, [ratings]);
 
   const salesMap = useMemo(
@@ -76,32 +76,33 @@ export const CatalogPage = () => {
 
         case 'Newest':
           return second.year - first.year;
+
         case 'Top sales': {
           const firstSales = salesMap.get(first.id) ?? 0;
           const secondSales = salesMap.get(second.id) ?? 0;
 
           return secondSales - firstSales;
         }
+
         case 'Highest rated':
         case 'Lowest rated': {
           const firstRating = ratingsMap.get(first.namespace_id);
           const secondRating = ratingsMap.get(second.namespace_id);
 
-          if (firstRating == null && secondRating == null) {
-            return 0;
+          if (!firstRating && !secondRating) return 0;
+          if (!firstRating) return 1;
+          if (!secondRating) return -1;
+
+          const ratingDifference =
+            sortBy === 'Highest rated' ?
+              secondRating.rating - firstRating.rating
+            : firstRating.rating - secondRating.rating;
+
+          if (ratingDifference !== 0) {
+            return ratingDifference;
           }
 
-          if (firstRating == null) {
-            return 1;
-          }
-
-          if (secondRating == null) {
-            return -1;
-          }
-
-          return sortBy === 'Highest rated' ?
-              secondRating - firstRating
-            : firstRating - secondRating;
+          return secondRating.reviewsCount - firstRating.reviewsCount;
         }
 
         default:

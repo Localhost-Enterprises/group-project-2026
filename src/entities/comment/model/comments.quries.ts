@@ -29,8 +29,13 @@ export const useCreateComment = (namespaceId: string) => {
 
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['comments', namespaceId] }),
-        queryClient.invalidateQueries({ queryKey: ['product-ratings'] }),
+        queryClient.invalidateQueries({
+          queryKey: ['comments', namespaceId],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['product-ratings'],
+          refetchType: 'all',
+        }),
       ]);
     },
   });
