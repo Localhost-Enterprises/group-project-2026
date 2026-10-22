@@ -1,18 +1,18 @@
+import type { TFunction } from 'i18next';
+
 import type { HeroSliderData } from '@/components/organisms/HeroSlider';
+
+import chip from '@/shared/assets/icons/Chip.svg';
+import camera from '@/shared/assets/icons/Camera.svg';
+import screen from '@/shared/assets/icons/Screen.svg';
 
 import backgroundPhonesCategory from '@/shared/assets/images/phones_background.png?no-inline';
 import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.png?no-inline';
 import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.png?no-inline';
 
 import imagePhones from '@/shared/assets/images/phones.png?no-inline';
-import imageAccessories from '@/shared/assets/images/accessories.png?no-inline';
 import imageTablets from '@/shared/assets/images/tablets.png?no-inline';
-
-import chip from '@/shared/assets/icons/Chip.svg';
-import camera from '@/shared/assets/icons/Camera.svg';
-import screen from '@/shared/assets/icons/Screen.svg';
-
-import type { TFunction } from 'i18next';
+import imageAccessories from '@/shared/assets/images/accessories.png?no-inline';
 
 export const getHeroSliderData = (t: TFunction): HeroSliderData => ({
   slides: [

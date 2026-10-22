@@ -3,10 +3,7 @@ import { supabase } from '@/shared/api/supabase';
 import type { Product } from '@/shared/types';
 import type { Category } from '@/shared/types/Category';
 import type { ProductDetailsByCategory } from '@/shared/types/ProductDetailsMap';
-import type {
-  With360ImageUrls,
-  WithImageUrls,
-} from '@/shared/types/WithImageUrls';
+import type { With360ImageUrls, WithImageUrls } from '@/shared/types';
 
 type WithImages = {
   images: string | string[];

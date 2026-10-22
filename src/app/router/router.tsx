@@ -1,19 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ROUTES } from './routes';
 
 import { MainTemplate } from '@/components/templates';
+
 import {
   CartPage,
   CatalogPage,
   CheckoutPage,
+  ContactsPage,
   FavouritesPage,
   HomePage,
   NotFoundPage,
   ProductPage,
   RightsPage,
-  ContactsPage,
 } from '@/pages';
 import { OrderHistoryPage } from '@/pages/OrderHistoryPage/OrderHistoryPage';
+
+import { ROUTES } from './routes';
 
 export const router = createBrowserRouter([
   {

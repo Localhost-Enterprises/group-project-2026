@@ -1,7 +1,10 @@
-import { routePaths } from '@/app/router/routes';
-import { Typography } from '@/components/atoms/Typography';
-import type { Category } from '@/shared/types/Category';
 import { Link, useLocation } from 'react-router-dom';
+
+import { routePaths } from '@/app/router/routes';
+
+import { Typography } from '@/components/atoms';
+
+import type { Category } from '@/shared/types/Category';
 
 type Props = {
   category: Category;

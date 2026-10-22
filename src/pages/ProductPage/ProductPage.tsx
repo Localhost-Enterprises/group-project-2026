@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+import { ProductLoadingSkeleton } from '@/components';
 import { ProductTemplate } from '@/components/templates';
 
 import {
@@ -8,10 +11,8 @@ import {
 } from '@/entities/product/model/product.queries';
 
 import type { Category } from '@/shared/types/Category';
+
 import { NotFoundProductPage } from '../NotFoundProductPage';
-import { ProductLoadingSkeleton } from '@/components';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export const ProductPage = () => {
   const { t } = useTranslation();

@@ -1,10 +1,9 @@
 import { Icon } from '../Icon';
-
-import favouritesIcon from '@/shared/assets/icons/Favourites.svg?no-inline';
-import favouritesFilledIcon from '@/shared/assets/icons/FavouritesFilled.svg?no-inline';
-import favouritesWithCounterIcon from '@/shared/assets/icons/FavouritesWithCounter.svg?no-inline';
-
 import { IconWithCounter } from '../IconWithCounter';
+
+import favouritesFilledIcon from '@/shared/assets/icons/FavouritesFilled.svg?no-inline';
+import favouritesIcon from '@/shared/assets/icons/Favourites.svg?no-inline';
+import favouritesWithCounterIcon from '@/shared/assets/icons/FavouritesWithCounter.svg?no-inline';
 
 type Props = {
   quantity?: number;

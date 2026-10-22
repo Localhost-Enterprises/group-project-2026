@@ -1,10 +1,13 @@
 import classNames from 'classnames';
-import styles from './Logo.module.scss';
-import logo from '@/shared/assets/icons/Logo.svg';
+
 import { ImageWithFallback } from '@/components/organisms';
-import { placeholder } from '@/shared/constants';
+
+import logo from '@/shared/assets/icons/Logo.svg';
 import logoDark from '@/shared/assets/icons/Logo-dark.svg';
-import { useThemeStore } from '@/store/useThemeStore';
+import { placeholder } from '@/shared/constants';
+import { useThemeStore } from '@/shared/store/useThemeStore';
+
+import styles from './Logo.module.scss';
 
 type LogoSize = 'small' | 'big';
 

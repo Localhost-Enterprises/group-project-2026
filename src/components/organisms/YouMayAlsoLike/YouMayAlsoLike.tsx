@@ -1,8 +1,12 @@
-import { ProductsSlider } from '@/components/organisms/Product/ProductsSlider';
-import { useProductByCategory } from '@/entities/product/model/product.queries';
-import type { Category } from '@/shared/types/Category';
-import { sortProductsBySimilarity } from './sortProductsBySimilarity';
 import { useTranslation } from 'react-i18next';
+
+import { ProductsSlider } from '@/components/organisms/Product/ProductsSlider';
+
+import { useProductByCategory } from '@/entities/product/model/product.queries';
+
+import type { Category } from '@/shared/types/Category';
+
+import { sortProductsBySimilarity } from './sortProductsBySimilarity';
 
 type Props = {
   category: Category;

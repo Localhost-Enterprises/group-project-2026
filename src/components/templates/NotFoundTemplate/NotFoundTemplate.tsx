@@ -1,7 +1,9 @@
-import { Typography } from '@/components/atoms/Typography';
-import styles from './NotFouindTemplate.module.scss';
 import classNames from 'classnames';
+
+import { Typography } from '@/components/atoms';
 import { ImageWithFallback } from '@/components/organisms';
+
+import styles from './NotFouindTemplate.module.scss';
 
 type Props = {
   title: string;
