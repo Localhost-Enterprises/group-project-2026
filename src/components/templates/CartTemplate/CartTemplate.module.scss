@@ -1,5 +1,6 @@
 @use '@/app/styles/mixins' as *;
 @use '@/app/styles/colors' as *;
+@use '@/app/styles/variables' as *;
 
 .container {
   grid-column: 1 / -1;
@@ -23,19 +24,32 @@
 }
 
 .historyButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  border: 1px solid $primary;
-  border-radius: 48px;
+  position: relative;
   color: $primary;
   text-decoration: none;
   font-weight: 600;
   transition: border-color 0.3s;
+  height: min-content;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    left: 0;
+    height: 1px;
+
+    background-color: $primary;
+    transform: scaleX(0);
+
+    transition: transform $transition-time;
+  }
 
   &:hover {
-    background-color: $hover;
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
@@ -54,6 +68,7 @@
 
 .cartHeader {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
 }

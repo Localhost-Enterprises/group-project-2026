@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useCartStore } from '@/entities/cart';
 import { useProductByIds } from '@/entities/product';
 
-import { BackButton, Dropdown } from '@/components/molecules';
+import { BackButton } from '@/components/molecules';
 import { Typography } from '@/components/atoms';
 
 import {
@@ -91,7 +91,30 @@ export const CheckoutPage = () => {
 
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [cities, setCities] = useState<CityOption[]>([]);
+  const [isCityListOpen, setIsCityListOpen] = useState(false);
   const [warehouses, setWarehouses] = useState<WarehouseOption[]>([]);
+  const [warehouseSearch, setWarehouseSearch] = useState('');
+  const [isWarehouseListOpen, setIsWarehouseListOpen] = useState(false);
+  const [isWarehousesLoading, setIsWarehousesLoading] = useState(false);
+  const cityFieldRef = useRef<HTMLDivElement>(null);
+  const warehouseFieldRef = useRef<HTMLDivElement>(null);
+  const deferredWarehouseSearch = useDeferredValue(warehouseSearch);
+
+  const visibleWarehouses = useMemo(() => {
+    if (!isWarehouseListOpen) return [];
+
+    const query = deferredWarehouseSearch.trim().toLocaleLowerCase();
+    const result: WarehouseOption[] = [];
+
+    for (const warehouse of warehouses) {
+      if (!query || warehouse.Description.toLocaleLowerCase().includes(query)) {
+        result.push(warehouse);
+        if (result.length === 40) break;
+      }
+    }
+
+    return result;
+  }, [warehouses, deferredWarehouseSearch, isWarehouseListOpen]);
   const [deliveryLookupError, setDeliveryLookupError] = useState(false);
   const cityRequestId = useRef(0);
   const warehouseRequestId = useRef(0);
@@ -124,6 +147,42 @@ export const CheckoutPage = () => {
   }, []);
 
   useEffect(() => {
+    if (!isCityListOpen && !isWarehouseListOpen) return;
+
+    const closeCityResults = () => {
+      ++cityRequestId.current;
+      setIsCityListOpen(false);
+    };
+
+    const handleOutsidePointer = (event: PointerEvent) => {
+      if (!(event.target instanceof Node)) return;
+
+      if (!cityFieldRef.current?.contains(event.target)) {
+        closeCityResults();
+      }
+
+      if (!warehouseFieldRef.current?.contains(event.target)) {
+        setIsWarehouseListOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeCityResults();
+        setIsWarehouseListOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsidePointer);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isCityListOpen, isWarehouseListOpen]);
+
+  useEffect(() => {
     if (cartItems.length === 0 && !successTtn) {
       navigate('/', { replace: true });
     }
@@ -154,7 +213,11 @@ export const CheckoutPage = () => {
       warehouse: '',
     }));
     setWarehouses([]);
+    setWarehouseSearch('');
+    setIsWarehouseListOpen(false);
+    setIsWarehousesLoading(false);
     setCities([]);
+    setIsCityListOpen(Boolean(value.trim().length >= 2));
 
     if (errors.city || errors.warehouse) {
       setErrors((prev) => ({ ...prev, city: false, warehouse: false }));
@@ -164,6 +227,28 @@ export const CheckoutPage = () => {
 
     try {
       const result = await fetchCities(transliterate(value));
+      if (requestId === cityRequestId.current) {
+        setCities(result);
+        setIsCityListOpen(true);
+      }
+    } catch (error) {
+      if (requestId === cityRequestId.current) {
+        setDeliveryLookupError(true);
+        console.error('City lookup failed:', error);
+      }
+    }
+  };
+
+  const reopenCityResults = async () => {
+    const search = formData.city.trim();
+    if (search.length < 2) return;
+
+    setIsCityListOpen(true);
+    if (cities.length > 0 || formData.cityRef) return;
+
+    const requestId = ++cityRequestId.current;
+    try {
+      const result = await fetchCities(transliterate(search));
       if (requestId === cityRequestId.current) setCities(result);
     } catch (error) {
       if (requestId === cityRequestId.current) {
@@ -185,7 +270,11 @@ export const CheckoutPage = () => {
       warehouse: '',
     }));
     setCities([]);
+    setIsCityListOpen(false);
     setWarehouses([]);
+    setWarehouseSearch('');
+    setIsWarehouseListOpen(false);
+    setIsWarehousesLoading(true);
 
     try {
       const warehouseList = await fetchWarehouses(cityItem.Ref);
@@ -196,6 +285,10 @@ export const CheckoutPage = () => {
       if (requestId === warehouseRequestId.current) {
         setDeliveryLookupError(true);
         console.error('Warehouse lookup failed:', error);
+      }
+    } finally {
+      if (requestId === warehouseRequestId.current) {
+        setIsWarehousesLoading(false);
       }
     }
   };
@@ -467,7 +560,10 @@ NICE GADGETS Team`,
             {t('checkoutDelivery')}
           </Typography>
 
-          <div className={`${styles.fieldGroup} ${styles.relativeContainer}`}>
+          <div
+            ref={cityFieldRef}
+            className={`${styles.fieldGroup} ${styles.relativeContainer}`}
+          >
             <label>{t('checkoutCity')} *</label>
             <input
               type="text"
@@ -475,12 +571,15 @@ NICE GADGETS Team`,
               placeholder={t('checkoutCityPlaceholder')}
               value={formData.city}
               onChange={handleCityInput}
+              onFocus={reopenCityResults}
+              onClick={reopenCityResults}
               autoComplete="off"
               className={errors.city ? styles.errorInput : ''}
               aria-label="Enter city"
+              aria-expanded={isCityListOpen && cities.length > 0}
             />
 
-            {cities.length > 0 && (
+            {isCityListOpen && cities.length > 0 && (
               <ul className={styles.dropdownList}>
                 {cities.map((item) => (
                   <li key={item.Ref}>
@@ -509,36 +608,68 @@ NICE GADGETS Team`,
             </p>
           )}
 
-          <div className={styles.fieldGroup}>
-            <label>{t('checkoutBranch')} *</label>
+          <div
+            ref={warehouseFieldRef}
+            className={`${styles.fieldGroup} ${styles.relativeContainer}`}
+          >
+            <label htmlFor="checkout-warehouse">{t('checkoutBranch')} *</label>
 
-            <Dropdown
-              options={warehouses.map((wh) => ({
-                label: wh.Description,
-                value: wh.Ref,
-              }))}
-              value={formData.warehouse}
-              onChange={(value) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  warehouse: value,
-                }));
-
+            <input
+              id="checkout-warehouse"
+              type="text"
+              autoComplete="off"
+              value={warehouseSearch}
+              disabled={!formData.cityRef || isWarehousesLoading}
+              placeholder={
+                !formData.cityRef ? t('checkoutSelectCityFirst')
+                : isWarehousesLoading ?
+                  'Loading branches...'
+                : t('checkoutSelectBranch')
+              }
+              aria-label={t('checkoutBranch')}
+              aria-expanded={isWarehouseListOpen}
+              className={errors.warehouse ? styles.errorInput : ''}
+              onFocus={() => {
+                if (warehouses.length > 0) setIsWarehouseListOpen(true);
+              }}
+              onClick={() => {
+                if (warehouses.length > 0) setIsWarehouseListOpen(true);
+              }}
+              onChange={(event) => {
+                setWarehouseSearch(event.target.value);
+                setFormData((prev) => ({ ...prev, warehouse: '' }));
+                setIsWarehouseListOpen(true);
                 if (errors.warehouse) {
-                  setErrors((prev) => ({
-                    ...prev,
-                    warehouse: false,
-                  }));
+                  setErrors((prev) => ({ ...prev, warehouse: false }));
                 }
               }}
-              placeholder={
-                warehouses.length ?
-                  t('checkoutSelectBranch')
-                : t('checkoutSelectCityFirst')
-              }
-              disabled={!warehouses.length}
-              className={errors.warehouse ? styles.errorInput : ''}
             />
+
+            {isWarehouseListOpen && warehouses.length > 0 && (
+              <ul className={styles.dropdownList}>
+                {visibleWarehouses.length > 0 ?
+                  visibleWarehouses.map((warehouse) => (
+                    <li key={warehouse.Ref}>
+                      <button
+                        type="button"
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          setWarehouseSearch(warehouse.Description);
+                          setFormData((prev) => ({
+                            ...prev,
+                            warehouse: warehouse.Ref,
+                          }));
+                          setIsWarehouseListOpen(false);
+                          setErrors((prev) => ({ ...prev, warehouse: false }));
+                        }}
+                      >
+                        {warehouse.Description}
+                      </button>
+                    </li>
+                  ))
+                : <li className={styles.dropdownItem}>No branches found</li>}
+              </ul>
+            )}
           </div>
         </div>
 

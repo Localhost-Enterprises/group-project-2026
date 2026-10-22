@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -6,22 +7,21 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/app/router';
 import { routePaths } from '@/app/router/routes';
 
-import { selectCartCount, useCartStore } from '@/entities/cart';
-import { useFavouritesStore } from '@/entities/favourites';
-
 import {
   CartIcon,
   CloseIcon,
   FavouritesIcon,
   Logo,
   MenuIcon,
-  SearchIcon,
 } from '@/components/atoms';
 import {
   CurrencySwitcher,
   LanguageSwitcher,
   ThemeSwitcher,
 } from '@/components/molecules';
+
+import { selectCartCount, useCartStore } from '@/entities/cart';
+import { useFavouritesStore } from '@/entities/favourites';
 
 import { SearchField } from '../SearchField';
 
@@ -33,44 +33,65 @@ type Props = {
 
 export const Header = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { t } = useTranslation();
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const cartQuantity = useCartStore(selectCartCount);
   const location = useLocation();
+
+  const cartQuantity = useCartStore(selectCartCount);
+  const favouritesCount = useFavouritesStore(
+    (state) => state.favourites.length,
+  );
+
   const previousFrom = location.state?.from;
+
   const cartFrom =
     location.pathname === ROUTES.CART && typeof previousFrom === 'string' ?
       previousFrom
     : `${location.pathname}${location.search}`;
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const favouritesCount = useFavouritesStore(
-    (state) => state.favourites.length,
-  );
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   useEffect(() => {
     if (!isMenuOpen) {
       return;
     }
 
-    const scrollY = window.scrollY;
-    const bodyStyles = {
-      position: document.body.style.position,
-      top: document.body.style.top,
-      left: document.body.style.left,
-      right: document.body.style.right,
-      width: document.body.style.width,
+    const html = document.documentElement;
+    const body = document.body;
+
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverscroll = html.style.overscrollBehavior;
+    const previousBodyOverscroll = body.style.overscrollBehavior;
+
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+
+    html.style.overscrollBehavior = 'none';
+    body.style.overscrollBehavior = 'none';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
     };
 
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      Object.assign(document.body.style, bodyStyles);
-      window.scrollTo(0, scrollY);
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+
+      html.style.overscrollBehavior = previousHtmlOverscroll;
+      body.style.overscrollBehavior = previousBodyOverscroll;
+
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isMenuOpen]);
 
@@ -84,11 +105,10 @@ export const Header = ({ className }: Props) => {
         to={ROUTES.HOME}
         className={styles.logoLink}
         aria-label="Go to home page"
+        onClick={closeMenu}
       >
         <Logo size="small" />
       </Link>
-
-      {/*Desktop*/}
 
       <div className={styles.desktopContent}>
         <nav className={styles.nav}>
@@ -105,6 +125,7 @@ export const Header = ({ className }: Props) => {
                 t('tablets'),
                 t('accessories'),
               ];
+
               return (
                 <li
                   key={path}
@@ -114,7 +135,9 @@ export const Header = ({ className }: Props) => {
                     to={path}
                     end={path === '/'}
                     className={({ isActive }) =>
-                      classNames(styles.navLink, { [styles.active]: isActive })
+                      classNames(styles.navLink, {
+                        [styles.active]: isActive,
+                      })
                     }
                   >
                     {labels[idx]}
@@ -126,31 +149,7 @@ export const Header = ({ className }: Props) => {
         </nav>
 
         <div className={styles.headerActions}>
-          <div className={styles.mobileSearch}>
-            <button
-              className={styles.mobileSearchButton}
-              type="button"
-              aria-label={isMobileSearchOpen ? 'Close search' : 'Open search'}
-              aria-expanded={isMobileSearchOpen}
-              onClick={() => setIsMobileSearchOpen((open) => !open)}
-            >
-              {isMobileSearchOpen ?
-                <CloseIcon />
-              : <SearchIcon />}
-            </button>
-            {isMobileSearchOpen && (
-              <SearchField
-                autoFocus
-                className={styles.mobileSearchField}
-                onKeyDown={(event) => {
-                  if (event.key === 'Escape') {
-                    setIsMobileSearchOpen(false);
-                  }
-                }}
-              />
-            )}
-          </div>
-          <SearchField className={styles.desktopSearch} />
+          <SearchField className={styles.headerSearch} />
 
           <div className={styles.headerControls}>
             <LanguageSwitcher />
@@ -161,7 +160,9 @@ export const Header = ({ className }: Props) => {
               data-fly-target="favourites"
               aria-label="Open favourites"
               className={({ isActive }) =>
-                classNames(styles.actionBtn, { [styles.active]: isActive })
+                classNames(styles.actionBtn, {
+                  [styles.active]: isActive,
+                })
               }
             >
               <FavouritesIcon quantity={favouritesCount} />
@@ -173,7 +174,9 @@ export const Header = ({ className }: Props) => {
               aria-label="Open cart"
               state={{ from: cartFrom }}
               className={({ isActive }) =>
-                classNames(styles.actionBtn, { [styles.active]: isActive })
+                classNames(styles.actionBtn, {
+                  [styles.active]: isActive,
+                })
               }
             >
               <CartIcon quantity={cartQuantity} />
@@ -183,19 +186,24 @@ export const Header = ({ className }: Props) => {
       </div>
 
       <button
+        type="button"
         className={styles.burgerBtn}
         onClick={toggleMenu}
         aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isMenuOpen}
+        aria-controls="header-mobile-menu"
       >
         {isMenuOpen ?
           <CloseIcon />
         : <MenuIcon />}
       </button>
 
-      {/*Mobile menu*/}
-
       <div
-        className={classNames(styles.mobileMenu, { [styles.open]: isMenuOpen })}
+        id="header-mobile-menu"
+        className={classNames(styles.mobileMenu, {
+          [styles.open]: isMenuOpen,
+        })}
+        aria-hidden={!isMenuOpen}
       >
         <ul className={styles.mobileNavList}>
           {[
@@ -210,11 +218,12 @@ export const Header = ({ className }: Props) => {
               t('tablets'),
               t('accessories'),
             ];
+
             return (
               <li key={path}>
                 <NavLink
                   to={path}
-                  onClick={toggleMenu}
+                  onClick={closeMenu}
                   end={path === '/'}
                   className={({ isActive }) =>
                     classNames(styles.mobileNavLink, {
@@ -227,6 +236,7 @@ export const Header = ({ className }: Props) => {
               </li>
             );
           })}
+
           <li className={styles.mobileSettings}>
             <LanguageSwitcher />
             <ThemeSwitcher />
@@ -242,21 +252,26 @@ export const Header = ({ className }: Props) => {
             to={ROUTES.FAVOURITES}
             data-fly-target="favourites"
             aria-label="Open favourites"
-            onClick={toggleMenu}
+            onClick={closeMenu}
             className={({ isActive }) =>
-              classNames(styles.mobileActionBtn, { [styles.active]: isActive })
+              classNames(styles.mobileActionBtn, {
+                [styles.active]: isActive,
+              })
             }
           >
             <FavouritesIcon quantity={favouritesCount} />
           </NavLink>
+
           <NavLink
             to={ROUTES.CART}
             data-fly-target="cart"
             aria-label="Open cart"
             state={{ from: cartFrom }}
-            onClick={toggleMenu}
+            onClick={closeMenu}
             className={({ isActive }) =>
-              classNames(styles.mobileActionBtn, { [styles.active]: isActive })
+              classNames(styles.mobileActionBtn, {
+                [styles.active]: isActive,
+              })
             }
           >
             <CartIcon quantity={cartQuantity} />

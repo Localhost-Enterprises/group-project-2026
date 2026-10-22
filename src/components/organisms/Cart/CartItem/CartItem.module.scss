@@ -15,11 +15,15 @@
 
 .container {
   box-sizing: border-box;
+
   display: grid;
   grid-template-columns: 32px 64px minmax(0, 1fr);
   align-items: center;
   gap: 16px;
+
   width: 100%;
+  min-width: 0;
+
   margin-bottom: 16px;
   padding: 16px;
 
@@ -37,6 +41,7 @@
 .removeButton {
   grid-column: 1;
   grid-row: 1;
+
   width: 32px;
   min-width: 32px;
   padding: 0;
@@ -52,22 +57,38 @@
   color: $icons;
 }
 
-.image {
+.imageLink {
   grid-column: 2;
   grid-row: 1;
-  justify-self: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: 64px;
   height: 64px;
+
+  justify-self: center;
+}
+
+.image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
   object-fit: contain;
 }
 
 .productInfo {
-  grid-column: 3 / -1;
+  grid-column: 3;
   grid-row: 1;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 8px;
+
   min-width: 0;
 }
 
@@ -80,8 +101,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  font-size: 12px;
+
   color: $secondary;
+  font-size: 12px;
 }
 
 .ratingStars {
@@ -97,16 +119,22 @@
 
 .bottomRow {
   grid-column: 1 / -1;
+  grid-row: 2;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+
+  min-width: 0;
 }
 
 .count {
   display: flex;
   align-items: center;
   gap: 8px;
+
+  flex-shrink: 0;
 }
 
 .countButton {
@@ -117,9 +145,11 @@
 
 .countInput {
   box-sizing: border-box;
+
   width: 26px;
   height: 32px;
   padding: 0;
+
   color: inherit;
   font: inherit;
   text-align: center;
@@ -130,24 +160,100 @@
 }
 
 .price {
+  width: 120px;
+  min-width: 120px;
+  flex-shrink: 0;
+
+  text-align: right;
   white-space: nowrap;
-  width: 200px;
+  font-variant-numeric: tabular-nums;
+}
+
+.skeletonItem {
+  pointer-events: none;
+}
+
+.skeletonRemove {
+  grid-column: 1;
+  grid-row: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  line-height: 0;
+}
+
+.skeletonImage {
+  line-height: 0;
+
+  > span {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.skeletonName {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+
+  line-height: 0;
+}
+
+.skeletonRating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  line-height: 0;
+}
+
+.skeletonCount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 0;
+}
+
+.skeletonPrice {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  line-height: 0;
 }
 
 @include on('tablet') {
   .container {
-    grid-template-columns: 32px 80px minmax(150px, 1fr) auto auto;
+    grid-template-columns:
+      32px
+      80px
+      minmax(0, 1fr)
+      122px
+      120px;
+
     gap: 24px;
-    padding: 24px;
+
     width: 100%;
+    padding: 24px;
   }
 
-  .removeButton {
+  .removeButton,
+  .skeletonRemove {
     grid-column: 1;
     grid-row: 1;
   }
 
-  .image {
+  .imageLink {
     grid-column: 2;
     grid-row: 1;
 
@@ -167,29 +273,45 @@
   .count {
     grid-column: 4;
     grid-row: 1;
+    justify-self: center;
   }
 
   .price {
     grid-column: 5;
     grid-row: 1;
+
+    width: 120px;
+    min-width: 120px;
   }
 }
 
 @include on('desktop') {
   .container {
-    grid-template-columns: 56px 80px minmax(250px, 1fr) auto auto;
+    grid-template-columns:
+      56px
+      80px
+      minmax(0, 1fr)
+      122px
+      140px;
+
     gap: 24px;
-    padding: 24px;
+
     width: 100%;
+    padding: 24px;
   }
 
-  .image {
+  .imageLink {
     width: 80px;
     height: 80px;
   }
 
   .name {
     max-width: 300px;
+  }
+
+  .price {
+    width: 140px;
+    min-width: 140px;
   }
 }
 
