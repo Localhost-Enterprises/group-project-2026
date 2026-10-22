@@ -27,18 +27,20 @@ export const CartTemplate = ({ data }: { data: Data }) => {
       >
         {t('back')}
       </BackButton>
-      <Typography
-        variant="h1"
-        className={styles.cart}
-      >
-        {t('cart')}
-      </Typography>
-      <Link
-        to={ROUTES.HISTORY}
-        className={styles.historyButton}
-      >
-        {t('cartHistory')}
-      </Link>
+      <div className={styles.cartHeader}>
+        <Typography
+          variant="h1"
+          className={styles.cart}
+        >
+          {t('cart')}
+        </Typography>
+        <Link
+          to={ROUTES.HISTORY}
+          className={styles.historyButton}
+        >
+          {t('cartHistory')}
+        </Link>
+      </div>
 
       <CartContent data={cartContent} />
     </div>

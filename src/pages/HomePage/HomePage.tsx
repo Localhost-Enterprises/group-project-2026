@@ -9,12 +9,12 @@ import type {
 
 import { useProducts } from '@/entities/product/model/product.queries';
 
-import backgroundPhonesCategory from '@/shared/assets/images/phones_background.png?no-inline';
-import imagePhonesCategory from '@/shared/assets/images/phones_product.png?no-inline';
-import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.png?no-inline';
-import imageTabletsCategory from '@/shared/assets/images/tablets_product.png?no-inline';
-import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.png?no-inline';
-import imageAccessoriesCategory from '@/shared/assets/images/accessories_product.png?no-inline';
+import backgroundPhonesCategory from '@/shared/assets/images/phones_background.webp?no-inline';
+import imagePhonesCategory from '@/shared/assets/images/phonesCategory.webp';
+import backgroundTabletsCategory from '@/shared/assets/images/tablets_background.webp?no-inline';
+import imageTabletsCategory from '@/shared/assets/images/tabletsCategory.webp';
+import backgroundAccessoriesCategory from '@/shared/assets/images/accessories_background.webp?no-inline';
+import imageAccessoriesCategory from '@/shared/assets/images/accessoriesCategory.webp';
 
 import { getBrandNewModels } from './lib/getBrandModels';
 import { getHotPrices } from './lib/getHotPrices';

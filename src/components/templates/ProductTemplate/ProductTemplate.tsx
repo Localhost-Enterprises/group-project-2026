@@ -121,6 +121,7 @@ export const ProductTemplate = ({ product, productDetails }: Props) => {
 
         className={styles.comments}
       />
+
       <YouMayAlsoLike
         category={product.category}
         currentProductId={product.id}

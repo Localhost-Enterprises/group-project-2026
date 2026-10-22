@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useCartStore } from '@/entities/cart';
+import { useProductByIds } from '@/entities/product';
 
-import { BackButton, Dropdown } from '@/components/molecules';
+import { BackButton } from '@/components/molecules';
 import { Typography } from '@/components/atoms';
 
 import {
@@ -23,6 +24,8 @@ import { formatPrice } from '@/shared/lib/formatPrice';
 import type { Order } from '@/shared/types/Order';
 
 import styles from './CheckoutPage.module.scss';
+import { transliterate } from './Transliterate';
+import { CheckoutSuccessModal } from './CheckoutSuccessModal';
 
 export const CheckoutPage = () => {
   const { t } = useTranslation();
@@ -33,43 +36,157 @@ export const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
   const [successTtn, setSuccessTtn] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState(() => {
-    const savedEmail = localStorage.getItem('userEmail') || '';
-
-    return {
+    const defaults = {
       firstName: '',
       lastName: '',
       middleName: '',
       phone: '',
-      email: savedEmail,
+      email: localStorage.getItem('userEmail') || '',
       deliveryType: 'nova_poshta_branch',
       city: '',
       cityRef: '',
       warehouse: '',
       paymentMethod: 'cash_upon_receipt',
     };
-  });
 
-  const [totalAmount] = useState(() => {
-    return Number(localStorage.getItem('totalPrice')) || 0;
-  });
+    try {
+      const saved = localStorage.getItem('checkoutFormData');
 
-  const [totalCount] = useState(() => {
-    return Number(localStorage.getItem('totalItems')) || 0;
+      if (!saved) {
+        return defaults;
+      }
+
+      const parsed: unknown = JSON.parse(saved);
+
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        return defaults;
+      }
+
+      const values = parsed as Record<string, unknown>;
+
+      return {
+        ...defaults,
+        firstName: typeof values.firstName === 'string' ? values.firstName : '',
+        lastName: typeof values.lastName === 'string' ? values.lastName : '',
+        middleName:
+          typeof values.middleName === 'string' ? values.middleName : '',
+        phone: typeof values.phone === 'string' ? values.phone : '',
+        email: typeof values.email === 'string' ? values.email : defaults.email,
+        deliveryType:
+          typeof values.deliveryType === 'string' ?
+            values.deliveryType
+          : defaults.deliveryType,
+        paymentMethod:
+          typeof values.paymentMethod === 'string' ?
+            values.paymentMethod
+          : defaults.paymentMethod,
+      };
+    } catch {
+      return defaults;
+    }
   });
 
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [cities, setCities] = useState<CityOption[]>([]);
+  const [isCityListOpen, setIsCityListOpen] = useState(false);
   const [warehouses, setWarehouses] = useState<WarehouseOption[]>([]);
+  const [warehouseSearch, setWarehouseSearch] = useState('');
+  const [isWarehouseListOpen, setIsWarehouseListOpen] = useState(false);
+  const [isWarehousesLoading, setIsWarehousesLoading] = useState(false);
+  const cityFieldRef = useRef<HTMLDivElement>(null);
+  const warehouseFieldRef = useRef<HTMLDivElement>(null);
+  const deferredWarehouseSearch = useDeferredValue(warehouseSearch);
+
+  const visibleWarehouses = useMemo(() => {
+    if (!isWarehouseListOpen) return [];
+
+    const query = deferredWarehouseSearch.trim().toLocaleLowerCase();
+    const result: WarehouseOption[] = [];
+
+    for (const warehouse of warehouses) {
+      if (!query || warehouse.Description.toLocaleLowerCase().includes(query)) {
+        result.push(warehouse);
+        if (result.length === 40) break;
+      }
+    }
+
+    return result;
+  }, [warehouses, deferredWarehouseSearch, isWarehouseListOpen]);
+  const [deliveryLookupError, setDeliveryLookupError] = useState(false);
+  const cityRequestId = useRef(0);
+  const warehouseRequestId = useRef(0);
 
   const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
+
+  const {
+    data: cartProducts = [],
+    isPending: isProductsPending,
+    isError: isProductsError,
+  } = useProductByIds(cartItems.map((item) => item.productId));
+
+  const productsById = new Map(
+    cartProducts.map((product) => [product.id, product]),
+  );
+  const totalAmount = cartItems.reduce(
+    (total, item) =>
+      total + (productsById.get(item.productId)?.price ?? 0) * item.quantity,
+    0,
+  );
+  const totalCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'Checkout | NICE GADGETS';
   }, []);
+
+  useEffect(() => {
+    if (!isCityListOpen && !isWarehouseListOpen) return;
+
+    const closeCityResults = () => {
+      ++cityRequestId.current;
+      setIsCityListOpen(false);
+    };
+
+    const handleOutsidePointer = (event: PointerEvent) => {
+      if (!(event.target instanceof Node)) return;
+
+      if (!cityFieldRef.current?.contains(event.target)) {
+        closeCityResults();
+      }
+
+      if (!warehouseFieldRef.current?.contains(event.target)) {
+        setIsWarehouseListOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeCityResults();
+        setIsWarehouseListOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsidePointer);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isCityListOpen, isWarehouseListOpen]);
+
+  useEffect(() => {
+    if (cartItems.length === 0 && !successTtn) {
+      navigate('/', { replace: true });
+    }
+  }, [cartItems.length, navigate, successTtn]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -85,51 +202,112 @@ export const CheckoutPage = () => {
 
   const handleCityInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const requestId = ++cityRequestId.current;
+    ++warehouseRequestId.current;
 
+    setDeliveryLookupError(false);
     setFormData((prev) => ({
       ...prev,
       city: value,
       cityRef: '',
       warehouse: '',
     }));
-
     setWarehouses([]);
-
-    if (value.length >= 2) {
-      const result = await fetchCities(value);
-      setCities(result);
-    } else {
-      setCities([]);
-    }
+    setWarehouseSearch('');
+    setIsWarehouseListOpen(false);
+    setIsWarehousesLoading(false);
+    setCities([]);
+    setIsCityListOpen(Boolean(value.trim().length >= 2));
 
     if (errors.city || errors.warehouse) {
-      setErrors((prev) => ({
-        ...prev,
-        city: false,
-        warehouse: false,
-      }));
+      setErrors((prev) => ({ ...prev, city: false, warehouse: false }));
+    }
+
+    if (value.trim().length < 2) return;
+
+    try {
+      const result = await fetchCities(transliterate(value));
+      if (requestId === cityRequestId.current) {
+        setCities(result);
+        setIsCityListOpen(true);
+      }
+    } catch (error) {
+      if (requestId === cityRequestId.current) {
+        setDeliveryLookupError(true);
+        console.error('City lookup failed:', error);
+      }
+    }
+  };
+
+  const reopenCityResults = async () => {
+    const search = formData.city.trim();
+    if (search.length < 2) return;
+
+    setIsCityListOpen(true);
+    if (cities.length > 0 || formData.cityRef) return;
+
+    const requestId = ++cityRequestId.current;
+    try {
+      const result = await fetchCities(transliterate(search));
+      if (requestId === cityRequestId.current) setCities(result);
+    } catch (error) {
+      if (requestId === cityRequestId.current) {
+        setDeliveryLookupError(true);
+        console.error('City lookup failed:', error);
+      }
     }
   };
 
   const handleSelectCity = async (cityItem: CityOption) => {
+    ++cityRequestId.current;
+    const requestId = ++warehouseRequestId.current;
+
+    setDeliveryLookupError(false);
     setFormData((prev) => ({
       ...prev,
       city: cityItem.Description,
       cityRef: cityItem.Ref,
       warehouse: '',
     }));
-
     setCities([]);
+    setIsCityListOpen(false);
     setWarehouses([]);
+    setWarehouseSearch('');
+    setIsWarehouseListOpen(false);
+    setIsWarehousesLoading(true);
 
-    const warehouseList = await fetchWarehouses(cityItem.Ref);
-    setWarehouses(warehouseList);
+    try {
+      const warehouseList = await fetchWarehouses(cityItem.Ref);
+      if (requestId === warehouseRequestId.current) {
+        setWarehouses(warehouseList);
+      }
+    } catch (error) {
+      if (requestId === warehouseRequestId.current) {
+        setDeliveryLookupError(true);
+        console.error('Warehouse lookup failed:', error);
+      }
+    } finally {
+      if (requestId === warehouseRequestId.current) {
+        setIsWarehousesLoading(false);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isSubmittingRef.current) {
+    if (isSubmittingRef.current || cartItems.length === 0) {
+      return;
+    }
+
+    setSubmitError(null);
+
+    if (
+      isProductsPending ||
+      isProductsError ||
+      cartProducts.length !== cartItems.length
+    ) {
+      setSubmitError(t('orderProcessingError'));
       return;
     }
 
@@ -153,17 +331,41 @@ export const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
+      const {
+        firstName,
+        lastName,
+        middleName,
+        phone,
+        email,
+        deliveryType,
+        paymentMethod,
+      } = formData;
+
+      localStorage.setItem(
+        'checkoutFormData',
+        JSON.stringify({
+          firstName,
+          lastName,
+          middleName,
+          phone,
+          email,
+          deliveryType,
+          paymentMethod,
+        }),
+      );
       localStorage.setItem('userEmail', formData.email);
 
       if (!exchangeRate || exchangeRate <= 0) {
-        alert('Unable to retrieve the exchange rate. Please try again later.');
+        setSubmitError(
+          'Unable to retrieve the exchange rate. Please try again later.',
+        );
         return;
       }
 
       const result = await createNewPostDocument({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        middleName: formData.middleName,
+        firstName: transliterate(formData.firstName),
+        lastName: transliterate(formData.lastName),
+        middleName: transliterate(formData.middleName),
         phone: formData.phone,
         email: formData.email,
         cityRef: formData.cityRef,
@@ -173,7 +375,7 @@ export const CheckoutPage = () => {
       });
 
       if (!result.success) {
-        alert('Не вдалося створити ТТН. Перевірте дані та спробуйте ще раз.');
+        setSubmitError(t('errorCreatingWaybill'));
         return;
       }
 
@@ -234,12 +436,10 @@ NICE GADGETS Team`,
       setSuccessTtn(result.enNumber);
 
       clearCart();
-      localStorage.removeItem('totalPrice');
-      localStorage.removeItem('totalItems');
       localStorage.removeItem('shopping-cart');
     } catch (error) {
       console.error('Order processing error:', error);
-      alert('Сталася помилка під час оформлення замовлення. Спробуйте ще раз.');
+      setSubmitError(t('orderProcessingError'));
     } finally {
       isSubmittingRef.current = false;
       setIsSubmitting(false);
@@ -360,7 +560,10 @@ NICE GADGETS Team`,
             {t('checkoutDelivery')}
           </Typography>
 
-          <div className={`${styles.fieldGroup} ${styles.relativeContainer}`}>
+          <div
+            ref={cityFieldRef}
+            className={`${styles.fieldGroup} ${styles.relativeContainer}`}
+          >
             <label>{t('checkoutCity')} *</label>
             <input
               type="text"
@@ -368,59 +571,105 @@ NICE GADGETS Team`,
               placeholder={t('checkoutCityPlaceholder')}
               value={formData.city}
               onChange={handleCityInput}
+              onFocus={reopenCityResults}
+              onClick={reopenCityResults}
               autoComplete="off"
               className={errors.city ? styles.errorInput : ''}
               aria-label="Enter city"
+              aria-expanded={isCityListOpen && cities.length > 0}
             />
 
-            {cities.length > 0 && (
+            {isCityListOpen && cities.length > 0 && (
               <ul className={styles.dropdownList}>
                 {cities.map((item) => (
-                  <li
-                    key={item.Ref}
-                    onClick={() => handleSelectCity(item)}
-                    className={styles.dropdownItem}
-                  >
-                    {item.Description}{' '}
-                    {item.AreaDescription ?
-                      `(${item.AreaDescription} обл.)`
-                    : ''}
+                  <li key={item.Ref}>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectCity(item)}
+                      className={styles.dropdownItem}
+                    >
+                      {item.Description}{' '}
+                      {item.AreaDescription ?
+                        `(${item.AreaDescription} обл.)`
+                      : ''}
+                    </button>
                   </li>
                 ))}
               </ul>
             )}
           </div>
 
-          <div className={styles.fieldGroup}>
-            <label>{t('checkoutBranch')} *</label>
+          {deliveryLookupError && (
+            <p
+              className={styles.errorText}
+              role="alert"
+            >
+              {t('checkoutLocationLookupError')}
+            </p>
+          )}
 
-            <Dropdown
-              options={warehouses.map((wh) => ({
-                label: wh.Description,
-                value: wh.Ref,
-              }))}
-              value={formData.warehouse}
-              onChange={(value) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  warehouse: value,
-                }));
+          <div
+            ref={warehouseFieldRef}
+            className={`${styles.fieldGroup} ${styles.relativeContainer}`}
+          >
+            <label htmlFor="checkout-warehouse">{t('checkoutBranch')} *</label>
 
+            <input
+              id="checkout-warehouse"
+              type="text"
+              autoComplete="off"
+              value={warehouseSearch}
+              disabled={!formData.cityRef || isWarehousesLoading}
+              placeholder={
+                !formData.cityRef ? t('checkoutSelectCityFirst')
+                : isWarehousesLoading ?
+                  'Loading branches...'
+                : t('checkoutSelectBranch')
+              }
+              aria-label={t('checkoutBranch')}
+              aria-expanded={isWarehouseListOpen}
+              className={errors.warehouse ? styles.errorInput : ''}
+              onFocus={() => {
+                if (warehouses.length > 0) setIsWarehouseListOpen(true);
+              }}
+              onClick={() => {
+                if (warehouses.length > 0) setIsWarehouseListOpen(true);
+              }}
+              onChange={(event) => {
+                setWarehouseSearch(event.target.value);
+                setFormData((prev) => ({ ...prev, warehouse: '' }));
+                setIsWarehouseListOpen(true);
                 if (errors.warehouse) {
-                  setErrors((prev) => ({
-                    ...prev,
-                    warehouse: false,
-                  }));
+                  setErrors((prev) => ({ ...prev, warehouse: false }));
                 }
               }}
-              placeholder={
-                warehouses.length ?
-                  t('checkoutSelectBranch')
-                : t('checkoutSelectCityFirst')
-              }
-              disabled={!warehouses.length}
-              className={errors.warehouse ? styles.errorInput : ''}
             />
+
+            {isWarehouseListOpen && warehouses.length > 0 && (
+              <ul className={styles.dropdownList}>
+                {visibleWarehouses.length > 0 ?
+                  visibleWarehouses.map((warehouse) => (
+                    <li key={warehouse.Ref}>
+                      <button
+                        type="button"
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          setWarehouseSearch(warehouse.Description);
+                          setFormData((prev) => ({
+                            ...prev,
+                            warehouse: warehouse.Ref,
+                          }));
+                          setIsWarehouseListOpen(false);
+                          setErrors((prev) => ({ ...prev, warehouse: false }));
+                        }}
+                      >
+                        {warehouse.Description}
+                      </button>
+                    </li>
+                  ))
+                : <li className={styles.dropdownItem}>No branches found</li>}
+              </ul>
+            )}
           </div>
         </div>
 
@@ -441,6 +690,21 @@ NICE GADGETS Team`,
           </div>
         </div>
 
+        {submitError && (
+          <div
+            className={styles.submitError}
+            role="alert"
+          >
+            <span
+              className={styles.submitErrorIcon}
+              aria-hidden="true"
+            >
+              !
+            </span>
+            <p>{submitError}</p>
+          </div>
+        )}
+
         <button
           type="submit"
           className={styles.submitButton}
@@ -451,43 +715,13 @@ NICE GADGETS Team`,
       </form>
 
       {successTtn && (
-        <div className={styles.modalOverlay}>
-          <div
-            className={styles.successModal}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="successTitle"
-          >
-            <div className={styles.successIcon}>✓</div>
-
-            <h2
-              id="successTitle"
-              className={styles.successTitle}
-            >
-              {t('checkoutSuccessTitle')}
-            </h2>
-
-            <p className={styles.successText}>{t('checkoutSuccessText')}</p>
-
-            <div className={styles.ttnBlock}>
-              <span className={styles.ttnLabel}>
-                {t('checkoutTrackingNumber')} (TTN)
-              </span>
-              <strong className={styles.ttnNumber}>{successTtn}</strong>
-            </div>
-
-            <button
-              type="button"
-              className={styles.successButton}
-              onClick={() => {
-                setSuccessTtn(null);
-                navigate('/');
-              }}
-            >
-              {t('checkoutContinueShopping')}
-            </button>
-          </div>
-        </div>
+        <CheckoutSuccessModal
+          ttn={successTtn}
+          onContinue={() => {
+            setSuccessTtn(null);
+            navigate('/');
+          }}
+        />
       )}
     </div>
   );

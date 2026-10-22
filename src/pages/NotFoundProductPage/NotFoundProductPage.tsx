@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { NotFoundTemplate } from '@/components/templates/NotFoundTemplate';
 
-import productNotFoundImage from '/img/product-not-found.png';
+import productNotFoundImage from '/img/product-not-found.webp';
 
 export const NotFoundProductPage = () => {
   const { t } = useTranslation();

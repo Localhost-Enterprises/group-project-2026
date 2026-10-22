@@ -1,12 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import ReactMarkdown from 'react-markdown';
-
-import { Typography } from '@/components/atoms';
 
 import rightsTextEn from './rights.md?raw';
 import rightsTextUk from './rights.uk.md?raw';
 
-import styles from './RightsPage.module.scss';
+import { RightsTemplate } from '@/components';
 
 export const RightsPage = () => {
   const { t, i18n } = useTranslation();
@@ -16,22 +13,15 @@ export const RightsPage = () => {
   const rightsText =
     i18n.resolvedLanguage?.startsWith('uk') ? rightsTextUk : rightsTextEn;
 
-  const processedText = rightsText.replace('{{year}}', currentYear.toString());
+  const processedText = rightsText.replaceAll(
+    '{{year}}',
+    currentYear.toString(),
+  );
 
   return (
-    <div className={styles.container}>
-      <Typography
-        variant="h3"
-        className={styles.title}
-      >
-        {t('rightsTitle')}
-      </Typography>
-      <Typography
-        variant="bodytext"
-        className={styles.text}
-      >
-        <ReactMarkdown>{processedText}</ReactMarkdown>
-      </Typography>
-    </div>
+    <RightsTemplate
+      title={t('rightsTitle')}
+      text={processedText}
+    />
   );
 };

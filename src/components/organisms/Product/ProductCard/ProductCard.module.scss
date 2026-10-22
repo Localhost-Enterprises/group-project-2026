@@ -216,3 +216,10 @@
 :global(html[data-theme='dark']) .favouriteIcon {
   filter: brightness(0) invert(1);
 }
+
+.card {
+  :global(.react-loading-skeleton) {
+    --base-color: #{$elements};
+    --highlight-color: #{$hover};
+  }
+}
