@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -48,8 +48,38 @@ export const Header = ({ className }: Props) => {
     (state) => state.favourites.length,
   );
 
+  useEffect(() => {
+    if (!isMenuOpen) {
+      return;
+    }
+
+    const scrollY = window.scrollY;
+    const bodyStyles = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+    };
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+
+    return () => {
+      Object.assign(document.body.style, bodyStyles);
+      window.scrollTo(0, scrollY);
+    };
+  }, [isMenuOpen]);
+
   return (
-    <header className={classNames(styles.header, className)}>
+    <header
+      className={classNames(styles.header, className, {
+        [styles.menuOpen]: isMenuOpen,
+      })}
+    >
       <Link
         to={ROUTES.HOME}
         className={styles.logoLink}
