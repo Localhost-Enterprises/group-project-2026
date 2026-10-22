@@ -113,5 +113,102 @@
 
   "loadingProduct": "Завантаження товару",
   "specCapacity": "Обсяг пам'яті",
-  "specScreenDiagonal": "Діагональ екрана"
+  "specScreenDiagonal": "Діагональ екрана",
+
+  "checkoutOrdering": "Оформлення замовлення",
+  "checkoutContactDetails": "Ваші контактні дані",
+  "checkoutFirstName": "Ім'я",
+  "checkoutLastName": "Прізвище",
+  "checkoutMiddleName": "По батькові",
+  "checkoutMobilePhone": "Мобільний телефон",
+  "checkoutEmail": "Електронна пошта",
+
+  "checkoutDelivery": "Доставка",
+  "checkoutCity": "Місто",
+  "checkoutCityPlaceholder": "Введіть місто (наприклад, Київ)",
+  "checkoutBranch": "Відділення Нової пошти",
+  "checkoutSelectBranch": "Виберіть відділення",
+  "checkoutSelectCityFirst": "Спочатку виберіть місто",
+
+  "checkoutOrderSummary": "Підсумок замовлення",
+  "checkoutTotalItems_one": "{{count}} товар на суму",
+  "checkoutTotalItems_few": "{{count}} товари на суму",
+  "checkoutTotalItems_many": "{{count}} товарів на суму",
+  "checkoutTotalItems_other": "{{count}} товару на суму",
+
+  "checkoutProcessing": "Обробка замовлення...",
+  "checkoutConfirmOrder": "Підтвердити замовлення",
+
+  "checkoutSuccessTitle": "Замовлення успішно оформлено!",
+  "checkoutSuccessText": "Дякуємо за покупку в NICE GADGETS. Ваше замовлення успішно створено.",
+  "checkoutTrackingNumber": "Ваш номер накладної (ТТН)",
+  "checkoutContinueShopping": "Продовжити покупки",
+
+  "commentsTitle": "Коментарі",
+  "commentsLoading": "Завантаження коментарів...",
+  "commentsLoadError": "Не вдалося завантажити коментарі.",
+  "commentsEmpty": "Коментарів поки немає. Залиште перший!",
+  "commentsWrite": "Написати коментар",
+
+  "commentsLeave": "Залишити коментар",
+  "commentsFormDescription": "Оберіть варіант товару та поділіться своїми враженнями.",
+  "commentsProduct": "Товар",
+  "commentsLoadingVariants": "Завантаження варіантів...",
+  "commentsVariantsError": "Не вдалося завантажити варіанти",
+  "commentsNoVariants": "Варіантів не знайдено",
+  "commentsSelectVariant": "Оберіть варіант товару",
+  "commentsYourRating": "Ваша оцінка",
+  "commentsName": "Ім'я",
+  "commentsEnterName": "Будь ласка, введіть ваше ім'я",
+  "commentsNamePlaceholder": "Ваше ім'я",
+  "commentsEmail": "Електронна пошта",
+  "commentsEnterEmail": "Будь ласка, введіть електронну адресу",
+  "commentsInvalidEmail": "Введіть коректну електронну адресу",
+  "commentsYourComment": "Ваш коментар",
+  "commentsEnterComment": "Будь ласка, напишіть коментар",
+  "commentsPlaceholder": "Що ви думаєте про цей товар?",
+  "commentsSendError": "Не вдалося надіслати коментар. Спробуйте ще раз.",
+  "commentsCancel": "Скасувати",
+  "commentsClear": "Очистити",
+  "commentsSending": "Надсилання...",
+
+  "productNoReviews": "Відгуків поки немає",
+  "productReviews_one": "{{count}} відгук",
+  "productReviews_few": "{{count}} відгуки",
+  "productReviews_many": "{{count}} відгуків",
+  "productReviews_other": "{{count}} відгуку",
+
+  "orderHistoryTitle": "Історія замовлень",
+  "orderHistoryEmpty": "У вас ще немає замовлень.",
+  "orderHistoryProducts": "Товари",
+  "orderHistoryTotalQuantity": "Загальна кількість",
+  "orderHistoryProductFallback": "Товар №{{id}}",
+
+  "cartHistory": "Мої замовлення",
+
+  "sortHighestRated": "Найвищий рейтинг",
+  "sortLowestRated": "Найнижчий рейтинг",
+  "sortTopSales": "Хіти продажу",
+
+  "contactsPageTitle": "Контакти",
+  "contactsDevelopers": "Розробники",
+  "contactsRole": "Роль",
+  "contactsTechLead": "Технічний керівник",
+  "contactsProjectManager": "Керівник проєкту",
+  "contactsDeveloper": "Розробник",
+
+  "contactsFormTitle": "Зв'яжіться з нами!",
+  "contactsNamePlaceholder": "Ваше ім'я?",
+  "contactsEmailPlaceholder": "Ваша електронна пошта?",
+  "contactsMessagePlaceholder": "Що ви хочете нам повідомити?",
+  "contactsRequired": "Це поле обов'язкове",
+  "contactsSend": "Надіслати",
+  "contactsSuccess": "Дякуємо! Ваше повідомлення збережено локально.",
+
+  "contactsAddress": "Адресу буде додано",
+  "contactsMapTitle": "Місцезнаходження",
+
+  "rightsTitle": "Авторські права",
+  "commentsColor": "Колір",
+  "commentsCapacity": "Пам'ять"
 }

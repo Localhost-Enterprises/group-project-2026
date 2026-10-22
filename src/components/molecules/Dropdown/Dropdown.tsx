@@ -6,6 +6,7 @@ import { ArrowIcon } from '@/components/atoms/Icons/ArrowIcon';
 import { Typography } from '@/components/atoms/Typography';
 
 import styles from './Dropdown.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type DropdownOption =
   | string
@@ -34,9 +35,10 @@ export const Dropdown = ({
   defaultValue,
   onChange,
   className,
-  placeholder = 'Choose...',
+  placeholder,
   disabled = false,
 }: Props) => {
+  const { t } = useTranslation();
   const labelId = useId();
 
   const normalizedOptions = options.map((option) =>
@@ -69,7 +71,7 @@ export const Dropdown = ({
             variant="button"
             className="min-w-0"
           >
-            <Select.Value placeholder={placeholder} />
+            <Select.Value placeholder={placeholder ?? t('dropdownChoose')} />
           </Typography>
 
           <Select.Icon className={`${styles.icon} shrink-0`}>
