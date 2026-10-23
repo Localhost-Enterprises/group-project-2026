@@ -61,7 +61,7 @@ export const CatalogPagination = ({
     onPageChange(page);
     window.scrollTo({
       top: 0,
-      behavior: 'instant',
+      behavior: 'smooth',
     });
   };
 
